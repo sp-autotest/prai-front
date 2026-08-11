@@ -1,0 +1,27 @@
+Сервер запущен.
+
+Локально: http://localhost:3000
+В сети: http://192.168.0.11:3000
+Главная с локалью (middleware редиректит с /):
+
+EN: http://localhost:3000/en
+RU: http://localhost:3000/ru
+Для проверки Hero + Dashboard: http://localhost:3000/en → введи KL1234 → «Проверить».
+===========
+Страница рейса (главный продукт
+SSR/SSG через generateStaticParams (3 demo-trip × 5 локалей)
+generateMetadata для SEO
+dynamicParams = true — поддержка id вида KL1234-1234567890
+notFound() при неизвестном id
+Компонент components/sections/trip-page/trip-page.tsx:
+
+Travel Risk Score — RiskScore + RiskMetricCard
+Хронология — Timeline + fetchFlightTimeline
+Прогноз — карточки из mock
+Рекомендации — с badge приоритета
+Юридическая информация — внизу, приглушённый стиль
+/en/trips/demo-ams-mad
+/en/trips/demo-mad-lis
+/en/trips/demo-tyo-sin
+Или через Dashboard → «View trip details».
+

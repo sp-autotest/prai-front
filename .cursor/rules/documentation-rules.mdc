@@ -1,0 +1,108 @@
+---
+alwaysApply: true
+---
+
+# Overview
+
+# Comprehensive Function Documentation
+
+These rules ensure that all code generated or modified by the AI adheres to a high standard of documentation, making the codebase clear, maintainable, and easy for both developers and AI to navigate. The primary focus is on consistent and thorough function documentation.
+
+## General Guidelines
+1. **Mandatory Documentation**: Every function, method, or class method (regardless of language) must be documented using the appropriate documentation standard for the language:
+   - **JavaScript/TypeScript**: Use JSDoc.
+   - **Python**: Use reStructuredText (reST) docstrings.
+   - **PHP**: Use PHPDoc.
+   - **Java**: Use Javadoc.
+   - **Other languages**: Use the most widely accepted documentation standard (e.g., RDoc for Ruby).
+2. **Consistency**: Follow the same documentation style and structure across the entire project to ensure uniformity.
+3. **Context Awareness**: Before generating new functions, check the existing codebase for similar functionality to avoid duplication. If a similar function exists, suggest reusing it instead of creating a new one.
+4. **Clarity**: Documentation must be concise yet descriptive, avoiding vague terms like "processes data" or "handles stuff." Specify *what* the function does, *how* it does it (if complex), and *why* it exists (if not obvious).
+
+## Documentation Requirements for Functions
+For every function or method, include the following in the documentation:
+
+1. **Description**:
+   - Provide a clear, one- to two-sentence explanation of what the function does.
+   - Include the purpose or context if it’s not immediately obvious (e.g., "Used in the checkout flow to calculate discounts").
+2. **Parameters**:
+   - List all parameters, including their type (if applicable in the language).
+   - Describe what each parameter represents and any constraints (e.g., "Must be a positive integer").
+   - For optional parameters, indicate default values or behavior when omitted.
+3. **Return Value**:
+   - Specify the return type (if applicable) and what the return value represents.
+   - If the function returns `None` or `null`, explicitly state this.
+4. **Examples** (for complex functions):
+   - Include at least one usage example for functions with non-trivial logic (e.g., involving multiple parameters or edge cases).
+   - Use code snippets to show typical input and output.
+5. **Exceptions/Errors** (if applicable):
+   - Document any errors or exceptions the function may throw, including conditions that trigger them.
+6. **Side Effects** (if applicable):
+   - Note if the function modifies external state (e.g., updates a database, changes global variables).
+7. **Deprecation** (if applicable):
+   - If the function is deprecated, mark it as such and suggest an alternative.
+
+## JSDoc Example (JavaScript/TypeScript)
+```javascript
+/**
+ * Filters an array of objects to keep only unique items based on a specified key.
+ * Used to remove duplicates from lists, such as user records in a database query.
+ * @param {Array<Object>} items - The array of objects to filter.
+ * @param {string} key - The object property to check for uniqueness.
+ * @returns {Array<Object>} An array containing only unique items based on the key.
+ * @throws {Error} If `items` is not an array or `key` is not a string.
+ * @example
+ * const users = [{id: 1, name: 'Alice'}, {id: 1, name: 'Bob'}, {id: 2, name: 'Charlie'}];
+ * filterUniqueItems(users, 'id');
+ * // Returns [{id: 1, name: 'Alice'}, {id: 2, name: 'Charlie'}]
+ */
+function filterUniqueItems(items, key) {
+  if (!Array.isArray(items)) throw new Error('Items must be an array');
+  if (typeof key !== 'string') throw new Error('Key must be a string');
+  const seen = new Set();
+  return items.filter(item => {
+    const value = item[key];
+    if (seen.has(value)) return false;
+    seen.add(value);
+    return true;
+  });
+}
+```
+
+## reST Docstring Example (Python)
+```python
+def calculate_total_price(quantity: int, discount: float) -> float:
+    """Calculates the total price based on quantity and discount percentage.
+
+    Used in the e-commerce checkout process to apply discounts to item prices.
+
+    :param quantity: Number of items (must be positive).
+    :type quantity: int
+    :param discount: Discount percentage (0 to 100).
+    :type discount: float
+    :returns: The total price after applying the discount.
+    :rtype: float
+    :raises ValueError: If quantity is negative or discount is not between 0 and 100.
+    :example:
+
+    >>> calculate_total_price(5, 20)
+    400.0  # 5 items * $100 * (1 - 0.2)
+    """
+    if quantity < 0:
+        raise ValueError("Quantity must be non-negative")
+    if not 0 <= discount <= 100:
+        raise ValueError("Discount must be between 0 and 100")
+    price = 100.0
+    return quantity * price * (1 - discount / 100)
+```
+
+## Additional Rules
+1. **Auto-Generate Documentation**:
+   - If a function is modified or newly created, automatically create new documentation.
+2. **Existing Code**:
+   - When modifying existing undocumented functions, add documentation following the above standards before making changes.
+   - If the function is too trivial (e.g., a one-line getter), a single-sentence description is sufficient.
+3. **Project-Wide Search**:
+   - Before creating a new function, use project search to check for existing functions with similar functionality. If found, document the existing function (if undocumented) and suggest reusing it.
+4. **Refactoring**:
+   - If the AI detects duplicate functionality (e.g., two functions with similar logic), propose consolidating them into a single, well-documented function and update all references.Ы

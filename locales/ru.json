@@ -1,0 +1,343 @@
+{
+  "locale": "ru",
+  "common": {
+    "siteName": "Passenger Rights AI",
+    "tagline": "Узнайте риски поездки до вылета.",
+    "skipToContent": "Перейти к содержимому"
+  },
+  "nav": {
+    "home": "Главная",
+    "mainAriaLabel": "Основная навигация",
+    "about": "О платформе",
+    "aboutMenu": "Меню «О платформе»",
+    "mission": "Миссия",
+    "contacts": "Контакты",
+    "compensations": "Компенсации",
+    "compensationsMenu": "Меню «Компенсации»",
+    "compensationAirports": "Рейсы",
+    "compensationBaggage": "Багаж",
+    "compensationRefunds": "Возврат билетов",
+    "compensationInsurance": "Страхование",
+    "travelRisk": "Travel Risk",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "account": "Кабинет",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "languageLabel": "Язык"
+  },
+  "homePage": {
+    "brand": "Passenger Rights AI",
+    "title": "Узнайте риски поездки до того, как отправитесь.",
+    "lead": "Мы заранее оцениваем риски поездки, предупреждаем о возможных проблемах и автоматически защищаем ваши права, если они действительно возникнут.",
+    "imageAlt": "Пассажиры в спокойной очереди в просторном зале аэропорта"
+  },
+  "travelRiskPage": {
+    "title": "Скоринг Travel Risk",
+    "subtitle": "Введите рейс одной строкой и получите рейтинг риска задержек, отмен и стыковок.",
+    "inputLabel": "Запрос рейса",
+    "searchPlaceholder": "SK1587, Москва → Стамбул → Амстердам, 12 сентября",
+    "hint": "Укажите номер рейса, маршрут и дату через запятую.",
+    "checkRisk": "Проверить риск",
+    "checking": "Проверяем…",
+    "loading": "Считаем Travel Risk…",
+    "scoreLabel": "Travel Risk",
+    "scoreValueAria": "Оценка Travel Risk {value}",
+    "metricsAriaLabel": "Метрики Travel Risk",
+    "percent": "{value}%",
+    "minutes": "{value} мин",
+    "metrics": {
+      "delay15": "Задержка более 15 минут",
+      "delay60": "Задержка более 1 часа",
+      "cancellation": "Вероятность отмены",
+      "connection": "Риск пропустить пересадку",
+      "turbulence": "Ожидаемая турбулентность",
+      "connectionTime": "Рекомендуемое минимальное время стыковки"
+    },
+    "levels": {
+      "low": "Низкий",
+      "medium": "Средний",
+      "high": "Высокий"
+    },
+    "turbulence": {
+      "light": "Лёгкая",
+      "moderate": "Умеренная",
+      "severe": "Сильная"
+    },
+    "errors": {
+      "empty": "Введите запрос рейса, чтобы продолжить.",
+      "invalid": "Не удалось разобрать запрос. Формат: рейс, маршрут с →, дата.",
+      "authRequired": "Сервис доступен только для пользователей, зарегистрируйтесь в системе",
+      "network": "Ошибка сети. Проверьте подключение и попробуйте ещё раз.",
+      "timeout": "Превышено время ожидания. Попробуйте ещё раз.",
+      "server": "Не удалось загрузить Travel Risk. Попробуйте ещё раз.",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз."
+    }
+  },
+  "footer": {
+    "navAriaLabel": "Юридические ссылки",
+    "privacyAndCookies": "Политика конфиденциальности и куки-файлы",
+    "legalNotice": "Правовое уведомление",
+    "copyright": "Passenger Rights AI © 2025 - 2026"
+  },
+  "stubs": {
+    "comingSoonTitle": "Скоро",
+    "comingSoonDescription": "Эта страница будет доступна в ближайшее время.",
+    "ctaHome": "На главную",
+    "pages": {
+      "mission": {
+        "title": "Наша миссия",
+        "description": "Мы готовим текст миссии о проактивной защите пассажиров. Это временная страница."
+      },
+      "contacts": {
+        "title": "Контакты",
+        "description": "Каналы связи и поддержки появятся здесь в ближайшее время."
+      },
+      "flights": {
+        "title": "Компенсации по авиарейсам",
+        "description": "Гайд по задержкам и отменам рейсов будет опубликован здесь."
+      },
+      "baggage": {
+        "title": "Компенсации по багажу",
+        "description": "Материалы по утерянному и задержанному багажу скоро появятся."
+      },
+      "refunds": {
+        "title": "Возврат билетов",
+        "description": "Сценарии возврата билетов и следующие шаги будут доступны здесь."
+      },
+      "insurance": {
+        "title": "Страхование",
+        "description": "Контент о страховании и правах пассажиров находится в подготовке."
+      },
+      "account": {
+        "title": "Личный кабинет",
+        "description": "Центр управления поездками появится здесь после подключения полноценной авторизации."
+      },
+      "signup": {
+        "title": "Регистрация",
+        "description": "Регистрация аккаунта появится здесь после подключения signup-флоу на backend."
+      }
+    }
+  },
+  "loginPage": {
+    "title": "Войти",
+    "description": "Войдите с помощью email и пароля.",
+    "emailLabel": "Email",
+    "passwordLabel": "Пароль",
+    "submit": "Войти",
+    "submitting": "Входим…",
+    "noAccount": "Ещё нет аккаунта?",
+    "signUpLink": "Регистрация",
+    "errors": {
+      "emailRequired": "Введите email.",
+      "emailMax": "Email не длиннее 254 символов.",
+      "passwordRequired": "Введите пароль.",
+      "invalid": "Проверьте email и пароль и попробуйте ещё раз.",
+      "credentials": "Неверный email или пароль.",
+      "network": "Ошибка сети. Проверьте подключение и попробуйте ещё раз.",
+      "timeout": "Превышено время ожидания. Попробуйте ещё раз.",
+      "server": "Не удалось войти. Попробуйте ещё раз.",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз."
+    }
+  },
+  "signupPage": {
+    "title": "Регистрация",
+    "description": "Создайте аккаунт: никнейм, email и пароль.",
+    "nicknameLabel": "Никнейм",
+    "emailLabel": "Email",
+    "passwordLabel": "Пароль",
+    "passwordConfirmLabel": "Повторите пароль",
+    "passwordHint": "Не меньше 6 символов, только латиница и цифры, минимум одна цифра.",
+    "submit": "Зарегистрироваться",
+    "submitting": "Создаём аккаунт…",
+    "haveAccount": "Уже есть аккаунт?",
+    "signInLink": "Войти",
+    "errors": {
+      "nicknameRequired": "Введите никнейм.",
+      "nicknameMax": "Никнейм не длиннее 64 символов.",
+      "emailRequired": "Введите email.",
+      "emailMax": "Email не длиннее 254 символов.",
+      "passwordRequired": "Введите пароль.",
+      "passwordConfirmRequired": "Повторите пароль.",
+      "passwordMismatch": "Пароли не совпадают.",
+      "passwordPolicy": "Пароль: минимум 6 символов, только латиница и цифры, минимум одна цифра.",
+      "invalid": "Проверьте поля формы и попробуйте ещё раз.",
+      "emailTaken": "Этот email уже зарегистрирован.",
+      "nicknameTaken": "Этот никнейм уже занят.",
+      "network": "Ошибка сети. Проверьте подключение и попробуйте ещё раз.",
+      "timeout": "Превышено время ожидания. Попробуйте ещё раз.",
+      "server": "Не удалось создать аккаунт. Попробуйте ещё раз.",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз."
+    }
+  },
+  "accountPage": {
+    "navAriaLabel": "Навигация кабинета",
+    "navTitle": "Кабинет",
+    "navProfile": "Профиль",
+    "navTravelRisk": "Travel Risk",
+    "navFplValidator": "FPL Validator",
+    "signOut": "Выйти",
+    "profileTitle": "Данные аккаунта",
+    "profileSubtitle": "Просматривайте и изменяйте данные профиля.",
+    "nicknameLabel": "Никнейм",
+    "emailLabel": "Email",
+    "passwordLabel": "Новый пароль",
+    "passwordHint": "Оставьте пустым, чтобы не менять пароль.",
+    "createdAt": "Аккаунт создан: {value}",
+    "save": "Сохранить",
+    "saving": "Сохраняем…",
+    "saveSuccess": "Профиль обновлён.",
+    "noChanges": "Нет изменений для сохранения.",
+    "loading": "Загружаем профиль…",
+    "travelRiskTitle": "Travel Risk",
+    "travelRiskSubtitle": "Проверьте риск задержки, отмены и стыковки по вашему рейсу.",
+    "errors": {
+      "loadFailed": "Не удалось загрузить профиль. Попробуйте ещё раз.",
+      "saveFailed": "Не удалось сохранить изменения. Попробуйте ещё раз.",
+      "invalid": "Проверьте поля и попробуйте ещё раз.",
+      "emailInvalid": "Введите корректный email (макс. 254 символа).",
+      "nicknameInvalid": "Никнейм должен быть от 1 до 64 символов."
+    }
+  },
+  "fplValidatorPage": {
+    "title": "ICAO FPL Validator",
+    "subtitle": "Проверяйте ICAO FPL, смотрите пояснения по нормам и отслеживайте учебный score.",
+    "sections": {
+      "checkTitle": "Проверить телеграмму",
+      "resultsTitle": "Результаты",
+      "statsTitle": "Ваша статистика"
+    },
+    "check": {
+      "inputLabel": "Телеграмма ICAO FPL",
+      "placeholder": "Вставьте полный ICAO FPL, начиная с (FPL-…",
+      "hint": "Только текст ICAO FPL. При необходимости подставьте пример. Подсказка: VALIDDEMO в тексте даёт демо VALID.",
+      "charCount": "{count} символов",
+      "submit": "Проверить",
+      "checking": "Проверяем…",
+      "loading": "Подготовка проверки…",
+      "example": "Пример FPL",
+      "exampleAria": "Вставить пример ICAO FPL в поле"
+    },
+    "results": {
+      "idle": "Запустите проверку, чтобы увидеть статус VALID/INVALID, score, ошибки и предупреждения.",
+      "statusValid": "VALID",
+      "statusInvalid": "INVALID",
+      "scoreLabel": "Score:",
+      "demoNote": "Демо-результат (локально). Живая проверка через API подключится на этапе интеграции.",
+      "errorsTitle": "Ошибки",
+      "warningsTitle": "Предупреждения",
+      "errorsEmpty": "Ошибок нет.",
+      "warningsEmpty": "Предупреждений нет.",
+      "icaoLabel": "ICAO: {ref}",
+      "focusHint": "Нажмите, чтобы подсветить во FPL",
+      "focusIssueAria": "Подсветить проблему {code} в телеграмме FPL",
+      "infosTitle": "Info",
+      "infosEmpty": "No info messages.",
+      "explainHint": "Click to open ICAO explanation",
+      "statsChipsAria": "Message counts",
+      "chipErrors": "Errors: {count}",
+      "chipWarnings": "Warnings: {count}",
+      "chipInfos": "Info: {count}",
+      "requestId": "request_id: {id}",
+      "openHistory": "Open history",
+      "historyLoading": "Loading history…",
+      "versions": "parser {parser} · rules {rules}"
+    },
+    "highlight": {
+      "title": "FPL с подсветкой",
+      "legendAria": "Легенда подсветки",
+      "legendError": "Ошибка",
+      "legendWarning": "Предупреждение",
+      "a11yNote": "Подсветка вспомогательная — полный смысл в списках ошибок и предупреждений выше.",
+      "unmappedNote": "{count, plural, one {# замечание не удалось привязать к фрагменту текста.} few {# замечания не удалось привязать к фрагменту текста.} many {# замечаний не удалось привязать к фрагменту текста.} other {# замечаний не удалось привязать к фрагменту текста.}}",
+      "sourceLabel": "Исходная телеграмма с отметками ошибок и предупреждений."
+    },
+    "stats": {
+      "demoNote": "Локальная статистика сессии (sessionStorage). API истории/статистики подключится после интеграции.",
+      "empty": "Проверок пока нет. Запустите валидацию — появятся история, средний score и частые ошибки.",
+      "summaryAria": "Сводка проверок",
+      "totalChecks": "Всего проверок",
+      "averageScore": "Средний score",
+      "trainingAverage": "Средний score (учёба)",
+      "validInvalid": "VALID / INVALID",
+      "validInvalidValue": "{valid} / {invalid}",
+      "modeFilterLabel": "Показать",
+      "modeAll": "Все режимы",
+      "modeProduction": "Обычная",
+      "modeTraining": "Учебный",
+      "modeBadgeProduction": "Обычная",
+      "modeBadgeTraining": "Учёба",
+      "filterEmpty": "Для этого режима проверок пока нет.",
+      "historyTitle": "История проверок",
+      "showMore": "Показать ещё (осталось {remaining})",
+      "frequentTitle": "Частые ошибки",
+      "frequentEmpty": "Ошибок пока не зафиксировано.",
+      "frequentCount": "{count}×",
+      "remoteNote": "Learning stats from the server (authenticated). Recent checks below are kept locally for quick recall.",
+      "localNote": "Local recent-check list (sessionStorage). Sign in and validate with Bearer so server stats update.",
+      "errorTotal": "Errors (server)"
+    },
+    "training": {
+      "modeLabel": "Режим проверки",
+      "modeProduction": "Обычная",
+      "modeTraining": "Учебный",
+      "modeProductionHint": "Стандартная проверка — меньше demo-правил, score всё равно идёт в статистику.",
+      "modeTrainingHint": "Обучение — строже demo-правила, расшифровка score и подсказки по исправлению.",
+      "breakdownTitle": "Что снизило балл",
+      "breakdownEmpty": "Балл не снижался.",
+      "breakdownDelta": "{delta}",
+      "icaoExplainTitle": "ICAO",
+      "fixHintTitle": "Как исправить",
+      "hintFallback": "Сверьтесь со ссылкой ICAO и исправьте подсвеченный фрагмент.",
+      "hints": {
+        "ITEM7_ACID_FORMAT": "Идентификация ВС (Item 7): 2–7 буквенно-цифровых символов без пробелов.",
+        "ITEM10_EQUIPMENT_CHECK": "Согласуйте коды оборудования и SSR с буквами/цифрами Item 10 по Doc 4444.",
+        "ITEM15_ROUTE_SYNTAX": "Проверьте скорость/эшелон и элементы маршрута (SID/STAR/DCT/точки) по синтаксису Item 15.",
+        "ITEM18_DOF_CHECK": "Укажите DOF/ в формате YYMMDD для даты вылета в Item 18.",
+        "F13_AIRPORT_EXISTS": "Replace unknown aerodrome codes with a valid ICAO airport (e.g. UUEE, ULLI).",
+        "F10_R_REQUIRES_PBN": "When Item 10a includes R, add a matching PBN/ entry in Item 18.",
+        "F18_PBN_REQUIRED": "Add PBN/… in other information when required by equipment codes.",
+        "F18_DOF_FORMAT": "Set DOF/ as YYMMDD for the intended departure date."
+      }
+    },
+    "errors": {
+      "empty": "Вставьте телеграмму ICAO FPL, чтобы продолжить.",
+      "invalid": "Validation request was rejected. Check the FPL text and try again.",
+      "parseError": "Could not parse the FPL telegram.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Try again.",
+      "server": "Server error while validating the FPL.",
+      "unauthorized": "Session expired. Please sign in again.",
+      "authRequired": "Sign in to view history and learning stats.",
+      "forbidden": "You do not have access to this validation history.",
+      "notFound": "Validation history was not found."
+    },
+    "explain": {
+      "title": "Rule explanation",
+      "close": "Close",
+      "closeAria": "Close explanation panel",
+      "loading": "Loading explanation…",
+      "icaoLabel": "ICAO reference"
+    }
+  },
+  "privacyPage": {
+    "title": "Политика конфиденциальности и куки-файлы",
+    "subtitle": "Как Passenger Rights AI обрабатывает персональные данные и cookie.",
+    "content": [
+      "Passenger Rights AI обрабатывает только данные, необходимые для оценки travel risk и связи с пользователями.",
+      "Cookie-файлы могут использоваться для базовой работы сайта, языковых предпочтений и продуктовой аналитики.",
+      "Управлять cookie можно в настройках браузера. Контроль приватности будет расширяться по мере развития продукта.",
+      "Эта страница — рабочий черновик для frontend MVP и будет обновлена юридически точными формулировками."
+    ]
+  },
+  "legalPage": {
+    "title": "Правовое уведомление",
+    "subtitle": "Важная юридическая информация об использовании Passenger Rights AI.",
+    "content": [
+      "Passenger Rights AI предоставляет информационную оценку рисков и не заменяет правила авиакомпаний, страховые договоры или юридическую консультацию.",
+      "Итоги компенсаций зависят от применимых норм, правил перевозчика и доказательств по конкретному кейсу.",
+      "Контент сайта предоставляется as-is в целях демонстрации продукта до завершения backend-интеграций.",
+      "Для официальных претензий всегда проверяйте права у перевозчика и уполномоченных органов."
+    ]
+  }
+}

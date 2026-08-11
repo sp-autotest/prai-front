@@ -1,0 +1,343 @@
+{
+  "locale": "uz",
+  "common": {
+    "siteName": "Passenger Rights AI",
+    "tagline": "Sayohatdan oldin xavflarni biling.",
+    "skipToContent": "Kontentga o‘tish"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "mainAriaLabel": "Asosiy navigatsiya",
+    "about": "Biz haqimizda",
+    "aboutMenu": "Biz haqimizda menyusi",
+    "mission": "Missiya",
+    "contacts": "Aloqa",
+    "compensations": "Kompensatsiyalar",
+    "compensationsMenu": "Kompensatsiyalar menyusi",
+    "compensationAirports": "Reyslar",
+    "compensationBaggage": "Baggaj",
+    "compensationRefunds": "Chipta qaytarilishi",
+    "compensationInsurance": "Sug‘urta",
+    "travelRisk": "Sayohat xavfi",
+    "signIn": "Kirish",
+    "signUp": "Ro‘yxatdan o‘tish",
+    "account": "Kabinet",
+    "openMenu": "Menyuni ochish",
+    "closeMenu": "Menyuni yopish",
+    "languageLabel": "Til"
+  },
+  "homePage": {
+    "brand": "Passenger Rights AI",
+    "title": "Sayohatdan oldin xavflaringizni biling.",
+    "lead": "Biz sayohat xavflarini oldindan baholaymiz, mumkin bo‘lgan muammolar haqida ogohlantiramiz va huquqlaringiz buzilganda ularni avtomatik himoya qilamiz.",
+    "imageAlt": "Keng aeroport zalida tinch navbatda turgan yo‘lovchilar"
+  },
+  "travelRiskPage": {
+    "title": "Sayohat xavfi ko‘rsatkichi",
+    "subtitle": "Reysni bitta qatorda kiriting va kechikish, bekor qilish hamda ulanish xavfi reytingini oling.",
+    "inputLabel": "Reys so‘rovi",
+    "searchPlaceholder": "SK1587, Moskva → Istanbul → Amsterdam, 12 sentabr",
+    "hint": "Reys raqami, marshrut va sanani vergul bilan ajratib kiriting.",
+    "checkRisk": "Xavfni tekshirish",
+    "checking": "Tekshirilmoqda…",
+    "loading": "Sayohat xavfi hisoblanmoqda…",
+    "scoreLabel": "Sayohat xavfi",
+    "scoreValueAria": "Sayohat xavfi ko‘rsatkichi {value}",
+    "metricsAriaLabel": "Sayohat xavfi metrikalari",
+    "percent": "{value}%",
+    "minutes": "{value} daqiqa",
+    "metrics": {
+      "delay15": "15 daqiqadan ortiq kechikish",
+      "delay60": "1 soatdan ortiq kechikish",
+      "cancellation": "Bekor qilish ehtimoli",
+      "connection": "Ulanishni o‘tkazib yuborish xavfi",
+      "turbulence": "Kutilayotgan turbulentlik",
+      "connectionTime": "Tavsiya etilgan minimal ulanish vaqti"
+    },
+    "levels": {
+      "low": "Past",
+      "medium": "O‘rta",
+      "high": "Yuqori"
+    },
+    "turbulence": {
+      "light": "Yengil",
+      "moderate": "O‘rtacha",
+      "severe": "Kuchli"
+    },
+    "errors": {
+      "empty": "Davom etish uchun reys so‘rovini kiriting.",
+      "invalid": "So‘rovni tahlil qilib bo‘lmadi. Format: reys, → bilan marshrut, sana.",
+      "authRequired": "Xizmat faqat ro‘yxatdan o‘tgan foydalanuvchilar uchun mavjud, tizimda ro‘yxatdan o‘ting",
+      "network": "Tarmoq xatosi. Ulanishni tekshirib, qayta urinib ko‘ring.",
+      "timeout": "So‘rov vaqti tugadi. Qayta urinib ko‘ring.",
+      "server": "Travel Risk hozir yuklanmadi. Qayta urinib ko‘ring.",
+      "generic": "Nimadir noto‘g‘ri ketdi. Qayta urinib ko‘ring."
+    }
+  },
+  "footer": {
+    "navAriaLabel": "Huquqiy havolalar",
+    "privacyAndCookies": "Maxfiylik siyosati va cookie-fayllar",
+    "legalNotice": "Huquqiy bildirishnoma",
+    "copyright": "Passenger Rights AI © 2025 - 2026"
+  },
+  "stubs": {
+    "comingSoonTitle": "Yaqinda",
+    "comingSoonDescription": "Ushbu sahifa yaqin orada mavjud bo‘ladi.",
+    "ctaHome": "Bosh sahifaga qaytish",
+    "pages": {
+      "mission": {
+        "title": "Bizning missiyamiz",
+        "description": "Yo‘lovchini oldindan himoya qilish haqidagi missiya matni tayyorlanmoqda. Bu vaqtinchalik sahifa."
+      },
+      "contacts": {
+        "title": "Aloqa",
+        "description": "Aloqa kanallari va qo‘llab-quvvatlash tez orada shu yerda paydo bo‘ladi."
+      },
+      "flights": {
+        "title": "Reys kompensatsiyalari",
+        "description": "Kechikkan va bekor qilingan reyslar bo‘yicha qo‘llanma shu yerda e’lon qilinadi."
+      },
+      "baggage": {
+        "title": "Baggaj kompensatsiyalari",
+        "description": "Yo‘qolgan yoki kechikkan baggaj bo‘yicha qo‘llanma tez orada chiqadi."
+      },
+      "refunds": {
+        "title": "Chipta qaytarilishi",
+        "description": "Chipta qaytarish ssenariylari shu yerda mavjud bo‘ladi."
+      },
+      "insurance": {
+        "title": "Sayohat sug‘urtasi",
+        "description": "Sug‘urta va yo‘lovchi huquqlari haqidagi kontent tayyorlanmoqda."
+      },
+      "account": {
+        "title": "Hisob",
+        "description": "To‘liq autentifikatsiya ulanganidan keyin sayohat markazi shu yerda paydo bo‘ladi."
+      },
+      "signup": {
+        "title": "Ro‘yxatdan o‘tish",
+        "description": "Backend signup ulanganidan keyin hisob yaratish shu yerda paydo bo‘ladi."
+      }
+    }
+  },
+  "loginPage": {
+    "title": "Kirish",
+    "description": "Email va parol bilan kiring.",
+    "emailLabel": "Email",
+    "passwordLabel": "Parol",
+    "submit": "Kirish",
+    "submitting": "Kirilmoqda…",
+    "noAccount": "Hali hisobingiz yo‘qmi?",
+    "signUpLink": "Ro‘yxatdan o‘tish",
+    "errors": {
+      "emailRequired": "Email kiriting.",
+      "emailMax": "Email eng ko‘pi 254 belgidan iborat bo‘lishi kerak.",
+      "passwordRequired": "Parolni kiriting.",
+      "invalid": "Email va parolni tekshirib, qayta urinib ko‘ring.",
+      "credentials": "Email yoki parol noto‘g‘ri.",
+      "network": "Tarmoq xatosi. Ulanishni tekshirib, qayta urinib ko‘ring.",
+      "timeout": "So‘rov vaqti tugadi. Qayta urinib ko‘ring.",
+      "server": "Hozir kirib bo‘lmadi. Qayta urinib ko‘ring.",
+      "generic": "Nimadir noto‘g‘ri ketdi. Qayta urinib ko‘ring."
+    }
+  },
+  "signupPage": {
+    "title": "Ro‘yxatdan o‘tish",
+    "description": "Taxallus, email va parol bilan hisob yarating.",
+    "nicknameLabel": "Taxallus",
+    "emailLabel": "Email",
+    "passwordLabel": "Parol",
+    "passwordConfirmLabel": "Parolni tasdiqlang",
+    "passwordHint": "Kamida 6 belgi, faq lotin harflari va raqamlar, kamida bitta raqam.",
+    "submit": "Ro‘yxatdan o‘tish",
+    "submitting": "Hisob yaratilmoqda…",
+    "haveAccount": "Hisobingiz bormi?",
+    "signInLink": "Kirish",
+    "errors": {
+      "nicknameRequired": "Taxallus kiriting.",
+      "nicknameMax": "Taxallus eng ko‘pi 64 belgidan iborat bo‘lishi kerak.",
+      "emailRequired": "Email kiriting.",
+      "emailMax": "Email eng ko‘pi 254 belgidan iborat bo‘lishi kerak.",
+      "passwordRequired": "Parolni kiriting.",
+      "passwordConfirmRequired": "Parolni tasdiqlang.",
+      "passwordMismatch": "Parollar mos kelmaydi.",
+      "passwordPolicy": "Parol: kamida 6 belgi, faq lotin harflari va raqamlar, kamida bitta raqam.",
+      "invalid": "Forma maydonlarini tekshirib, qayta urinib ko‘ring.",
+      "emailTaken": "Bu email allaqachon ro‘yxatdan o‘tgan.",
+      "nicknameTaken": "Bu taxallus band.",
+      "network": "Tarmoq xatosi. Ulanishni tekshirib, qayta urinib ko‘ring.",
+      "timeout": "So‘rov vaqti tugadi. Qayta urinib ko‘ring.",
+      "server": "Hozir hisob yaratib bo‘lmadi. Qayta urinib ko‘ring.",
+      "generic": "Nimadir noto‘g‘ri ketdi. Qayta urinib ko‘ring."
+    }
+  },
+  "accountPage": {
+    "navAriaLabel": "Kabinet navigatsiyasi",
+    "navTitle": "Kabinet",
+    "navProfile": "Profil",
+    "navTravelRisk": "Sayohat xavfi",
+    "navFplValidator": "FPL Validator",
+    "signOut": "Chiqish",
+    "profileTitle": "Hisob ma’lumotlari",
+    "profileSubtitle": "Profil ma’lumotlarini ko‘ring va o‘zgartiring.",
+    "nicknameLabel": "Taxallus",
+    "emailLabel": "Email",
+    "passwordLabel": "Yangi parol",
+    "passwordHint": "Joriy parolni saqlash uchun bo‘sh qoldiring.",
+    "createdAt": "Hisob yaratilgan: {value}",
+    "save": "Saqlash",
+    "saving": "Saqlanmoqda…",
+    "saveSuccess": "Profil yangilandi.",
+    "noChanges": "Saqlash uchun o‘zgarish yo‘q.",
+    "loading": "Profil yuklanmoqda…",
+    "travelRiskTitle": "Sayohat xavfi",
+    "travelRiskSubtitle": "Reysingiz uchun kechikish, bekor qilish va ulanish xavfini tekshiring.",
+    "errors": {
+      "loadFailed": "Profil yuklanmadi. Qayta urinib ko‘ring.",
+      "saveFailed": "O‘zgarishlar saqlanmadi. Qayta urinib ko‘ring.",
+      "invalid": "Maydonlarni tekshirib, qayta urinib ko‘ring.",
+      "emailInvalid": "To‘g‘ri email kiriting (maks. 254 belgi).",
+      "nicknameInvalid": "Taxallus 1–64 belgidan iborat bo‘lishi kerak."
+    }
+  },
+  "fplValidatorPage": {
+    "title": "ICAO FPL Validator",
+    "subtitle": "ICAO FPL ni tekshiring, ICAO izohlarini ko‘ring va o‘quv score’ingizni kuzating.",
+    "sections": {
+      "checkTitle": "Telegrammani tekshirish",
+      "resultsTitle": "Natijalar",
+      "statsTitle": "Statistikangiz"
+    },
+    "check": {
+      "inputLabel": "ICAO FPL telegrammasi",
+      "placeholder": "To‘liq ICAO FPL ni (FPL-… bilan boshlang",
+      "hint": "Faqat ICAO FPL matni. Kerak bo‘lsa namunani qo‘ying. Maslahat: VALIDDEMO — demo VALID natija.",
+      "charCount": "{count} belgi",
+      "submit": "Tekshirish",
+      "checking": "Tekshirilmoqda…",
+      "loading": "Tekshiruv tayyorlanmoqda…",
+      "example": "FPL namunasi",
+      "exampleAria": "Maydonga ICAO FPL namunasini qo‘yish"
+    },
+    "results": {
+      "idle": "VALID/INVALID, score, xatolar va ogohlantirishlarni ko‘rish uchun tekshiruvni ishga tushiring.",
+      "statusValid": "VALID",
+      "statusInvalid": "INVALID",
+      "scoreLabel": "Score:",
+      "demoNote": "Demo natija (mahalliy). Haqiqiy API tekshiruvi integratsiya bosqichida ulanadi.",
+      "errorsTitle": "Xatolar",
+      "warningsTitle": "Ogohlantirishlar",
+      "errorsEmpty": "Xatolar yo‘q.",
+      "warningsEmpty": "Ogohlantirishlar yo‘q.",
+      "icaoLabel": "ICAO: {ref}",
+      "focusHint": "FPL da belgilash uchun bosing",
+      "focusIssueAria": "{code} muammosini FPL telegrammasida belgilash",
+      "infosTitle": "Info",
+      "infosEmpty": "No info messages.",
+      "explainHint": "Click to open ICAO explanation",
+      "statsChipsAria": "Message counts",
+      "chipErrors": "Errors: {count}",
+      "chipWarnings": "Warnings: {count}",
+      "chipInfos": "Info: {count}",
+      "requestId": "request_id: {id}",
+      "openHistory": "Open history",
+      "historyLoading": "Loading history…",
+      "versions": "parser {parser} · rules {rules}"
+    },
+    "highlight": {
+      "title": "Belgilangan FPL",
+      "legendAria": "Belgilash belgisi",
+      "legendError": "Xato",
+      "legendWarning": "Ogohlantirish",
+      "a11yNote": "Belgilash yordamchi — to‘liq ma’no yuqoridagi xatolar va ogohlantirishlar ro‘yxatida.",
+      "unmappedNote": "{count} ta izohni matn parchasiga bog‘lab bo‘lmadi.",
+      "sourceLabel": "Xato va ogohlantirish belgilari bilan asl telegramma."
+    },
+    "stats": {
+      "demoNote": "Mahalliy sessiya statistikasi (sessionStorage). Integratsiyadan keyin API tarix/stats almashtiradi.",
+      "empty": "Hali tekshiruvlar yo‘q. Tarix, o‘rtacha score va tez-tez uchraydigan xatolar uchun validatsiyani ishga tushiring.",
+      "summaryAria": "Tekshiruvlar xulosasi",
+      "totalChecks": "Jami tekshiruvlar",
+      "averageScore": "O‘rtacha score",
+      "trainingAverage": "O‘quv o‘rtacha score",
+      "validInvalid": "VALID / INVALID",
+      "validInvalidValue": "{valid} / {invalid}",
+      "modeFilterLabel": "Ko‘rsatish",
+      "modeAll": "Barcha rejimlar",
+      "modeProduction": "Oddiy",
+      "modeTraining": "O‘quv",
+      "modeBadgeProduction": "Oddiy",
+      "modeBadgeTraining": "O‘quv",
+      "filterEmpty": "Bu rejimda hali tekshiruvlar yo‘q.",
+      "historyTitle": "Tekshiruvlar tarixi",
+      "showMore": "Yana ko‘rsatish ({remaining} qoldi)",
+      "frequentTitle": "Tez-tez uchraydigan xatolar",
+      "frequentEmpty": "Hali xatolar qayd etilmagan.",
+      "frequentCount": "{count}×",
+      "remoteNote": "Learning stats from the server (authenticated). Recent checks below are kept locally for quick recall.",
+      "localNote": "Local recent-check list (sessionStorage). Sign in and validate with Bearer so server stats update.",
+      "errorTotal": "Errors (server)"
+    },
+    "training": {
+      "modeLabel": "Tekshiruv rejimi",
+      "modeProduction": "Oddiy",
+      "modeTraining": "O‘quv",
+      "modeProductionHint": "Standart tekshiruv — kamroq demo-qoidalar; score baribir statistikaga kiradi.",
+      "modeTrainingHint": "O‘quv rejimi — qattiqroq demo-qoidalar, score tahlili va tuzatish maslahatlari.",
+      "breakdownTitle": "Ballni nima tushirdi",
+      "breakdownEmpty": "Ball tushirilmadi.",
+      "breakdownDelta": "{delta}",
+      "icaoExplainTitle": "ICAO",
+      "fixHintTitle": "Qanday tuzatish",
+      "hintFallback": "ICAO havolasini ko‘rib, ajratilgan fragmentni tuzating.",
+      "hints": {
+        "ITEM7_ACID_FORMAT": "Havo kemasi identifikatsiyasi (Item 7): 2–7 harf-raqam, bo‘sh joysiz.",
+        "ITEM10_EQUIPMENT_CHECK": "Jihoz va SSR kodlarini Doc 4444 Item 10 harf/raqamlari bilan moslang.",
+        "ITEM15_ROUTE_SYNTAX": "Tezlik/sath va marshrut elementlarini (SID/STAR/DCT/nuqtalar) Item 15 sintaksisi bo‘yicha tekshiring.",
+        "ITEM18_DOF_CHECK": "Item 18 da rejalashtirilgan uchish sanasi uchun DOF/ ni YYMMDD formatida qo‘ying.",
+        "F13_AIRPORT_EXISTS": "Replace unknown aerodrome codes with a valid ICAO airport (e.g. UUEE, ULLI).",
+        "F10_R_REQUIRES_PBN": "When Item 10a includes R, add a matching PBN/ entry in Item 18.",
+        "F18_PBN_REQUIRED": "Add PBN/… in other information when required by equipment codes.",
+        "F18_DOF_FORMAT": "Set DOF/ as YYMMDD for the intended departure date."
+      }
+    },
+    "errors": {
+      "empty": "Davom etish uchun ICAO FPL telegrammasini joylashtiring.",
+      "invalid": "Validation request was rejected. Check the FPL text and try again.",
+      "parseError": "Could not parse the FPL telegram.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Try again.",
+      "server": "Server error while validating the FPL.",
+      "unauthorized": "Session expired. Please sign in again.",
+      "authRequired": "Sign in to view history and learning stats.",
+      "forbidden": "You do not have access to this validation history.",
+      "notFound": "Validation history was not found."
+    },
+    "explain": {
+      "title": "Rule explanation",
+      "close": "Close",
+      "closeAria": "Close explanation panel",
+      "loading": "Loading explanation…",
+      "icaoLabel": "ICAO reference"
+    }
+  },
+  "privacyPage": {
+    "title": "Maxfiylik siyosati va cookie-fayllar",
+    "subtitle": "Passenger Rights AI shaxsiy ma’lumotlar va cookie-fayllarni qanday qayta ishlaydi.",
+    "content": [
+      "Passenger Rights AI faqat sayohat xavfini baholash va foydalanuvchilar bilan aloqa qilish uchun zarur ma’lumotlarni qayta ishlaydi.",
+      "Cookie-fayllar saytning asosiy ishlashi, til afzalligi va mahsulot analitikasi uchun ishlatilishi mumkin.",
+      "Cookie sozlamalarini brauzerda boshqarishingiz mumkin. Maxfiylik nazorati mahsulot rivojlanishi bilan kengayadi.",
+      "Bu sahifa frontend MVP uchun ishchi qoralama bo‘lib, keyinchalik yuridik matn bilan yangilanadi."
+    ]
+  },
+  "legalPage": {
+    "title": "Huquqiy bildirishnoma",
+    "subtitle": "Passenger Rights AI dan foydalanish haqida muhim huquqiy ma’lumot.",
+    "content": [
+      "Passenger Rights AI axborot xarakteridagi xavf bahosini beradi va aviakompaniya siyosati, sug‘urta yoki yuridik maslahat o‘rnini bosmaydi.",
+      "Kompensatsiya natijalari amaldagi normalarga, aviakompaniya qoidalariga va ish dalillariga bog‘liq.",
+      "Sayt kontenti backend integratsiyasi tugaguncha namoyish maqsadida taqdim etiladi.",
+      "Rasmiy da’volar uchun huquqlaringizni doimo tashuvchi va vakolatli organlar bilan tekshiring."
+    ]
+  }
+}

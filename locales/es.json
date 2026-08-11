@@ -1,0 +1,343 @@
+{
+  "locale": "es",
+  "common": {
+    "siteName": "Passenger Rights AI",
+    "tagline": "Conoce los riesgos de tu viaje antes de viajar.",
+    "skipToContent": "Saltar al contenido"
+  },
+  "nav": {
+    "home": "Inicio",
+    "mainAriaLabel": "Navegación principal",
+    "about": "Acerca de",
+    "aboutMenu": "Menú Acerca de",
+    "mission": "Misión",
+    "contacts": "Contactos",
+    "compensations": "Compensaciones",
+    "compensationsMenu": "Menú Compensaciones",
+    "compensationAirports": "Vuelos",
+    "compensationBaggage": "Equipaje",
+    "compensationRefunds": "Reembolsos",
+    "compensationInsurance": "Seguro",
+    "travelRisk": "Riesgo de viaje",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "account": "Cuenta",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "languageLabel": "Idioma"
+  },
+  "homePage": {
+    "brand": "Passenger Rights AI",
+    "title": "Conoce los riesgos de tu viaje antes de viajar.",
+    "lead": "Evaluamos los riesgos del viaje con antelación, avisamos de posibles problemas y protegemos automáticamente tus derechos cuando realmente surgen.",
+    "imageAlt": "Viajeros esperando en una cola tranquila dentro de una amplia terminal del aeropuerto"
+  },
+  "travelRiskPage": {
+    "title": "Puntuación de riesgo de viaje",
+    "subtitle": "Introduce un vuelo en una sola línea y obtén una puntuación de riesgo por retrasos, cancelaciones y conexiones.",
+    "inputLabel": "Consulta de vuelo",
+    "searchPlaceholder": "SK1587, Moscú → Estambul → Ámsterdam, 12 de septiembre",
+    "hint": "Incluye número de vuelo, ruta y fecha separados por comas.",
+    "checkRisk": "Comprobar riesgo",
+    "checking": "Comprobando…",
+    "loading": "Calculando el riesgo de viaje…",
+    "scoreLabel": "Riesgo de viaje",
+    "scoreValueAria": "Puntuación de riesgo de viaje {value}",
+    "metricsAriaLabel": "Métricas de riesgo de viaje",
+    "percent": "{value}%",
+    "minutes": "{value} min",
+    "metrics": {
+      "delay15": "Retraso de más de 15 minutos",
+      "delay60": "Retraso de más de 1 hora",
+      "cancellation": "Probabilidad de cancelación",
+      "connection": "Riesgo de perder la conexión",
+      "turbulence": "Turbulencia esperada",
+      "connectionTime": "Tiempo mínimo de conexión recomendado"
+    },
+    "levels": {
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto"
+    },
+    "turbulence": {
+      "light": "Ligera",
+      "moderate": "Moderada",
+      "severe": "Severa"
+    },
+    "errors": {
+      "empty": "Introduce una consulta de vuelo para continuar.",
+      "invalid": "No se pudo interpretar la consulta. Usa: vuelo, ruta con →, fecha.",
+      "authRequired": "El servicio está disponible solo para usuarios registrados. Regístrese en el sistema.",
+      "network": "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+      "timeout": "La solicitud agotó el tiempo de espera. Inténtalo de nuevo.",
+      "server": "No se pudo cargar Travel Risk ahora. Inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "footer": {
+    "navAriaLabel": "Enlaces legales",
+    "privacyAndCookies": "Política de privacidad y cookies",
+    "legalNotice": "Aviso legal",
+    "copyright": "Passenger Rights AI © 2025 - 2026"
+  },
+  "stubs": {
+    "comingSoonTitle": "Próximamente",
+    "comingSoonDescription": "Esta página estará disponible muy pronto.",
+    "ctaHome": "Volver al inicio",
+    "pages": {
+      "mission": {
+        "title": "Nuestra misión",
+        "description": "Estamos preparando la historia de misión sobre protección proactiva del pasajero. Esta página es temporal."
+      },
+      "contacts": {
+        "title": "Contactos",
+        "description": "Los canales de contacto y soporte aparecerán aquí pronto."
+      },
+      "flights": {
+        "title": "Compensaciones de vuelos",
+        "description": "La guía para retrasos y cancelaciones se publicará aquí."
+      },
+      "baggage": {
+        "title": "Compensaciones de equipaje",
+        "description": "La guía de equipaje perdido o retrasado llegará pronto."
+      },
+      "refunds": {
+        "title": "Reembolsos de billetes",
+        "description": "Los escenarios de reembolso y siguientes pasos estarán disponibles aquí."
+      },
+      "insurance": {
+        "title": "Seguro de viaje",
+        "description": "El contenido sobre seguros y derechos del pasajero está en preparación."
+      },
+      "account": {
+        "title": "Cuenta",
+        "description": "Tu centro de viajes aparecerá aquí cuando la autenticación esté conectada."
+      },
+      "signup": {
+        "title": "Registrarse",
+        "description": "El registro de cuenta estará disponible aquí cuando el flujo de signup del backend esté conectado."
+      }
+    }
+  },
+  "loginPage": {
+    "title": "Iniciar sesión",
+    "description": "Inicia sesión con tu email y contraseña.",
+    "emailLabel": "Email",
+    "passwordLabel": "Contraseña",
+    "submit": "Iniciar sesión",
+    "submitting": "Entrando…",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "signUpLink": "Registrarse",
+    "errors": {
+      "emailRequired": "Introduce tu email.",
+      "emailMax": "El email puede tener como máximo 254 caracteres.",
+      "passwordRequired": "Introduce tu contraseña.",
+      "invalid": "Revisa el email y la contraseña e inténtalo de nuevo.",
+      "credentials": "Email o contraseña incorrectos.",
+      "network": "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+      "timeout": "La solicitud agotó el tiempo de espera. Inténtalo de nuevo.",
+      "server": "No se pudo iniciar sesión ahora. Inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "signupPage": {
+    "title": "Registrarse",
+    "description": "Crea una cuenta con apodo, email y contraseña.",
+    "nicknameLabel": "Apodo",
+    "emailLabel": "Email",
+    "passwordLabel": "Contraseña",
+    "passwordConfirmLabel": "Confirmar contraseña",
+    "passwordHint": "Al menos 6 caracteres, solo letras latinas y dígitos, con al menos un dígito.",
+    "submit": "Registrarse",
+    "submitting": "Creando cuenta…",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signInLink": "Iniciar sesión",
+    "errors": {
+      "nicknameRequired": "Introduce un apodo.",
+      "nicknameMax": "El apodo puede tener como máximo 64 caracteres.",
+      "emailRequired": "Introduce tu email.",
+      "emailMax": "El email puede tener como máximo 254 caracteres.",
+      "passwordRequired": "Introduce una contraseña.",
+      "passwordConfirmRequired": "Confirma tu contraseña.",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "passwordPolicy": "La contraseña debe tener al menos 6 caracteres, solo letras latinas y dígitos, con al menos un dígito.",
+      "invalid": "Revisa los campos del formulario e inténtalo de nuevo.",
+      "emailTaken": "Este email ya está registrado.",
+      "nicknameTaken": "Este apodo ya está en uso.",
+      "network": "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+      "timeout": "La solicitud agotó el tiempo de espera. Inténtalo de nuevo.",
+      "server": "No se pudo crear la cuenta ahora. Inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "accountPage": {
+    "navAriaLabel": "Navegación de la cuenta",
+    "navTitle": "Cuenta",
+    "navProfile": "Perfil",
+    "navTravelRisk": "Riesgo de viaje",
+    "navFplValidator": "FPL Validator",
+    "signOut": "Cerrar sesión",
+    "profileTitle": "Datos de la cuenta",
+    "profileSubtitle": "Consulta y actualiza tu información de perfil.",
+    "nicknameLabel": "Apodo",
+    "emailLabel": "Email",
+    "passwordLabel": "Nueva contraseña",
+    "passwordHint": "Déjalo vacío para mantener la contraseña actual.",
+    "createdAt": "Cuenta creada: {value}",
+    "save": "Guardar cambios",
+    "saving": "Guardando…",
+    "saveSuccess": "Perfil actualizado.",
+    "noChanges": "No hay cambios para guardar.",
+    "loading": "Cargando perfil…",
+    "travelRiskTitle": "Riesgo de viaje",
+    "travelRiskSubtitle": "Comprueba el riesgo de retraso, cancelación y conexión de tu vuelo.",
+    "errors": {
+      "loadFailed": "No se pudo cargar el perfil. Inténtalo de nuevo.",
+      "saveFailed": "No se pudieron guardar los cambios. Inténtalo de nuevo.",
+      "invalid": "Revisa los campos e inténtalo de nuevo.",
+      "emailInvalid": "Introduce un email válido (máx. 254 caracteres).",
+      "nicknameInvalid": "El apodo debe tener entre 1 y 64 caracteres."
+    }
+  },
+  "fplValidatorPage": {
+    "title": "ICAO FPL Validator",
+    "subtitle": "Valida planes de vuelo ICAO, revisa explicaciones ICAO y sigue tu puntuación de entrenamiento.",
+    "sections": {
+      "checkTitle": "Comprobar telegrama",
+      "resultsTitle": "Resultados",
+      "statsTitle": "Tu estadística"
+    },
+    "check": {
+      "inputLabel": "Telegrama ICAO FPL",
+      "placeholder": "Pega un FPL ICAO completo, empezando por (FPL-…",
+      "hint": "Solo texto ICAO FPL. Usa el ejemplo si lo necesitas. Tip: incluye VALIDDEMO para un resultado VALID de demo.",
+      "charCount": "{count} caracteres",
+      "submit": "Comprobar",
+      "checking": "Comprobando…",
+      "loading": "Preparando la validación…",
+      "example": "Ejemplo FPL",
+      "exampleAria": "Insertar un ejemplo de ICAO FPL en el campo"
+    },
+    "results": {
+      "idle": "Ejecuta una comprobación para ver VALID/INVALID, puntuación, errores y avisos.",
+      "statusValid": "VALID",
+      "statusInvalid": "INVALID",
+      "scoreLabel": "Puntuación:",
+      "demoNote": "Resultado demo (local). La validación API real llegará en la fase de integración.",
+      "errorsTitle": "Errores",
+      "warningsTitle": "Avisos",
+      "errorsEmpty": "No hay errores.",
+      "warningsEmpty": "No hay avisos.",
+      "icaoLabel": "ICAO: {ref}",
+      "focusHint": "Haz clic para resaltar en el FPL",
+      "focusIssueAria": "Resaltar el problema {code} en el telegrama FPL",
+      "infosTitle": "Info",
+      "infosEmpty": "No info messages.",
+      "explainHint": "Click to open ICAO explanation",
+      "statsChipsAria": "Message counts",
+      "chipErrors": "Errors: {count}",
+      "chipWarnings": "Warnings: {count}",
+      "chipInfos": "Info: {count}",
+      "requestId": "request_id: {id}",
+      "openHistory": "Open history",
+      "historyLoading": "Loading history…",
+      "versions": "parser {parser} · rules {rules}"
+    },
+    "highlight": {
+      "title": "FPL resaltado",
+      "legendAria": "Leyenda de resaltado",
+      "legendError": "Error",
+      "legendWarning": "Aviso",
+      "a11yNote": "El resaltado es solo visual: usa las listas de errores y avisos de arriba para la explicación completa.",
+      "unmappedNote": "{count, plural, one {# incidencia no se pudo mapear a un tramo de texto.} other {# incidencias no se pudieron mapear a un tramo de texto.}}",
+      "sourceLabel": "Telegrama de origen con marcas de errores y avisos."
+    },
+    "stats": {
+      "demoNote": "Estadísticas locales de la sesión (sessionStorage). La API de historial/stats las sustituirá tras la integración.",
+      "empty": "Aún no hay comprobaciones. Ejecuta una validación para crear historial, puntuación media y errores frecuentes.",
+      "summaryAria": "Resumen de validaciones",
+      "totalChecks": "Comprobaciones totales",
+      "averageScore": "Puntuación media",
+      "trainingAverage": "Media (entrenamiento)",
+      "validInvalid": "VALID / INVALID",
+      "validInvalidValue": "{valid} / {invalid}",
+      "modeFilterLabel": "Mostrar",
+      "modeAll": "Todos los modos",
+      "modeProduction": "Producción",
+      "modeTraining": "Entrenamiento",
+      "modeBadgeProduction": "Producción",
+      "modeBadgeTraining": "Entrenamiento",
+      "filterEmpty": "Aún no hay comprobaciones en este modo.",
+      "historyTitle": "Historial de comprobaciones",
+      "showMore": "Mostrar más (quedan {remaining})",
+      "frequentTitle": "Errores frecuentes",
+      "frequentEmpty": "Aún no hay errores registrados.",
+      "frequentCount": "{count}×",
+      "remoteNote": "Learning stats from the server (authenticated). Recent checks below are kept locally for quick recall.",
+      "localNote": "Local recent-check list (sessionStorage). Sign in and validate with Bearer so server stats update.",
+      "errorTotal": "Errors (server)"
+    },
+    "training": {
+      "modeLabel": "Modo de validación",
+      "modeProduction": "Producción",
+      "modeTraining": "Entrenamiento",
+      "modeProductionHint": "Comprobación estándar: menos reglas demo; la puntuación sigue entrando en estadísticas.",
+      "modeTrainingHint": "Modo aprendizaje: reglas demo más estrictas, desglose de puntuación y pistas de corrección.",
+      "breakdownTitle": "Qué bajó la puntuación",
+      "breakdownEmpty": "Nada redujo la puntuación.",
+      "breakdownDelta": "{delta}",
+      "icaoExplainTitle": "ICAO",
+      "fixHintTitle": "Cómo corregir",
+      "hintFallback": "Revisa la referencia ICAO y corrige el fragmento resaltado.",
+      "hints": {
+        "ITEM7_ACID_FORMAT": "Identificación de aeronave (Item 7): 2–7 caracteres alfanuméricos, sin espacios.",
+        "ITEM10_EQUIPMENT_CHECK": "Alinea equipo y códigos SSR con las letras/dígitos del Item 10 (Doc 4444).",
+        "ITEM15_ROUTE_SYNTAX": "Revisa velocidad/nivel y elementos de ruta (SID/STAR/DCT/puntos) según Item 15.",
+        "ITEM18_DOF_CHECK": "Pon DOF/ como YYMMDD para la fecha de salida prevista en Item 18.",
+        "F13_AIRPORT_EXISTS": "Replace unknown aerodrome codes with a valid ICAO airport (e.g. UUEE, ULLI).",
+        "F10_R_REQUIRES_PBN": "When Item 10a includes R, add a matching PBN/ entry in Item 18.",
+        "F18_PBN_REQUIRED": "Add PBN/… in other information when required by equipment codes.",
+        "F18_DOF_FORMAT": "Set DOF/ as YYMMDD for the intended departure date."
+      }
+    },
+    "errors": {
+      "empty": "Pega un telegrama ICAO FPL para continuar.",
+      "invalid": "Validation request was rejected. Check the FPL text and try again.",
+      "parseError": "Could not parse the FPL telegram.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Try again.",
+      "server": "Server error while validating the FPL.",
+      "unauthorized": "Session expired. Please sign in again.",
+      "authRequired": "Sign in to view history and learning stats.",
+      "forbidden": "You do not have access to this validation history.",
+      "notFound": "Validation history was not found."
+    },
+    "explain": {
+      "title": "Rule explanation",
+      "close": "Close",
+      "closeAria": "Close explanation panel",
+      "loading": "Loading explanation…",
+      "icaoLabel": "ICAO reference"
+    }
+  },
+  "privacyPage": {
+    "title": "Política de privacidad y cookies",
+    "subtitle": "Cómo Passenger Rights AI trata los datos personales y las cookies.",
+    "content": [
+      "Passenger Rights AI procesa solo la información necesaria para evaluar el riesgo de viaje y comunicarse con los usuarios.",
+      "Las cookies pueden usarse para el funcionamiento esencial del sitio, preferencia de idioma y analítica del producto.",
+      "Puedes gestionar las cookies en la configuración del navegador. Los controles de privacidad se ampliarán con el producto.",
+      "Esta página es un borrador del MVP frontend y se actualizará con lenguaje legal específico."
+    ]
+  },
+  "legalPage": {
+    "title": "Aviso legal",
+    "subtitle": "Información legal importante sobre el uso de Passenger Rights AI.",
+    "content": [
+      "Passenger Rights AI ofrece evaluaciones informativas de riesgo y no sustituye políticas de aerolíneas, seguros ni asesoría legal.",
+      "Los resultados de compensación dependen de la normativa aplicable, reglas de la aerolínea y evidencias del caso.",
+      "El contenido de este sitio se ofrece tal cual con fines de demostración mientras se completan las integraciones de backend.",
+      "Para reclamaciones formales, verifica siempre tus derechos con la aerolínea y las autoridades competentes."
+    ]
+  }
+}

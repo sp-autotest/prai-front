@@ -1,0 +1,343 @@
+{
+  "locale": "kk",
+  "common": {
+    "siteName": "Passenger Rights AI",
+    "tagline": "Саяхатқа шықпас бұрын тәуекелдерді біліңіз.",
+    "skipToContent": "Мазмұнға өту"
+  },
+  "nav": {
+    "home": "Басты бет",
+    "mainAriaLabel": "Негізгі навигация",
+    "about": "Біз туралы",
+    "aboutMenu": "«Біз туралы» мәзірі",
+    "mission": "Миссия",
+    "contacts": "Байланыс",
+    "compensations": "Өтемақылар",
+    "compensationsMenu": "«Өтемақылар» мәзірі",
+    "compensationAirports": "Ұшақ рейстері",
+    "compensationBaggage": "Жүк",
+    "compensationRefunds": "Билет өтемі",
+    "compensationInsurance": "Сақтандыру",
+    "travelRisk": "Саяхат тәуекелі",
+    "signIn": "Кіру",
+    "signUp": "Тіркелу",
+    "account": "Кабинет",
+    "openMenu": "Мәзірді ашу",
+    "closeMenu": "Мәзірді жабу",
+    "languageLabel": "Тіл"
+  },
+  "homePage": {
+    "brand": "Passenger Rights AI",
+    "title": "Саяхат бастамай тұрып тәуекелдерді біліңіз.",
+    "lead": "Біз саяхат тәуекелдерін алдын ала бағалаймыз, ықтимал мәселелер туралы ескертеміз және құқықтарыңыз бұзылғанда оларды автоматты түрде қорғаймыз.",
+    "imageAlt": "Кең әуежай залында тыныш кезекте тұрған жолаушылар"
+  },
+  "travelRiskPage": {
+    "title": "Саяхат тәуекелінің көрсеткіші",
+    "subtitle": "Рейсті бір жолмен енгізіп, кешігу, тоқтату және ауысым тәуекелінің рейтингін алыңыз.",
+    "inputLabel": "Рейс сұранысы",
+    "searchPlaceholder": "SK1587, Мәскеу → Стамбул → Амстердам, 12 қыркүйек",
+    "hint": "Рейс нөмірін, бағытты және күнді үтірмен бөліп енгізіңіз.",
+    "checkRisk": "Тәуекелді тексеру",
+    "checking": "Тексерілуде…",
+    "loading": "Саяхат тәуекелі есептелуде…",
+    "scoreLabel": "Саяхат тәуекелі",
+    "scoreValueAria": "Саяхат тәуекелінің көрсеткіші {value}",
+    "metricsAriaLabel": "Саяхат тәуекелінің метрикалары",
+    "percent": "{value}%",
+    "minutes": "{value} мин",
+    "metrics": {
+      "delay15": "15 минуттан артық кешігу",
+      "delay60": "1 сағаттан артық кешігу",
+      "cancellation": "Рейстің тоқтатылу ықтималдығы",
+      "connection": "Ауысымды жіберіп алу тәуекелі",
+      "turbulence": "Күтілетін турбуленттілік",
+      "connectionTime": "Ұсынылатын минималды ауысым уақыты"
+    },
+    "levels": {
+      "low": "Төмен",
+      "medium": "Орташа",
+      "high": "Жоғары"
+    },
+    "turbulence": {
+      "light": "Жеңіл",
+      "moderate": "Орташа",
+      "severe": "Күшті"
+    },
+    "errors": {
+      "empty": "Жалғастыру үшін рейс сұранысын енгізіңіз.",
+      "invalid": "Сұранысты талдау мүмкін болмады. Формат: рейс, → бар бағыт, күн.",
+      "authRequired": "Қызмет тек тіркелген пайдаланушыларға қолжетімді, жүйеге тіркеліңіз",
+      "network": "Желі қатесі. Қосылымды тексеріп, қайталап көріңіз.",
+      "timeout": "Сұраныс уақыты аяқталды. Қайталап көріңіз.",
+      "server": "Travel Risk қазір жүктелмеді. Қайталап көріңіз.",
+      "generic": "Бірдеңе дұрыс болмады. Қайталап көріңіз."
+    }
+  },
+  "footer": {
+    "navAriaLabel": "Құқықтық сілтемелер",
+    "privacyAndCookies": "Құпиялық саясаты және cookie-файлдар",
+    "legalNotice": "Құқықтық ескерту",
+    "copyright": "Passenger Rights AI © 2025 - 2026"
+  },
+  "stubs": {
+    "comingSoonTitle": "Жақында",
+    "comingSoonDescription": "Бұл бет жақын арада қолжетімді болады.",
+    "ctaHome": "Басты бетке оралу",
+    "pages": {
+      "mission": {
+        "title": "Біздің миссия",
+        "description": "Жолаушыларды алдын ала қорғау туралы миссия мәтіні дайындалуда. Бұл уақытша бет."
+      },
+      "contacts": {
+        "title": "Байланыс",
+        "description": "Байланыс арналары мен қолдау жақында осында пайда болады."
+      },
+      "flights": {
+        "title": "Рейс өтемақылары",
+        "description": "Кешігу және тоқтатылған рейстер бойынша нұсқаулық осында жарияланады."
+      },
+      "baggage": {
+        "title": "Жүк өтемақылары",
+        "description": "Жоғалған немесе кешіктірілген жүк бойынша нұсқаулық жақында шығады."
+      },
+      "refunds": {
+        "title": "Билет өтемі",
+        "description": "Билетті қайтару сценарийлері осында қолжетімді болады."
+      },
+      "insurance": {
+        "title": "Саяхат сақтандыруы",
+        "description": "Сақтандыру және жолаушы құқықтары туралы контент дайындалуда."
+      },
+      "account": {
+        "title": "Жеке кабинет",
+        "description": "Толық аутентификация қосылғаннан кейін саяхат орталығы осында пайда болады."
+      },
+      "signup": {
+        "title": "Тіркелу",
+        "description": "Backend signup қосылғаннан кейін аккаунт тіркеу осында қолжетімді болады."
+      }
+    }
+  },
+  "loginPage": {
+    "title": "Кіру",
+    "description": "Email мен құпия сөз арқылы кіріңіз.",
+    "emailLabel": "Email",
+    "passwordLabel": "Құпия сөз",
+    "submit": "Кіру",
+    "submitting": "Кіріп жатырмыз…",
+    "noAccount": "Әлі аккаунт жоқ па?",
+    "signUpLink": "Тіркелу",
+    "errors": {
+      "emailRequired": "Email енгізіңіз.",
+      "emailMax": "Email ең көбі 254 таңба болуы керек.",
+      "passwordRequired": "Құпия сөзді енгізіңіз.",
+      "invalid": "Email мен құпия сөзді тексеріп, қайталап көріңіз.",
+      "credentials": "Email немесе құпия сөз қате.",
+      "network": "Желі қатесі. Қосылымды тексеріп, қайталап көріңіз.",
+      "timeout": "Сұраныс уақыты аяқталды. Қайталап көріңіз.",
+      "server": "Қазір кіру мүмкін емес. Қайталап көріңіз.",
+      "generic": "Бірдеңе дұрыс болмады. Қайталап көріңіз."
+    }
+  },
+  "signupPage": {
+    "title": "Тіркелу",
+    "description": "Никнейм, email және құпия сөзбен аккаунт жасаңыз.",
+    "nicknameLabel": "Никнейм",
+    "emailLabel": "Email",
+    "passwordLabel": "Құпия сөз",
+    "passwordConfirmLabel": "Құпия сөзді қайталаңыз",
+    "passwordHint": "Кемінде 6 таңба, тек латын әріптері мен цифрлар, кемінде бір цифр.",
+    "submit": "Тіркелу",
+    "submitting": "Аккаунт жасалуда…",
+    "haveAccount": "Аккаунтыңыз бар ма?",
+    "signInLink": "Кіру",
+    "errors": {
+      "nicknameRequired": "Никнейм енгізіңіз.",
+      "nicknameMax": "Никнейм ең көбі 64 таңба болуы керек.",
+      "emailRequired": "Email енгізіңіз.",
+      "emailMax": "Email ең көбі 254 таңба болуы керек.",
+      "passwordRequired": "Құпия сөзді енгізіңіз.",
+      "passwordConfirmRequired": "Құпия сөзді қайталаңыз.",
+      "passwordMismatch": "Құпия сөздер сәйкес емес.",
+      "passwordPolicy": "Құпия сөз: кемінде 6 таңба, тек латын әріптері мен цифрлар, кемінде бір цифр.",
+      "invalid": "Форма өрістерін тексеріп, қайталап көріңіз.",
+      "emailTaken": "Бұл email тіркелген.",
+      "nicknameTaken": "Бұл никнейм бос емес.",
+      "network": "Желі қатесі. Қосылымды тексеріп, қайталап көріңіз.",
+      "timeout": "Сұраныс уақыты аяқталды. Қайталап көріңіз.",
+      "server": "Қазір аккаунт жасау мүмкін емес. Қайталап көріңіз.",
+      "generic": "Бірдеңе дұрыс болмады. Қайталап көріңіз."
+    }
+  },
+  "accountPage": {
+    "navAriaLabel": "Кабинет навигациясы",
+    "navTitle": "Кабинет",
+    "navProfile": "Профиль",
+    "navTravelRisk": "Саяхат тәуекелі",
+    "navFplValidator": "FPL Validator",
+    "signOut": "Шығу",
+    "profileTitle": "Аккаунт деректері",
+    "profileSubtitle": "Профиль ақпаратын қараңыз және өзгертіңіз.",
+    "nicknameLabel": "Лақап ат",
+    "emailLabel": "Email",
+    "passwordLabel": "Жаңа құпия сөз",
+    "passwordHint": "Құпия сөзді өзгертпеу үшін бос қалдырыңыз.",
+    "createdAt": "Аккаунт жасалған: {value}",
+    "save": "Сақтау",
+    "saving": "Сақталуда…",
+    "saveSuccess": "Профиль жаңартылды.",
+    "noChanges": "Сақтауға өзгеріс жоқ.",
+    "loading": "Профиль жүктелуде…",
+    "travelRiskTitle": "Саяхат тәуекелі",
+    "travelRiskSubtitle": "Рейсіңіздің кешігу, тоқтату және ауысым тәуекелін тексеріңіз.",
+    "errors": {
+      "loadFailed": "Профиль жүктелмеді. Қайталап көріңіз.",
+      "saveFailed": "Өзгерістер сақталмады. Қайталап көріңіз.",
+      "invalid": "Өрістерді тексеріп, қайталап көріңіз.",
+      "emailInvalid": "Дұрыс email енгізіңіз (ең көбі 254 таңба).",
+      "nicknameInvalid": "Лақап ат 1–64 таңба болуы керек."
+    }
+  },
+  "fplValidatorPage": {
+    "title": "ICAO FPL Validator",
+    "subtitle": "ICAO FPL тексеріңіз, ICAO түсіндірмелерін қараңыз және оқу score-ын бақылаңыз.",
+    "sections": {
+      "checkTitle": "Телеграмманы тексеру",
+      "resultsTitle": "Нәтижелер",
+      "statsTitle": "Сіздің статистикаңыз"
+    },
+    "check": {
+      "inputLabel": "ICAO FPL телеграммасы",
+      "placeholder": "Толық ICAO FPL-ді (FPL-… деп бастап қойыңыз",
+      "hint": "Тек ICAO FPL мәтіні. Қажет болса үлгіні қойыңыз. Кеңес: VALIDDEMO — демо VALID нәтижесі.",
+      "charCount": "{count} таңба",
+      "submit": "Тексеру",
+      "checking": "Тексерілуде…",
+      "loading": "Тексеру дайындалуда…",
+      "example": "FPL үлгісі",
+      "exampleAria": "Өріске ICAO FPL үлгісін қою"
+    },
+    "results": {
+      "idle": "VALID/INVALID, score, қателер мен ескертулерді көру үшін тексеруді іске қосыңыз.",
+      "statusValid": "VALID",
+      "statusInvalid": "INVALID",
+      "scoreLabel": "Score:",
+      "demoNote": "Демо нәтиже (жергілікті). Нақты API тексеруі интеграция кезеңінде қосылады.",
+      "errorsTitle": "Қателер",
+      "warningsTitle": "Ескертулер",
+      "errorsEmpty": "Қателер жоқ.",
+      "warningsEmpty": "Ескертулер жоқ.",
+      "icaoLabel": "ICAO: {ref}",
+      "focusHint": "FPL-де белгілеу үшін басыңыз",
+      "focusIssueAria": "{code} мәселесін FPL телеграммасында белгілеу",
+      "infosTitle": "Info",
+      "infosEmpty": "No info messages.",
+      "explainHint": "Click to open ICAO explanation",
+      "statsChipsAria": "Message counts",
+      "chipErrors": "Errors: {count}",
+      "chipWarnings": "Warnings: {count}",
+      "chipInfos": "Info: {count}",
+      "requestId": "request_id: {id}",
+      "openHistory": "Open history",
+      "historyLoading": "Loading history…",
+      "versions": "parser {parser} · rules {rules}"
+    },
+    "highlight": {
+      "title": "Белгіленген FPL",
+      "legendAria": "Белгілеу аңызы",
+      "legendError": "Қате",
+      "legendWarning": "Ескерту",
+      "a11yNote": "Белгілеу көмекші — толық мағына жоғарыдағы қателер мен ескертулер тізімінде.",
+      "unmappedNote": "{count} ескертуді мәтін үзіндісіне байлау мүмкін болмады.",
+      "sourceLabel": "Қателер мен ескертулер белгіленген бастапқы телеграмма."
+    },
+    "stats": {
+      "demoNote": "Жергілікті сессия статистикасы (sessionStorage). Интеграциядан кейін API тарихы/статы ауыстырады.",
+      "empty": "Тексерулер әлі жоқ. Тарих, орташа score және жиі қателер үшін валидацияны іске қосыңыз.",
+      "summaryAria": "Тексерулер жиынтығы",
+      "totalChecks": "Барлық тексерулер",
+      "averageScore": "Орташа score",
+      "trainingAverage": "Оқу орташа score",
+      "validInvalid": "VALID / INVALID",
+      "validInvalidValue": "{valid} / {invalid}",
+      "modeFilterLabel": "Көрсету",
+      "modeAll": "Барлық режимдер",
+      "modeProduction": "Қалыпты",
+      "modeTraining": "Оқу",
+      "modeBadgeProduction": "Қалыпты",
+      "modeBadgeTraining": "Оқу",
+      "filterEmpty": "Бұл режимде тексерулер әлі жоқ.",
+      "historyTitle": "Тексеру тарихы",
+      "showMore": "Тағы көрсету ({remaining} қалды)",
+      "frequentTitle": "Жиі қателер",
+      "frequentEmpty": "Әзірге қателер тіркелмеген.",
+      "frequentCount": "{count}×",
+      "remoteNote": "Learning stats from the server (authenticated). Recent checks below are kept locally for quick recall.",
+      "localNote": "Local recent-check list (sessionStorage). Sign in and validate with Bearer so server stats update.",
+      "errorTotal": "Errors (server)"
+    },
+    "training": {
+      "modeLabel": "Тексеру режимі",
+      "modeProduction": "Қалыпты",
+      "modeTraining": "Оқу",
+      "modeProductionHint": "Стандартты тексеру — demo-ережелер аз; score статистикаға енеді.",
+      "modeTrainingHint": "Оқу режимі — қатаңырақ demo-ережелер, score талдауы және түзету кеңестері.",
+      "breakdownTitle": "Баллды не төмендетті",
+      "breakdownEmpty": "Балл төмендемеді.",
+      "breakdownDelta": "{delta}",
+      "icaoExplainTitle": "ICAO",
+      "fixHintTitle": "Қалай түзету",
+      "hintFallback": "ICAO сілтемесін қарап, бөлектелген фрагментті түзетіңіз.",
+      "hints": {
+        "ITEM7_ACID_FORMAT": "Әуе кемесінің сәйкестендіруі (Item 7): 2–7 әріп-цифр, бос орынсыз.",
+        "ITEM10_EQUIPMENT_CHECK": "Жабдық пен SSR кодтарын Doc 4444 Item 10 әріп/цифрларымен сәйкестендіріңіз.",
+        "ITEM15_ROUTE_SYNTAX": "Жылдамдық/деңгей және маршрут элементтерін (SID/STAR/DCT/нүктелер) Item 15 синтаксисі бойынша тексеріңіз.",
+        "ITEM18_DOF_CHECK": "Item 18-те ұшу күні үшін DOF/ мәнін YYMMDD форматында қойыңыз.",
+        "F13_AIRPORT_EXISTS": "Replace unknown aerodrome codes with a valid ICAO airport (e.g. UUEE, ULLI).",
+        "F10_R_REQUIRES_PBN": "When Item 10a includes R, add a matching PBN/ entry in Item 18.",
+        "F18_PBN_REQUIRED": "Add PBN/… in other information when required by equipment codes.",
+        "F18_DOF_FORMAT": "Set DOF/ as YYMMDD for the intended departure date."
+      }
+    },
+    "errors": {
+      "empty": "Жалғастыру үшін ICAO FPL телеграммасын қойыңыз.",
+      "invalid": "Validation request was rejected. Check the FPL text and try again.",
+      "parseError": "Could not parse the FPL telegram.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Try again.",
+      "server": "Server error while validating the FPL.",
+      "unauthorized": "Session expired. Please sign in again.",
+      "authRequired": "Sign in to view history and learning stats.",
+      "forbidden": "You do not have access to this validation history.",
+      "notFound": "Validation history was not found."
+    },
+    "explain": {
+      "title": "Rule explanation",
+      "close": "Close",
+      "closeAria": "Close explanation panel",
+      "loading": "Loading explanation…",
+      "icaoLabel": "ICAO reference"
+    }
+  },
+  "privacyPage": {
+    "title": "Құпиялық саясаты және cookie-файлдар",
+    "subtitle": "Passenger Rights AI жеке деректер мен cookie-файлдарды қалай өңдейді.",
+    "content": [
+      "Passenger Rights AI саяхат тәуекелін бағалау және пайдаланушылармен байланысу үшін қажетті деректерді ғана өңдейді.",
+      "Cookie-файлдар сайттың негізгі жұмысы, тіл таңдауы және өнім аналитикасы үшін қолданылуы мүмкін.",
+      "Cookie баптауларын браузерде басқаруға болады. Құпиялық бақылаулары өнім дамыған сайын кеңейеді.",
+      "Бұл бет frontend MVP үшін жұмыс нұсқасы және кейін заңдық тұжырымдармен жаңартылады."
+    ]
+  },
+  "legalPage": {
+    "title": "Құқықтық ескерту",
+    "subtitle": "Passenger Rights AI пайдалану туралы маңызды құқықтық ақпарат.",
+    "content": [
+      "Passenger Rights AI ақпараттық тәуекел бағалауын ұсынады және авиакомпания саясатын, сақтандыруды немесе заң кеңесін алмастырмайды.",
+      "Өтемақы нәтижелері қолданыстағы нормаларға, авиакомпания ережелеріне және іс дәлелдеріне байланысты.",
+      "Сайт контенті backend интеграциясы аяқталғанға дейін демонстрациялық мақсатта ұсынылады.",
+      "Ресми талаптар үшін құқықтарыңызды әрдайым тасымалдаушы мен құзырлы органдармен тексеріңіз."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+.card {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.card--sm {
+  padding: var(--space-4);
+}
+
+.card--md {
+  padding: var(--space-6);
+}
+
+.card--lg {
+  padding: var(--space-8);
+}
+
+.card--elevated {
+  box-shadow: var(--shadow-md);
+}
+

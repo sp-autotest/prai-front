@@ -1,0 +1,38 @@
+.shell {
+  padding-block: var(--space-8) var(--space-16);
+  background-color: var(--color-bg-secondary);
+  min-height: calc(100vh - var(--header-height));
+}
+
+.shell__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.shell__aside {
+  min-width: 0;
+}
+
+.shell__content {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-block: var(--space-10) var(--space-16);
+  }
+
+  .shell__grid {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell__grid {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+}

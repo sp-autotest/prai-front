@@ -1,0 +1,343 @@
+{
+  "locale": "en",
+  "common": {
+    "siteName": "Passenger Rights AI",
+    "tagline": "Know your travel risks before you travel.",
+    "skipToContent": "Skip to content"
+  },
+  "nav": {
+    "home": "Home",
+    "mainAriaLabel": "Main navigation",
+    "about": "About",
+    "aboutMenu": "About menu",
+    "mission": "Mission",
+    "contacts": "Contacts",
+    "compensations": "Compensations",
+    "compensationsMenu": "Compensations menu",
+    "compensationAirports": "Flights",
+    "compensationBaggage": "Baggage",
+    "compensationRefunds": "Ticket refunds",
+    "compensationInsurance": "Insurance",
+    "travelRisk": "Travel Risk",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "account": "Account",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "languageLabel": "Language"
+  },
+  "homePage": {
+    "brand": "Passenger Rights AI",
+    "title": "Know your travel risks before you travel.",
+    "lead": "We assess trip risks in advance, warn about potential problems, and automatically protect your rights when they arise.",
+    "imageAlt": "Travelers waiting in a calm queue inside a spacious airport departure hall"
+  },
+  "travelRiskPage": {
+    "title": "Travel Risk Score",
+    "subtitle": "Enter a flight in one line and get a risk rating for delays, cancellations, and connections.",
+    "inputLabel": "Flight query",
+    "searchPlaceholder": "SK1587, Moscow → Istanbul → Amsterdam, 12 September",
+    "hint": "Include flight number, route, and date separated by commas.",
+    "checkRisk": "Check risk",
+    "checking": "Checking…",
+    "loading": "Calculating travel risk…",
+    "scoreLabel": "Travel Risk",
+    "scoreValueAria": "Travel Risk score {value}",
+    "metricsAriaLabel": "Travel risk metrics",
+    "percent": "{value}%",
+    "minutes": "{value} min",
+    "metrics": {
+      "delay15": "Delay over 15 minutes",
+      "delay60": "Delay over 1 hour",
+      "cancellation": "Cancellation probability",
+      "connection": "Missed connection risk",
+      "turbulence": "Expected turbulence",
+      "connectionTime": "Recommended minimum connection"
+    },
+    "levels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "turbulence": {
+      "light": "Light",
+      "moderate": "Moderate",
+      "severe": "Severe"
+    },
+    "errors": {
+      "empty": "Enter a flight query to continue.",
+      "invalid": "Could not parse the query. Use: flight, route with →, date.",
+      "authRequired": "This service is available only to registered users. Please sign up.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Please try again.",
+      "server": "Could not load Travel Risk right now. Please try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "footer": {
+    "navAriaLabel": "Legal links",
+    "privacyAndCookies": "Privacy Policy and Cookies",
+    "legalNotice": "Legal Notice",
+    "copyright": "Passenger Rights AI © 2025 - 2026"
+  },
+  "stubs": {
+    "comingSoonTitle": "Coming soon",
+    "comingSoonDescription": "This page will be available shortly.",
+    "ctaHome": "Back to home",
+    "pages": {
+      "mission": {
+        "title": "Our mission",
+        "description": "We are preparing a clear mission story about proactive passenger protection. This page is a temporary placeholder."
+      },
+      "contacts": {
+        "title": "Contacts",
+        "description": "Contact channels and support details will appear here soon."
+      },
+      "flights": {
+        "title": "Flight compensations",
+        "description": "Guidance for delayed and cancelled flights will be published here."
+      },
+      "baggage": {
+        "title": "Baggage compensations",
+        "description": "Lost and delayed baggage claims guidance is coming soon."
+      },
+      "refunds": {
+        "title": "Ticket refunds",
+        "description": "Ticket refund scenarios and next steps will be available here."
+      },
+      "insurance": {
+        "title": "Travel insurance",
+        "description": "Insurance-related passenger rights content is under preparation."
+      },
+      "account": {
+        "title": "Account",
+        "description": "Your travel hub will appear here after full authentication is connected."
+      },
+      "signup": {
+        "title": "Sign up",
+        "description": "Account registration will be available here once the backend signup flow is connected."
+      }
+    }
+  },
+  "loginPage": {
+    "title": "Sign in",
+    "description": "Sign in with your email and password.",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "noAccount": "No account yet?",
+    "signUpLink": "Sign up",
+    "errors": {
+      "emailRequired": "Enter your email.",
+      "emailMax": "Email must be at most 254 characters.",
+      "passwordRequired": "Enter your password.",
+      "invalid": "Check your email and password and try again.",
+      "credentials": "Invalid email or password.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Please try again.",
+      "server": "Could not sign in right now. Please try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "signupPage": {
+    "title": "Sign up",
+    "description": "Create an account with a nickname, email, and password.",
+    "nicknameLabel": "Nickname",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordConfirmLabel": "Confirm password",
+    "passwordHint": "At least 6 characters, Latin letters and digits only, with at least one digit.",
+    "submit": "Sign up",
+    "submitting": "Creating account…",
+    "haveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "errors": {
+      "nicknameRequired": "Enter a nickname.",
+      "nicknameMax": "Nickname must be at most 64 characters.",
+      "emailRequired": "Enter your email.",
+      "emailMax": "Email must be at most 254 characters.",
+      "passwordRequired": "Enter a password.",
+      "passwordConfirmRequired": "Confirm your password.",
+      "passwordMismatch": "Passwords do not match.",
+      "passwordPolicy": "Password must be at least 6 characters, Latin letters and digits only, with at least one digit.",
+      "invalid": "Check the form fields and try again.",
+      "emailTaken": "This email is already registered.",
+      "nicknameTaken": "This nickname is already taken.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Please try again.",
+      "server": "Could not create the account right now. Please try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "accountPage": {
+    "navAriaLabel": "Account navigation",
+    "navTitle": "Account",
+    "navProfile": "Profile",
+    "navTravelRisk": "Travel Risk",
+    "navFplValidator": "FPL Validator",
+    "signOut": "Sign out",
+    "profileTitle": "Account details",
+    "profileSubtitle": "View and update your profile information.",
+    "nicknameLabel": "Nickname",
+    "emailLabel": "Email",
+    "passwordLabel": "New password",
+    "passwordHint": "Leave blank to keep your current password.",
+    "createdAt": "Account created: {value}",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "saveSuccess": "Profile updated.",
+    "noChanges": "No changes to save.",
+    "loading": "Loading profile…",
+    "travelRiskTitle": "Travel Risk",
+    "travelRiskSubtitle": "Check delay, cancellation, and connection risk for your flight.",
+    "errors": {
+      "loadFailed": "Could not load your profile. Please try again.",
+      "saveFailed": "Could not save changes. Please try again.",
+      "invalid": "Check the fields and try again.",
+      "emailInvalid": "Enter a valid email (max 254 characters).",
+      "nicknameInvalid": "Nickname must be 1–64 characters."
+    }
+  },
+  "fplValidatorPage": {
+    "title": "ICAO FPL Validator",
+    "subtitle": "Validate ICAO flight plans, review ICAO explanations, and track your training score.",
+    "sections": {
+      "checkTitle": "Check telegram",
+      "resultsTitle": "Results",
+      "statsTitle": "Your statistics"
+    },
+    "check": {
+      "inputLabel": "ICAO FPL telegram",
+      "placeholder": "Paste a full ICAO FPL, starting with (FPL-…",
+      "hint": "Only ICAO FPL text. Use the example if you need a starting point. Tip: include VALIDDEMO for a demo VALID result.",
+      "charCount": "{count} characters",
+      "submit": "Check",
+      "checking": "Checking…",
+      "loading": "Preparing validation…",
+      "example": "Example FPL",
+      "exampleAria": "Insert an example ICAO FPL into the field"
+    },
+    "results": {
+      "idle": "Run a check to see VALID/INVALID status, score, errors, and warnings.",
+      "statusValid": "VALID",
+      "statusInvalid": "INVALID",
+      "scoreLabel": "Score:",
+      "demoNote": "Demo result (local). Live API validation will replace this in the next integration phase.",
+      "errorsTitle": "Errors",
+      "warningsTitle": "Warnings",
+      "infosTitle": "Info",
+      "errorsEmpty": "No errors.",
+      "warningsEmpty": "No warnings.",
+      "infosEmpty": "No info messages.",
+      "icaoLabel": "ICAO: {ref}",
+      "focusHint": "Click to highlight in the FPL",
+      "explainHint": "Click to open ICAO explanation",
+      "focusIssueAria": "Explain and highlight issue {code}",
+      "statsChipsAria": "Message counts",
+      "chipErrors": "Errors: {count}",
+      "chipWarnings": "Warnings: {count}",
+      "chipInfos": "Info: {count}",
+      "requestId": "request_id: {id}",
+      "openHistory": "Open history",
+      "historyLoading": "Loading history…",
+      "versions": "parser {parser} · rules {rules}"
+    },
+    "explain": {
+      "title": "Rule explanation",
+      "close": "Close",
+      "closeAria": "Close explanation panel",
+      "loading": "Loading explanation…",
+      "icaoLabel": "ICAO reference"
+    },
+    "highlight": {
+      "title": "Highlighted FPL",
+      "legendAria": "Highlight legend",
+      "legendError": "Error",
+      "legendWarning": "Warning",
+      "a11yNote": "Highlights are visual only — use the errors and warnings lists above for the full explanation.",
+      "unmappedNote": "{count, plural, one {# issue could not be mapped to a text span.} other {# issues could not be mapped to a text span.}}",
+      "sourceLabel": "Source telegram with inline error and warning marks."
+    },
+    "stats": {
+      "remoteNote": "Learning stats from the server (authenticated). Recent checks below are kept locally for quick recall.",
+      "localNote": "Local recent-check list (sessionStorage). Sign in and validate with Bearer so server stats update.",
+      "demoNote": "Local session statistics (sessionStorage). Server history/stats API will replace this after integration.",
+      "empty": "No checks yet. Run a validation to build your history, average score, and frequent errors.",
+      "summaryAria": "Validation summary",
+      "totalChecks": "Total checks",
+      "averageScore": "Average score",
+      "trainingAverage": "Learning avg. (local)",
+      "errorTotal": "Errors (server)",
+      "validInvalid": "VALID / INVALID",
+      "validInvalidValue": "{valid} / {invalid}",
+      "modeFilterLabel": "Show",
+      "modeAll": "All modes",
+      "modeProduction": "Strict",
+      "modeTraining": "Learning",
+      "modeBadgeProduction": "Strict",
+      "modeBadgeTraining": "Learning",
+      "filterEmpty": "No checks for this mode yet.",
+      "historyTitle": "Recent checks",
+      "showMore": "Show more ({remaining} left)",
+      "frequentTitle": "Top rules",
+      "frequentEmpty": "No errors recorded yet.",
+      "frequentCount": "{count}×"
+    },
+    "training": {
+      "modeLabel": "Validation mode",
+      "modeProduction": "Strict",
+      "modeTraining": "Learning",
+      "modeProductionHint": "Strict scoring — full penalties for rule violations.",
+      "modeTrainingHint": "Learning mode — softer score penalties; breakdown and fix hints.",
+      "breakdownTitle": "What lowered the score",
+      "breakdownEmpty": "Nothing reduced the score.",
+      "breakdownDelta": "{delta}",
+      "icaoExplainTitle": "ICAO",
+      "fixHintTitle": "How to fix",
+      "hintFallback": "Review the ICAO explanation and correct the highlighted fragment.",
+      "hints": {
+        "ITEM7_ACID_FORMAT": "Use 2–7 alphanumeric characters for aircraft identification (Item 7), no spaces.",
+        "ITEM10_EQUIPMENT_CHECK": "Align equipment and SSR capability codes with Item 10 letters/digits from Doc 4444.",
+        "ITEM15_ROUTE_SYNTAX": "Check speed/level and route elements (SID/STAR/DCT/points) against Item 15 syntax.",
+        "ITEM18_DOF_CHECK": "Set DOF/ as YYMMDD for the intended departure date in Item 18.",
+        "F13_AIRPORT_EXISTS": "Replace unknown aerodrome codes with a valid ICAO airport (e.g. UUEE, ULLI).",
+        "F10_R_REQUIRES_PBN": "When Item 10a includes R, add a matching PBN/ entry in Item 18.",
+        "F18_PBN_REQUIRED": "Add PBN/… in other information when required by equipment codes.",
+        "F18_DOF_FORMAT": "Set DOF/ as YYMMDD for the intended departure date."
+      }
+    },
+    "errors": {
+      "empty": "Paste an ICAO FPL telegram to continue.",
+      "invalid": "Validation request was rejected. Check the FPL text and try again.",
+      "parseError": "Could not parse the FPL telegram.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Try again.",
+      "server": "Server error while validating the FPL.",
+      "unauthorized": "Session expired. Please sign in again.",
+      "authRequired": "Sign in to view history and learning stats.",
+      "forbidden": "You do not have access to this validation history.",
+      "notFound": "Validation history was not found."
+    }
+  },
+  "privacyPage": {
+    "title": "Privacy Policy and Cookies",
+    "subtitle": "How Passenger Rights AI handles personal data and cookie use.",
+    "content": [
+      "Passenger Rights AI processes only the information needed to assess travel risk and communicate with users.",
+      "Cookie files may be used for essential site operation, language preference, and product analytics.",
+      "You can manage cookie preferences in your browser settings. Product-specific privacy controls will expand as the platform grows.",
+      "This page is a working draft for the frontend MVP and will be updated with jurisdiction-specific legal language."
+    ]
+  },
+  "legalPage": {
+    "title": "Legal Notice",
+    "subtitle": "Important legal information about using Passenger Rights AI.",
+    "content": [
+      "Passenger Rights AI provides informational risk assessments and does not replace airline policies, insurance contracts, or legal counsel.",
+      "Compensation outcomes depend on applicable regulations, airline rules, and case-specific evidence.",
+      "Content on this website is provided as-is for product demonstration purposes while backend integrations are completed.",
+      "For formal claims, always verify rights with the carrier and relevant passenger protection authorities."
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/**
+
+# Next.js / Turbopack output
+.next/**
+.turbo/**
+out/**
+dist/**
+
+# Coverage
+coverage/**
+
+# Logs
+*.log
+logs/**
+
+# Env files
+.env*
+
+# VCS
+.git/**
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/**
+.vscode/**
+
+# Cursor caches (do not ignore .cursor/rules)
+.cursor/cache/**
+.cursor/workspaceStorage/**
