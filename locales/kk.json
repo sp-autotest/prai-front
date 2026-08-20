@@ -37,12 +37,15 @@
     "subtitle": "Рейсті бір жолмен енгізіп, кешігу, тоқтату және ауысым тәуекелінің рейтингін алыңыз.",
     "inputLabel": "Рейс сұранысы",
     "searchPlaceholder": "SK1587, Мәскеу → Стамбул → Амстердам, 12 қыркүйек",
-    "hint": "Рейс нөмірін, бағытты және күнді үтірмен бөліп енгізіңіз.",
+    "hint": "Рейс нөмірі, бағыт және күн. Үтірлер көмектеседі; басқа форматтар да қабылданады.",
     "checkRisk": "Тәуекелді тексеру",
     "checking": "Тексерілуде…",
     "loading": "Саяхат тәуекелі есептелуде…",
     "scoreLabel": "Саяхат тәуекелі",
     "scoreValueAria": "Саяхат тәуекелінің көрсеткіші {value}",
+    "warningsTitle": "Ескертпелер",
+    "airlineKnown": "{name} ({code})",
+    "airlineUnknown": "Белгісіз әуе компаниясы {code}",
     "metricsAriaLabel": "Саяхат тәуекелінің метрикалары",
     "percent": "{value}%",
     "minutes": "{value} мин",
@@ -68,6 +71,8 @@
       "empty": "Жалғастыру үшін рейс сұранысын енгізіңіз.",
       "invalid": "Сұранысты талдау мүмкін болмады. Формат: рейс, → бар бағыт, күн.",
       "authRequired": "Қызмет тек тіркелген пайдаланушыларға қолжетімді, жүйеге тіркеліңіз",
+      "scoringUnavailable": "Бұл сұраныс үшін тәуекел скорингі қолжетімсіз.",
+      "scoringUnavailableAirline": "Әуе компаниясы анықтамалықта жоқ, метрикаларды есептеу мүмкін емес.",
       "network": "Желі қатесі. Қосылымды тексеріп, қайталап көріңіз.",
       "timeout": "Сұраныс уақыты аяқталды. Қайталап көріңіз.",
       "server": "Travel Risk қазір жүктелмеді. Қайталап көріңіз.",
@@ -176,6 +181,7 @@
     "navProfile": "Профиль",
     "navTravelRisk": "Саяхат тәуекелі",
     "navFplValidator": "FPL Validator",
+    "navDirectories": "Анықтамалықтар",
     "signOut": "Шығу",
     "profileTitle": "Аккаунт деректері",
     "profileSubtitle": "Профиль ақпаратын қараңыз және өзгертіңіз.",
@@ -210,7 +216,7 @@
     "check": {
       "inputLabel": "ICAO FPL телеграммасы",
       "placeholder": "Толық ICAO FPL-ді (FPL-… деп бастап қойыңыз",
-      "hint": "Тек ICAO FPL мәтіні. Қажет болса үлгіні қойыңыз. Кеңес: VALIDDEMO — демо VALID нәтижесі.",
+      "hint": "Тек ICAO FPL мәтіні. Қажет болса үлгіні қойыңыз.",
       "charCount": "{count} таңба",
       "submit": "Тексеру",
       "checking": "Тексерілуде…",
@@ -339,5 +345,89 @@
       "Сайт контенті backend интеграциясы аяқталғанға дейін демонстрациялық мақсатта ұсынылады.",
       "Ресми талаптар үшін құқықтарыңызды әрдайым тасымалдаушы мен құзырлы органдармен тексеріңіз."
     ]
+  },
+  "directoriesPage": {
+    "title": "Анықтамалықтар",
+    "subtitle": "Платформа анықтамалықтарында әуежайлар, әуе компаниялары, елдер, қалалар, жүк кластары, мотор түрлері, ӘК санаттары және ӘК жабдықтарын іздеңіз.",
+    "tabsAria": "Анықтамалық бөлімдері",
+    "tabs": {
+      "airports": "Әуежайлар",
+      "airlines": "Әуе компаниялары",
+      "countries": "Елдер",
+      "cities": "Қалалар",
+      "freightClasses": "Жүк кластары",
+      "engineTypes": "Мотор түрлері",
+      "equipmentCategories": "ӘК санаттары",
+      "equipment": "Жабдық"
+    },
+    "fields": {
+      "name": "Атауы",
+      "iata": "IATA",
+      "icao": "ICAO",
+      "faa": "FAA"
+    },
+    "search": "Іздеу",
+    "searching": "Ізделуде…",
+    "resultsCount": "Табылды: {count}",
+    "empty": "Ештеңе табылмады.",
+    "airports": {
+      "title": "Әуежайлар",
+      "hint": "Кемінде бір өрісті көрсетіңіз: атауы, IATA немесе ICAO.",
+      "namePlaceholder": "Шереметьево / Мәскеу"
+    },
+    "airlines": {
+      "title": "Әуе компаниялары",
+      "hint": "Кемінде бір өрісті көрсетіңіз: атауы немесе IATA.",
+      "namePlaceholder": "Аэрофлот",
+      "limitLabel": "Limit",
+      "limitPlaceholder": "50",
+      "detailsSummary": "Full data",
+      "detailsAriaLabel": "Full airline data"
+    },
+    "countries": {
+      "title": "Елдер",
+      "hint": "Қосымша сүзгілер: ISO/DOT коды немесе атауы.",
+      "namePlaceholder": "Ресей",
+      "codeLabel": "Ел коды",
+      "codePlaceholder": "RU"
+    },
+    "equipment": {
+      "title": "Жабдық",
+      "hint": "ӘК типтері — қосымша сүзгілер: атауы, IATA, ICAO немесе FAA.",
+      "namePlaceholder": "Boeing 737",
+      "wake": "Турбуленттілік санаты: {value}"
+    },
+    "errors": {
+      "generic": "Анықтамалықты жүктеу мүмкін болмады. Қайталап көріңіз."
+    },
+    "cities": {
+      "title": "Қалалар",
+      "hint": "Қосымша сүзгілер: ел коды, қала коды немесе атауы.",
+      "namePlaceholder": "Мәскеу",
+      "countryCodeLabel": "Ел коды",
+      "codeLabel": "Қала коды"
+    },
+    "freightClasses": {
+      "title": "Жүк кластары",
+      "hint": "Қосымша сүзгілер: код немесе атауы (OAG freightClasses каталогы).",
+      "namePlaceholder": "Pallets",
+      "codeLabel": "Код"
+    },
+    "engineTypes": {
+      "title": "Мотор түрлері",
+      "hint": "Қосымша сүзгілер: код немесе атауы.",
+      "namePlaceholder": "Electric",
+      "codeLabel": "Код",
+      "codePlaceholder": "E"
+    },
+    "equipmentCategories": {
+      "title": "ӘК санаттары",
+      "hint": "Қосымша сүзгілер: жүйе (iata/icao), код немесе атауы.",
+      "namePlaceholder": "Jet-engined aircraft",
+      "systemLabel": "Жүйе",
+      "systemPlaceholder": "iata / icao",
+      "codeLabel": "Код",
+      "codePlaceholder": "H2J"
+    }
   }
 }

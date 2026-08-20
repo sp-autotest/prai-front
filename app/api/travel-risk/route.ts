@@ -28,39 +28,31 @@ const parseRequestBody = (body: TravelRiskRequestBody): TravelRiskRequest | null
     (typeof body.raw === "string" && body.raw.trim()) ||
     "";
 
-  if (typeof body.flightNumber === "string" && body.flightNumber.trim()) {
-    const route = Array.isArray(body.route)
-      ? body.route
-          .filter((stop): stop is string => typeof stop === "string")
-          .map((stop) => stop.trim())
-          .filter(Boolean)
-      : [];
+  const flightNumber =
+    typeof body.flightNumber === "string" ? body.flightNumber.trim().toUpperCase() : "";
+  const route = Array.isArray(body.route)
+    ? body.route
+        .filter((stop): stop is string => typeof stop === "string")
+        .map((stop) => stop.trim())
+        .filter(Boolean)
+    : [];
+  const dateLabel = typeof body.dateLabel === "string" ? body.dateLabel.trim() : "";
 
-    if (route.length >= 2) {
-      return {
-        flightNumber: body.flightNumber.trim().toUpperCase(),
-        route,
-        dateLabel: typeof body.dateLabel === "string" ? body.dateLabel.trim() : "",
-        raw:
-          freeText ||
-          [
-            body.flightNumber.trim().toUpperCase(),
-            route.join(" → "),
-            typeof body.dateLabel === "string" ? body.dateLabel.trim() : "",
-          ]
-            .filter(Boolean)
-            .join(", "),
-      };
-    }
-  }
-
-  // Free-text only: let the backend parser resolve the query.
   if (freeText) {
     return {
-      flightNumber: "UNKNOWN",
-      route: ["Origin", "Destination"],
-      dateLabel: "",
+      flightNumber: flightNumber || undefined,
+      route: route.length >= 2 ? route : undefined,
+      dateLabel: dateLabel || undefined,
       raw: freeText,
+    };
+  }
+
+  if (flightNumber && route.length >= 2) {
+    return {
+      flightNumber,
+      route,
+      dateLabel,
+      raw: [flightNumber, route.join(" → "), dateLabel].filter(Boolean).join(", "),
     };
   }
 

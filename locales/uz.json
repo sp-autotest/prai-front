@@ -37,12 +37,15 @@
     "subtitle": "Reysni bitta qatorda kiriting va kechikish, bekor qilish hamda ulanish xavfi reytingini oling.",
     "inputLabel": "Reys so‘rovi",
     "searchPlaceholder": "SK1587, Moskva → Istanbul → Amsterdam, 12 sentabr",
-    "hint": "Reys raqami, marshrut va sanani vergul bilan ajratib kiriting.",
+    "hint": "Reys raqami, marshrut va sana. Vergullar yordam beradi; boshqa formatlar ham qabul qilinadi.",
     "checkRisk": "Xavfni tekshirish",
     "checking": "Tekshirilmoqda…",
     "loading": "Sayohat xavfi hisoblanmoqda…",
     "scoreLabel": "Sayohat xavfi",
     "scoreValueAria": "Sayohat xavfi ko‘rsatkichi {value}",
+    "warningsTitle": "Izohlar",
+    "airlineKnown": "{name} ({code})",
+    "airlineUnknown": "Noma’lum aviakompaniya {code}",
     "metricsAriaLabel": "Sayohat xavfi metrikalari",
     "percent": "{value}%",
     "minutes": "{value} daqiqa",
@@ -68,6 +71,8 @@
       "empty": "Davom etish uchun reys so‘rovini kiriting.",
       "invalid": "So‘rovni tahlil qilib bo‘lmadi. Format: reys, → bilan marshrut, sana.",
       "authRequired": "Xizmat faqat ro‘yxatdan o‘tgan foydalanuvchilar uchun mavjud, tizimda ro‘yxatdan o‘ting",
+      "scoringUnavailable": "Bu so‘rov uchun xavf skoringi mavjud emas.",
+      "scoringUnavailableAirline": "Aviakompaniya ma’lumotnomada yo‘q, metrikalar hisoblanmaydi.",
       "network": "Tarmoq xatosi. Ulanishni tekshirib, qayta urinib ko‘ring.",
       "timeout": "So‘rov vaqti tugadi. Qayta urinib ko‘ring.",
       "server": "Travel Risk hozir yuklanmadi. Qayta urinib ko‘ring.",
@@ -176,6 +181,7 @@
     "navProfile": "Profil",
     "navTravelRisk": "Sayohat xavfi",
     "navFplValidator": "FPL Validator",
+    "navDirectories": "Ma’lumotnomalar",
     "signOut": "Chiqish",
     "profileTitle": "Hisob ma’lumotlari",
     "profileSubtitle": "Profil ma’lumotlarini ko‘ring va o‘zgartiring.",
@@ -210,7 +216,7 @@
     "check": {
       "inputLabel": "ICAO FPL telegrammasi",
       "placeholder": "To‘liq ICAO FPL ni (FPL-… bilan boshlang",
-      "hint": "Faqat ICAO FPL matni. Kerak bo‘lsa namunani qo‘ying. Maslahat: VALIDDEMO — demo VALID natija.",
+      "hint": "Faqat ICAO FPL matni. Kerak bo‘lsa namunani qo‘ying.",
       "charCount": "{count} belgi",
       "submit": "Tekshirish",
       "checking": "Tekshirilmoqda…",
@@ -339,5 +345,89 @@
       "Sayt kontenti backend integratsiyasi tugaguncha namoyish maqsadida taqdim etiladi.",
       "Rasmiy da’volar uchun huquqlaringizni doimo tashuvchi va vakolatli organlar bilan tekshiring."
     ]
+  },
+  "directoriesPage": {
+    "title": "Ma’lumotnomalar",
+    "subtitle": "Platforma ma’lumotnomalarida aeroportlar, aviakompaniyalar, davlatlar, shaharlar, yuk klasslari, motor turlari, HS toifalari va HS jihozlarini qidiring.",
+    "tabsAria": "Ma’lumotnoma bo‘limlari",
+    "tabs": {
+      "airports": "Aeroportlar",
+      "airlines": "Aviakompaniyalar",
+      "countries": "Davlatlar",
+      "cities": "Shaharlar",
+      "freightClasses": "Yuk klasslari",
+      "engineTypes": "Motor turlari",
+      "equipmentCategories": "HS toifalari",
+      "equipment": "Jihozlar"
+    },
+    "fields": {
+      "name": "Nomi",
+      "iata": "IATA",
+      "icao": "ICAO",
+      "faa": "FAA"
+    },
+    "search": "Qidirish",
+    "searching": "Qidirilmoqda…",
+    "resultsCount": "Topildi: {count}",
+    "empty": "Hech narsa topilmadi.",
+    "airports": {
+      "title": "Aeroportlar",
+      "hint": "Kamida bittasini kiriting: nom, IATA yoki ICAO.",
+      "namePlaceholder": "Sheremetyevo / Moskva"
+    },
+    "airlines": {
+      "title": "Aviakompaniyalar",
+      "hint": "Kamida bittasini kiriting: nom yoki IATA.",
+      "namePlaceholder": "Aeroflot",
+      "limitLabel": "Limit",
+      "limitPlaceholder": "50",
+      "detailsSummary": "Full data",
+      "detailsAriaLabel": "Full airline data"
+    },
+    "countries": {
+      "title": "Davlatlar",
+      "hint": "Ixtiyoriy filtrlar: ISO/DOT kodi yoki nom.",
+      "namePlaceholder": "Rossiya",
+      "codeLabel": "Davlat kodi",
+      "codePlaceholder": "RU"
+    },
+    "equipment": {
+      "title": "Jihozlar",
+      "hint": "HS turlari — ixtiyoriy filtrlar: nom, IATA, ICAO yoki FAA.",
+      "namePlaceholder": "Boeing 737",
+      "wake": "Turbulentlik toifasi: {value}"
+    },
+    "errors": {
+      "generic": "Ma’lumotnomani yuklab bo‘lmadi. Qayta urinib ko‘ring."
+    },
+    "cities": {
+      "title": "Shaharlar",
+      "hint": "Ixtiyoriy filtrlar: davlat kodi, shahar kodi yoki nom.",
+      "namePlaceholder": "Moskva",
+      "countryCodeLabel": "Davlat kodi",
+      "codeLabel": "Shahar kodi"
+    },
+    "freightClasses": {
+      "title": "Yuk klasslari",
+      "hint": "Ixtiyoriy filtrlar: kod yoki nom (OAG freightClasses katalogi).",
+      "namePlaceholder": "Pallets",
+      "codeLabel": "Kod"
+    },
+    "engineTypes": {
+      "title": "Motor turlari",
+      "hint": "Ixtiyoriy filtrlar: kod yoki nom.",
+      "namePlaceholder": "Electric",
+      "codeLabel": "Kod",
+      "codePlaceholder": "E"
+    },
+    "equipmentCategories": {
+      "title": "HS toifalari",
+      "hint": "Ixtiyoriy filtrlar: tizim (iata/icao), kod yoki nom.",
+      "namePlaceholder": "Jet-engined aircraft",
+      "systemLabel": "Tizim",
+      "systemPlaceholder": "iata / icao",
+      "codeLabel": "Kod",
+      "codePlaceholder": "H2J"
+    }
   }
 }

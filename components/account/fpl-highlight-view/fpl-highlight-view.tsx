@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import {
   buildFplHighlightSegments,
   countUnmappedIssues,
+  hasHighlightMarks,
 } from "@/lib/fpl-validator/build-highlight-segments";
 import type { FplTextRange } from "@/lib/fpl-validator/build-highlight-segments";
 import type { FplValidateResponse } from "@/types/fpl-validator";
@@ -39,6 +40,8 @@ export const FplHighlightView = ({ result, activeRange = null }: FplHighlightVie
     [source, result.errors, result.warnings],
   );
 
+  const hasMarks = useMemo(() => hasHighlightMarks(segments), [segments]);
+
   const unmappedCount = useMemo(
     () => countUnmappedIssues(source, [...result.errors, ...result.warnings]),
     [source, result.errors, result.warnings],
@@ -58,19 +61,21 @@ export const FplHighlightView = ({ result, activeRange = null }: FplHighlightVie
         <h3 className={styles.view__title} id="fpl-highlight-title">
           {t("highlight.title")}
         </h3>
-        <ul className={styles.view__legend} aria-label={t("highlight.legendAria")}>
-          <li className={styles.view__legendItem}>
-            <span className={[styles.view__swatch, styles["view__swatch--error"]].join(" ")} aria-hidden="true" />
-            {t("highlight.legendError")}
-          </li>
-          <li className={styles.view__legendItem}>
-            <span
-              className={[styles.view__swatch, styles["view__swatch--warning"]].join(" ")}
-              aria-hidden="true"
-            />
-            {t("highlight.legendWarning")}
-          </li>
-        </ul>
+        {hasMarks ? (
+          <ul className={styles.view__legend} aria-label={t("highlight.legendAria")}>
+            <li className={styles.view__legendItem}>
+              <span className={[styles.view__swatch, styles["view__swatch--error"]].join(" ")} aria-hidden="true" />
+              {t("highlight.legendError")}
+            </li>
+            <li className={styles.view__legendItem}>
+              <span
+                className={[styles.view__swatch, styles["view__swatch--warning"]].join(" ")}
+                aria-hidden="true"
+              />
+              {t("highlight.legendWarning")}
+            </li>
+          </ul>
+        ) : null}
         <p className={styles.view__note}>{t("highlight.a11yNote")}</p>
         {unmappedCount > 0 ? (
           <p className={styles.view__note}>

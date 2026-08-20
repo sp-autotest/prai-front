@@ -37,12 +37,15 @@
     "subtitle": "Введите рейс одной строкой и получите рейтинг риска задержек, отмен и стыковок.",
     "inputLabel": "Запрос рейса",
     "searchPlaceholder": "SK1587, Москва → Стамбул → Амстердам, 12 сентября",
-    "hint": "Укажите номер рейса, маршрут и дату через запятую.",
+    "hint": "Номер рейса, маршрут и дата. Запятые помогают, но допустимы и другие форматы.",
     "checkRisk": "Проверить риск",
     "checking": "Проверяем…",
     "loading": "Считаем Travel Risk…",
     "scoreLabel": "Travel Risk",
     "scoreValueAria": "Оценка Travel Risk {value}",
+    "warningsTitle": "Замечания",
+    "airlineKnown": "{name} ({code})",
+    "airlineUnknown": "Неизвестная авиакомпания {code}",
     "metricsAriaLabel": "Метрики Travel Risk",
     "percent": "{value}%",
     "minutes": "{value} мин",
@@ -68,6 +71,8 @@
       "empty": "Введите запрос рейса, чтобы продолжить.",
       "invalid": "Не удалось разобрать запрос. Формат: рейс, маршрут с →, дата.",
       "authRequired": "Сервис доступен только для пользователей, зарегистрируйтесь в системе",
+      "scoringUnavailable": "Скоринг риска для этого запроса недоступен.",
+      "scoringUnavailableAirline": "Авиакомпания не найдена в справочнике, метрики риска рассчитать нельзя.",
       "network": "Ошибка сети. Проверьте подключение и попробуйте ещё раз.",
       "timeout": "Превышено время ожидания. Попробуйте ещё раз.",
       "server": "Не удалось загрузить Travel Risk. Попробуйте ещё раз.",
@@ -176,6 +181,7 @@
     "navProfile": "Профиль",
     "navTravelRisk": "Travel Risk",
     "navFplValidator": "FPL Validator",
+    "navDirectories": "Справочники",
     "signOut": "Выйти",
     "profileTitle": "Данные аккаунта",
     "profileSubtitle": "Просматривайте и изменяйте данные профиля.",
@@ -199,6 +205,90 @@
       "nicknameInvalid": "Никнейм должен быть от 1 до 64 символов."
     }
   },
+  "directoriesPage": {
+    "title": "Справочники",
+    "subtitle": "Поиск аэропортов, авиакомпаний, стран, городов, классов грузов, типов двигателей, категорий ВС и типов ВС в справочниках платформы.",
+    "tabsAria": "Разделы справочников",
+    "tabs": {
+      "airports": "Аэропорты",
+      "airlines": "Авиакомпании",
+      "countries": "Страны",
+      "cities": "Города",
+      "freightClasses": "Классы грузов",
+      "engineTypes": "Типы двигателей",
+      "equipmentCategories": "Категории ВС",
+      "equipment": "Оборудование"
+    },
+    "fields": {
+      "name": "Название",
+      "iata": "IATA",
+      "icao": "ICAO",
+      "faa": "FAA"
+    },
+    "search": "Найти",
+    "searching": "Поиск…",
+    "resultsCount": "Найдено: {count}",
+    "empty": "Ничего не найдено.",
+    "airports": {
+      "title": "Аэропорты",
+      "hint": "Укажите хотя бы одно из полей: название, IATA или ICAO.",
+      "namePlaceholder": "Шереметьево / Москва"
+    },
+    "airlines": {
+      "title": "Авиакомпании",
+      "hint": "Укажите хотя бы одно из полей: название или IATA.",
+      "namePlaceholder": "Аэрофлот",
+      "limitLabel": "Limit",
+      "limitPlaceholder": "50",
+      "detailsSummary": "Full data",
+      "detailsAriaLabel": "Full airline data"
+    },
+    "countries": {
+      "title": "Страны",
+      "hint": "Необязательные фильтры: код ISO/DOT или название.",
+      "namePlaceholder": "Россия",
+      "codeLabel": "Код страны",
+      "codePlaceholder": "RU"
+    },
+    "equipment": {
+      "title": "Оборудование",
+      "hint": "Типы ВС — необязательные фильтры: название, IATA, ICAO или FAA.",
+      "namePlaceholder": "Boeing 737",
+      "wake": "Категория турбулентности: {value}"
+    },
+    "errors": {
+      "generic": "Не удалось загрузить справочник. Попробуйте ещё раз."
+    },
+    "cities": {
+      "title": "Города",
+      "hint": "Необязательные фильтры: код страны, код города или название.",
+      "namePlaceholder": "Москва",
+      "countryCodeLabel": "Код страны",
+      "codeLabel": "Код города"
+    },
+    "freightClasses": {
+      "title": "Классы грузов",
+      "hint": "Необязательные фильтры: код или название (каталог OAG freightClasses).",
+      "namePlaceholder": "Pallets",
+      "codeLabel": "Код"
+    },
+    "engineTypes": {
+      "title": "Типы двигателей",
+      "hint": "Необязательные фильтры: код или название.",
+      "namePlaceholder": "Electric",
+      "codeLabel": "Код",
+      "codePlaceholder": "E"
+    },
+    "equipmentCategories": {
+      "title": "Категории ВС",
+      "hint": "Необязательные фильтры: система (iata/icao), код или название.",
+      "namePlaceholder": "Jet-engined aircraft",
+      "systemLabel": "Система",
+      "systemPlaceholder": "iata / icao",
+      "codeLabel": "Код",
+      "codePlaceholder": "H2J"
+    }
+  },
   "fplValidatorPage": {
     "title": "ICAO FPL Validator",
     "subtitle": "Проверяйте ICAO FPL, смотрите пояснения по нормам и отслеживайте учебный score.",
@@ -210,7 +300,7 @@
     "check": {
       "inputLabel": "Телеграмма ICAO FPL",
       "placeholder": "Вставьте полный ICAO FPL, начиная с (FPL-…",
-      "hint": "Только текст ICAO FPL. При необходимости подставьте пример. Подсказка: VALIDDEMO в тексте даёт демо VALID.",
+      "hint": "Только текст ICAO FPL. При необходимости подставьте пример.",
       "charCount": "{count} символов",
       "submit": "Проверить",
       "checking": "Проверяем…",

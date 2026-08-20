@@ -137,3 +137,84 @@ export const getFplValidatorApiConfig = (): FplValidatorApiConfig => {
     explainClientEndpoint: explainClientEndpoint || "/api/fpl/explain",
   };
 };
+
+export type DirectoriesApiConfig = {
+  airportsRemoteUrl: string;
+  airlinesRemoteUrl: string;
+  countriesRemoteUrl: string;
+  citiesRemoteUrl: string;
+  equipmentRemoteUrl: string;
+  freightClassesRemoteUrl: string;
+  engineTypesRemoteUrl: string;
+  equipmentCategoriesRemoteUrl: string;
+  airportsClientEndpoint: string;
+  airlinesClientEndpoint: string;
+  countriesClientEndpoint: string;
+  citiesClientEndpoint: string;
+  equipmentClientEndpoint: string;
+  freightClassesClientEndpoint: string;
+  engineTypesClientEndpoint: string;
+  equipmentCategoriesClientEndpoint: string;
+};
+
+/**
+ * Reads directory search endpoint URLs (airports / airlines / cities / equipment / freight-classes).
+ * @returns {DirectoriesApiConfig} Normalized directory API configuration.
+ */
+export const getDirectoriesApiConfig = (): DirectoriesApiConfig => {
+  const base = getBackendApiBaseUrl();
+
+  return {
+    airportsRemoteUrl:
+      (process.env.DIRECTORIES_AIRPORTS_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/airports/`,
+    airlinesRemoteUrl:
+      (process.env.DIRECTORIES_AIRLINES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/airlines/`,
+    countriesRemoteUrl:
+      (process.env.DIRECTORIES_COUNTRIES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/countries/`,
+    citiesRemoteUrl:
+      (process.env.DIRECTORIES_CITIES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/cities/`,
+    equipmentRemoteUrl:
+      (process.env.DIRECTORIES_EQUIPMENT_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/equipment/`,
+    freightClassesRemoteUrl:
+      (process.env.DIRECTORIES_FREIGHT_CLASSES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/freight-classes/`,
+    engineTypesRemoteUrl:
+      (process.env.DIRECTORIES_ENGINE_TYPES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/engine-types/`,
+    equipmentCategoriesRemoteUrl:
+      (process.env.DIRECTORIES_EQUIPMENT_CATEGORIES_API_URL ?? "").trim() ||
+      `${base}/api/v1/flights/equipment-categories/`,
+    airportsClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_AIRPORTS_API_URL ?? "/api/directories/airports"
+    ).trim() || "/api/directories/airports",
+    airlinesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_AIRLINES_API_URL ?? "/api/directories/airlines"
+    ).trim() || "/api/directories/airlines",
+    countriesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_COUNTRIES_API_URL ?? "/api/directories/countries"
+    ).trim() || "/api/directories/countries",
+    citiesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_CITIES_API_URL ?? "/api/directories/cities"
+    ).trim() || "/api/directories/cities",
+    equipmentClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_EQUIPMENT_API_URL ?? "/api/directories/equipment"
+    ).trim() || "/api/directories/equipment",
+    freightClassesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_FREIGHT_CLASSES_API_URL ??
+        "/api/directories/freight-classes"
+    ).trim() || "/api/directories/freight-classes",
+    engineTypesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_ENGINE_TYPES_API_URL ??
+        "/api/directories/engine-types"
+    ).trim() || "/api/directories/engine-types",
+    equipmentCategoriesClientEndpoint: (
+      process.env.NEXT_PUBLIC_DIRECTORIES_EQUIPMENT_CATEGORIES_API_URL ??
+        "/api/directories/equipment-categories"
+    ).trim() || "/api/directories/equipment-categories",
+  };
+};

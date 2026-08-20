@@ -1,9 +1,12 @@
 import type {
+  FlightAnalyzeAirline,
   FlightAnalyzeAnalysis,
   FlightAnalyzeMissedConnection,
+  FlightAnalyzeParsed,
   FlightAnalyzeResponse,
   ParsedFlightQuery,
   RiskLevel,
+  TravelRiskAirline,
   TravelRiskRequest,
   TravelRiskResponse,
   TurbulenceLevel,
@@ -11,6 +14,22 @@ import type {
 
 const RISK_LEVELS: readonly RiskLevel[] = ["low", "medium", "high"];
 const TURBULENCE_LEVELS: readonly TurbulenceLevel[] = ["light", "moderate", "severe"];
+
+const RISK_ALIASES: Record<string, RiskLevel> = {
+  low: "low",
+  medium: "medium",
+  moderate: "medium",
+  high: "high",
+};
+
+const TURBULENCE_ALIASES: Record<string, TurbulenceLevel> = {
+  light: "light",
+  low: "light",
+  moderate: "moderate",
+  medium: "moderate",
+  severe: "severe",
+  high: "severe",
+};
 
 /**
  * Coerces an unknown value to a finite number, or returns the fallback.
@@ -34,7 +53,7 @@ const toNumber = (value: unknown, fallback: number): number => {
 };
 
 /**
- * Normalizes a risk level string to the UI union, with fallback.
+ * Normalizes a risk level string to the UI union, with alias map (`moderate` → `medium`).
  * @param {unknown} value - Raw risk level.
  * @param {RiskLevel} fallback - Default when unknown.
  * @returns {RiskLevel} Normalized risk level.
@@ -45,13 +64,17 @@ const toRiskLevel = (value: unknown, fallback: RiskLevel = "low"): RiskLevel => 
   }
 
   const normalized = value.trim().toLowerCase();
+  if (RISK_ALIASES[normalized]) {
+    return RISK_ALIASES[normalized];
+  }
+
   return (RISK_LEVELS as readonly string[]).includes(normalized)
     ? (normalized as RiskLevel)
     : fallback;
 };
 
 /**
- * Normalizes turbulence to the UI union, with fallback.
+ * Normalizes turbulence to the UI union (`low`→`light`, `high`→`severe`).
  * @param {unknown} value - Raw turbulence level.
  * @param {TurbulenceLevel} fallback - Default when unknown.
  * @returns {TurbulenceLevel} Normalized turbulence.
@@ -65,6 +88,10 @@ const toTurbulence = (
   }
 
   const normalized = value.trim().toLowerCase();
+  if (TURBULENCE_ALIASES[normalized]) {
+    return TURBULENCE_ALIASES[normalized];
+  }
+
   return (TURBULENCE_LEVELS as readonly string[]).includes(normalized)
     ? (normalized as TurbulenceLevel)
     : fallback;
@@ -113,6 +140,59 @@ const deriveScore = (analysis: FlightAnalyzeAnalysis, connectionRisk: RiskLevel)
 };
 
 /**
+ * Maps backend `parsed.airline` into the UI airline block.
+ * @param {FlightAnalyzeAirline | null | undefined} airline - Backend airline node.
+ * @returns {TravelRiskAirline | null} UI airline or null when absent.
+ */
+const mapAirline = (airline: FlightAnalyzeAirline | null | undefined): TravelRiskAirline | null => {
+  if (!airline || typeof airline !== "object") {
+    return null;
+  }
+
+  const iataCode = airline.iata_code?.trim() || null;
+  const icaoCode = airline.icao_code?.trim() || null;
+  const name = airline.name?.trim() || null;
+
+  if (!iataCode && !icaoCode && !name && airline.known !== false) {
+    return null;
+  }
+
+  return {
+    iataCode,
+    icaoCode,
+    name,
+    known: airline.known !== false,
+  };
+};
+
+/**
+ * Collects parse warnings plus optional analysis note.
+ * @param {FlightAnalyzeParsed} parsed - Backend parsed payload.
+ * @param {FlightAnalyzeAnalysis | null} analysis - Analysis or null.
+ * @returns {string[]} Unique non-empty warnings.
+ */
+const collectWarnings = (
+  parsed: FlightAnalyzeParsed,
+  analysis: FlightAnalyzeAnalysis | null,
+): string[] => {
+  const items: string[] = [];
+
+  if (Array.isArray(parsed.warnings)) {
+    parsed.warnings.forEach((warning) => {
+      if (typeof warning === "string" && warning.trim()) {
+        items.push(warning.trim());
+      }
+    });
+  }
+
+  if (analysis?.note && typeof analysis.note === "string" && analysis.note.trim()) {
+    items.push(analysis.note.trim());
+  }
+
+  return Array.from(new Set(items));
+};
+
+/**
  * Builds a free-text analyze query for the backend from a structured request.
  * Prefers the original user `raw` string when present.
  * @param {TravelRiskRequest} request - Structured frontend request.
@@ -134,7 +214,7 @@ export const buildFlightAnalyzeQuery = (request: TravelRiskRequest): string => {
 
 /**
  * Maps backend FlightAnalyzeResponse → UI TravelRiskResponse.
- * Applies fallbacks for missing/partial analysis fields.
+ * Honors ``scoring_available=false`` / ``analysis=null`` without fake metrics.
  * @param {FlightAnalyzeResponse} response - Backend analyze payload.
  * @param {TravelRiskRequest} request - Original frontend request (for query echo fallback).
  * @returns {TravelRiskResponse} UI-ready assessment.
@@ -145,29 +225,57 @@ export const mapFlightAnalyzeToTravelRisk = (
   response: FlightAnalyzeResponse,
   request: TravelRiskRequest,
 ): TravelRiskResponse => {
-  const analysis = response.analysis ?? {};
   const parsed = response.parsed ?? {};
-  const connectionRisk = resolveConnectionRisk(analysis.missed_connection);
+  const analysis = response.analysis;
 
+  const places = Array.isArray(parsed.places)
+    ? parsed.places
+        .map((place) => place?.label?.trim() || place?.iata_code?.trim() || "")
+        .filter(Boolean)
+    : [];
+
+  const query: ParsedFlightQuery = {
+    flightNumber: (parsed.flight_number || request.flightNumber || "").toString().toUpperCase(),
+    route: places.length >= 2 ? places : request.route ?? [],
+    dateLabel: (parsed.travel_date || request.dateLabel || "").toString(),
+    raw: response.query || request.raw || buildFlightAnalyzeQuery(request),
+  };
+
+  if (response.scoring_available === false || analysis === null || typeof analysis !== "object") {
+    const mapped: TravelRiskResponse = {
+      scoringAvailable: false,
+      scoringUnavailableReason: response.scoring_unavailable_reason ?? null,
+      score: null,
+      delayOver15MinPercent: null,
+      delayOver1HourPercent: null,
+      cancellationPercent: null,
+      connectionRisk: null,
+      turbulence: null,
+      recommendedConnectionMinutes: null,
+      query,
+      airline: mapAirline(parsed.airline),
+      warnings: collectWarnings(parsed, null),
+      isStub: Boolean(response.is_stub),
+    };
+
+    console.debug("[travel-risk] mapped analyze → UI (scoring unavailable)", {
+      queryId: response.query_id,
+      reason: mapped.scoringUnavailableReason,
+      airlineKnown: mapped.airline?.known ?? null,
+    });
+
+    return mapped;
+  }
+
+  const connectionRisk = resolveConnectionRisk(analysis.missed_connection);
   const explicitScore = toNumber(
     analysis.score ?? analysis.travel_risk_score ?? analysis.risk_score,
     Number.NaN,
   );
 
-  const places = Array.isArray(parsed.places)
-    ? parsed.places
-        .map((place) => place?.label?.trim())
-        .filter((label): label is string => Boolean(label))
-    : [];
-
-  const query: ParsedFlightQuery = {
-    flightNumber: (parsed.flight_number || request.flightNumber || "").toString().toUpperCase(),
-    route: places.length >= 2 ? places : request.route,
-    dateLabel: (parsed.travel_date || request.dateLabel || "").toString(),
-    raw: response.query || request.raw || buildFlightAnalyzeQuery(request),
-  };
-
   const mapped: TravelRiskResponse = {
+    scoringAvailable: true,
+    scoringUnavailableReason: null,
     score: Number.isFinite(explicitScore) ? explicitScore : deriveScore(analysis, connectionRisk),
     delayOver15MinPercent: toNumber(analysis.delay_over_15_min_pct, 0),
     delayOver1HourPercent: toNumber(analysis.delay_over_1_hour_pct, 0),
@@ -178,6 +286,9 @@ export const mapFlightAnalyzeToTravelRisk = (
       toNumber(analysis.recommended_min_connection_minutes, 45),
     ),
     query,
+    airline: mapAirline(parsed.airline),
+    warnings: collectWarnings(parsed, analysis),
+    isStub: Boolean(response.is_stub),
   };
 
   console.debug("[travel-risk] mapped analyze → UI", {
@@ -185,6 +296,7 @@ export const mapFlightAnalyzeToTravelRisk = (
     isStub: response.is_stub,
     scoreSource: Number.isFinite(explicitScore) ? "api" : "derived",
     connectionRisk: mapped.connectionRisk,
+    turbulence: mapped.turbulence,
   });
 
   return mapped;

@@ -27,6 +27,7 @@ const getKeyNavPaths = (locale: Locale): string[] => {
     `/${locale}/account`,
     `/${locale}/account/travel-risk`,
     `/${locale}/account/fpl-validator`,
+    `/${locale}/account/directories`,
     `/${locale}/privacy`,
     `/${locale}/legal`,
   ];

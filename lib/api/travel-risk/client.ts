@@ -97,7 +97,12 @@ export const assessTravelRisk = async (
       { headers },
     );
 
-    if (!backendResponse?.analysis || typeof backendResponse.analysis !== "object") {
+    if (backendResponse?.scoring_available === false || backendResponse?.analysis == null) {
+      console.debug("[api/travel-risk] scoring unavailable", {
+        queryId: backendResponse?.query_id,
+        reason: backendResponse?.scoring_unavailable_reason ?? null,
+      });
+    } else if (typeof backendResponse.analysis !== "object") {
       console.debug("[api/travel-risk] partial/empty analysis", {
         queryId: backendResponse?.query_id,
         keys: backendResponse ? Object.keys(backendResponse) : [],

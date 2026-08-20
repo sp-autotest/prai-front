@@ -151,6 +151,14 @@
   gap: var(--space-1);
 }
 
+.result__unavailable {
+  margin: 0;
+  max-width: 28rem;
+  font-size: var(--text-md);
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
 .result__flight {
   margin: 0;
   font-size: var(--text-lg);
@@ -158,9 +166,30 @@
   color: var(--color-text-primary);
 }
 
+.result__airline,
 .result__route,
 .result__date {
   margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.result__warnings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.result__warningsTitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.result__warningsList {
+  margin: 0;
+  padding-left: 1.25rem;
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
 }

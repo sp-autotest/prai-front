@@ -37,12 +37,15 @@
     "subtitle": "Enter a flight in one line and get a risk rating for delays, cancellations, and connections.",
     "inputLabel": "Flight query",
     "searchPlaceholder": "SK1587, Moscow → Istanbul → Amsterdam, 12 September",
-    "hint": "Include flight number, route, and date separated by commas.",
+    "hint": "Flight number, route, and date. Commas help; other formats are also accepted.",
     "checkRisk": "Check risk",
     "checking": "Checking…",
     "loading": "Calculating travel risk…",
     "scoreLabel": "Travel Risk",
     "scoreValueAria": "Travel Risk score {value}",
+    "warningsTitle": "Notes",
+    "airlineKnown": "{name} ({code})",
+    "airlineUnknown": "Unknown airline {code}",
     "metricsAriaLabel": "Travel risk metrics",
     "percent": "{value}%",
     "minutes": "{value} min",
@@ -68,6 +71,8 @@
       "empty": "Enter a flight query to continue.",
       "invalid": "Could not parse the query. Use: flight, route with →, date.",
       "authRequired": "This service is available only to registered users. Please sign up.",
+      "scoringUnavailable": "Risk scoring is not available for this query.",
+      "scoringUnavailableAirline": "Airline is not in the reference catalog, so risk metrics cannot be calculated.",
       "network": "Network error. Check your connection and try again.",
       "timeout": "The request timed out. Please try again.",
       "server": "Could not load Travel Risk right now. Please try again.",
@@ -176,6 +181,7 @@
     "navProfile": "Profile",
     "navTravelRisk": "Travel Risk",
     "navFplValidator": "FPL Validator",
+    "navDirectories": "Directories",
     "signOut": "Sign out",
     "profileTitle": "Account details",
     "profileSubtitle": "View and update your profile information.",
@@ -199,6 +205,90 @@
       "nicknameInvalid": "Nickname must be 1–64 characters."
     }
   },
+  "directoriesPage": {
+    "title": "Directories",
+    "subtitle": "Look up airports, airlines, countries, cities, freight classes, engine types, equipment categories, and aircraft equipment from the platform reference data.",
+    "tabsAria": "Directory sections",
+    "tabs": {
+      "airports": "Airports",
+      "airlines": "Airlines",
+      "countries": "Countries",
+      "cities": "Cities",
+      "freightClasses": "Freight classes",
+      "engineTypes": "Engine types",
+      "equipmentCategories": "Equipment categories",
+      "equipment": "Equipment"
+    },
+    "fields": {
+      "name": "Name",
+      "iata": "IATA",
+      "icao": "ICAO",
+      "faa": "FAA"
+    },
+    "search": "Search",
+    "searching": "Searching…",
+    "resultsCount": "{count} result(s)",
+    "empty": "No matches found.",
+    "airports": {
+      "title": "Airports",
+      "hint": "Provide at least one of: name, IATA, or ICAO.",
+      "namePlaceholder": "Sheremetyevo / Moscow"
+    },
+    "airlines": {
+      "title": "Airlines",
+      "hint": "Provide at least one of: name, IATA, or ICAO.",
+      "namePlaceholder": "Aeroflot",
+      "limitLabel": "Limit",
+      "limitPlaceholder": "50",
+      "detailsSummary": "Full data",
+      "detailsAriaLabel": "Full airline data"
+    },
+    "countries": {
+      "title": "Countries",
+      "hint": "Optional filters: ISO/DOT code or name.",
+      "namePlaceholder": "Russia",
+      "codeLabel": "Country code",
+      "codePlaceholder": "RU"
+    },
+    "cities": {
+      "title": "Cities",
+      "hint": "Optional filters: country code, city code, or name.",
+      "namePlaceholder": "Moscow",
+      "countryCodeLabel": "Country code",
+      "codeLabel": "City code"
+    },
+    "freightClasses": {
+      "title": "Freight classes",
+      "hint": "Optional filters: code or name (OAG freightClasses catalog).",
+      "namePlaceholder": "Pallets",
+      "codeLabel": "Code"
+    },
+    "engineTypes": {
+      "title": "Engine types",
+      "hint": "Optional filters: code or name.",
+      "namePlaceholder": "Electric",
+      "codeLabel": "Code",
+      "codePlaceholder": "E"
+    },
+    "equipmentCategories": {
+      "title": "Equipment categories",
+      "hint": "Optional filters: system (iata/icao), code, or name.",
+      "namePlaceholder": "Jet-engined aircraft",
+      "systemLabel": "System",
+      "systemPlaceholder": "iata / icao",
+      "codeLabel": "Code",
+      "codePlaceholder": "H2J"
+    },
+    "equipment": {
+      "title": "Equipment",
+      "hint": "Aircraft types — optional filters: name, IATA, ICAO, or FAA.",
+      "namePlaceholder": "Boeing 737",
+      "wake": "Wake category: {value}"
+    },
+    "errors": {
+      "generic": "Could not load directory data. Please try again."
+    }
+  },
   "fplValidatorPage": {
     "title": "ICAO FPL Validator",
     "subtitle": "Validate ICAO flight plans, review ICAO explanations, and track your training score.",
@@ -210,7 +300,7 @@
     "check": {
       "inputLabel": "ICAO FPL telegram",
       "placeholder": "Paste a full ICAO FPL, starting with (FPL-…",
-      "hint": "Only ICAO FPL text. Use the example if you need a starting point. Tip: include VALIDDEMO for a demo VALID result.",
+      "hint": "Only ICAO FPL text. Use the example if you need a starting point.",
       "charCount": "{count} characters",
       "submit": "Check",
       "checking": "Checking…",

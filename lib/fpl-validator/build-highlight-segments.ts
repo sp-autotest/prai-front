@@ -19,17 +19,33 @@ export type FplTextRange = {
   end: number;
 };
 
+/** Rule ids where the offending fragment is usually the leading FPL token. */
+const PREFIX_RULE_IDS = new Set(["FPL_PREFIX_LOOKALIKE", "FPL_ASCII_IA5"]);
+
 /**
- * Heuristic substrings used when an issue has `field` but no offsets.
- * Kept small and ICAO-oriented for demo / fallback until the API is wired.
+ * Heuristic substrings when an issue has `field` but no API offsets.
+ * Keys use backend-style field codes (`7`, `13`, `meta`) and legacy `item*` aliases.
  */
 const FIELD_NEEDLES: Record<string, string[]> = {
-  item7: ["(FPL-", "(FPL"],
-  item10: ["-SDE", "-SD", "/M-"],
-  item13: ["-LFPG", "-EGLL", "-KJFK"],
-  item15: ["DCT", "N0480", "N0450", "N0"],
-  item16: ["-KJFK", "-EGLL", "-LFPG"],
-  item18: ["DOF/", "RMK/", "EET/", "PBN/"],
+  meta: [],
+  item7: ["(FPL-", "(FPL", "FPL-"],
+  "7": ["(FPL-", "(FPL", "FPL-"],
+  item8: ["-IS", "-IFR", "-VFR", "-Y", "-Z"],
+  "8": ["-IS", "-IFR", "-VFR", "-Y", "-Z"],
+  item9: ["/N", "/M"],
+  "9": ["/N", "/M"],
+  item10: ["-SDE", "-SD", "/M-", "-S", "-N"],
+  "10": ["-SDE", "-SD", "/M-", "-S", "-N"],
+  "10a": ["-SDE", "-SD", "/M-", "-S", "-N"],
+  "10b": ["-SDE", "-SD", "/M-", "-W", "-Y"],
+  item13: ["-LFPG", "-EGLL", "-KJFK", "-UUEE"],
+  "13": ["-LFPG", "-EGLL", "-KJFK", "-UUEE"],
+  item15: ["DCT", "N0480", "N0450", "N0440", "N0"],
+  "15": ["DCT", "N0480", "N0450", "N0440", "N0"],
+  item16: ["-KJFK", "-EGLL", "-LFPG", "-URSS", "-URKK"],
+  "16": ["-KJFK", "-EGLL", "-LFPG", "-URSS", "-URKK"],
+  item18: ["DOF/", "RMK/", "EET/", "PBN/", "OPR/", "REG/"],
+  "18": ["DOF/", "RMK/", "EET/", "PBN/", "OPR/", "REG/"],
 };
 
 /**
@@ -48,7 +64,146 @@ export const hasIssueOffsets = (issue: FplIssue): boolean => {
 };
 
 /**
- * Resolves a text range for an issue: prefers API offsets, else `field` heuristics.
+ * Normalizes backend `field_code` for needle lookup (`10a` → `10`, keeps `meta`).
+ * @param {string} field - Raw field code from the API.
+ * @returns {string} Lookup key.
+ */
+const normalizeFieldKey = (field: string): string => {
+  const raw = field.trim().toLowerCase();
+  if (!raw || raw === "meta") {
+    return "meta";
+  }
+
+  if (raw.startsWith("item")) {
+    return raw;
+  }
+
+  const digits = raw.match(/^(\d+)/);
+  if (digits) {
+    return digits[1];
+  }
+
+  return raw;
+};
+
+/**
+ * Finds the first occurrence of `needle` in `source` (case-sensitive, then insensitive).
+ * @param {string} source - Full FPL text.
+ * @param {string} needle - Substring to locate.
+ * @returns {FplTextRange | null} Range or null.
+ */
+const findNeedleRange = (source: string, needle: string): FplTextRange | null => {
+  const trimmed = needle.trim();
+  if (trimmed.length < 1) {
+    return null;
+  }
+
+  let start = source.indexOf(trimmed);
+  if (start >= 0) {
+    return { start, end: start + trimmed.length };
+  }
+
+  const lowerSource = source.toLowerCase();
+  const lowerNeedle = trimmed.toLowerCase();
+  start = lowerSource.indexOf(lowerNeedle);
+  if (start >= 0) {
+    return { start, end: start + trimmed.length };
+  }
+
+  return null;
+};
+
+/**
+ * Resolves a range from API `value_text` (full value, first line, or leading token).
+ * @param {string} source - Full FPL text.
+ * @param {string | null | undefined} valueText - Offending fragment from the API.
+ * @returns {FplTextRange | null} Range or null.
+ */
+const resolveValueTextRange = (
+  source: string,
+  valueText: string | null | undefined,
+): FplTextRange | null => {
+  const trimmed = (valueText ?? "").trim();
+  if (trimmed.length < 2) {
+    return null;
+  }
+
+  const full = findNeedleRange(source, trimmed);
+  if (full) {
+    return full;
+  }
+
+  const firstLine = trimmed.split(/\r?\n/)[0]?.trim() ?? "";
+  if (firstLine.length >= 2) {
+    const lineRange = findNeedleRange(source, firstLine);
+    if (lineRange) {
+      return lineRange;
+    }
+  }
+
+  const prefixToken = trimmed.match(/^([^\s\n-]+)/)?.[1];
+  if (prefixToken && prefixToken.length >= 2) {
+    return findNeedleRange(source, prefixToken);
+  }
+
+  return null;
+};
+
+/**
+ * Highlights the leading FPL prefix token (Latin `FPL`, near-miss `F?L`, or `(FPL` form).
+ * @param {string} source - Full FPL text.
+ * @returns {FplTextRange | null} Prefix token range or null.
+ */
+const resolveFplPrefixTokenRange = (source: string): FplTextRange | null => {
+  const trimmed = source.trimStart();
+  const offset = source.length - trimmed.length;
+
+  const parenMatch = trimmed.match(/^\(([^)\n-]+)/);
+  if (parenMatch) {
+    const token = parenMatch[1];
+    if (/^FPL$/i.test(token) || /^F.L$/i.test(token)) {
+      return { start: offset + 1, end: offset + 1 + token.length };
+    }
+  }
+
+  const tokenMatch = trimmed.match(/^([^\s\n-]+)/);
+  if (!tokenMatch) {
+    return null;
+  }
+
+  const token = tokenMatch[1];
+  if (/^FPL$/i.test(token) || /^F.L$/i.test(token)) {
+    return { start: offset, end: offset + token.length };
+  }
+
+  return null;
+};
+
+/**
+ * Resolves field-based needle ranges for a normalized field key.
+ * @param {string} source - Full FPL text.
+ * @param {string} fieldKey - Normalized field key.
+ * @returns {FplTextRange | null} Range or null.
+ */
+const resolveFieldNeedleRange = (source: string, fieldKey: string): FplTextRange | null => {
+  if (fieldKey === "meta") {
+    return resolveFplPrefixTokenRange(source);
+  }
+
+  const needles = FIELD_NEEDLES[fieldKey] ?? FIELD_NEEDLES[`item${fieldKey}`] ?? [];
+
+  for (const needle of needles) {
+    const range = findNeedleRange(source, needle);
+    if (range) {
+      return range;
+    }
+  }
+
+  return null;
+};
+
+/**
+ * Resolves a text range for an issue: API offsets → value_text → prefix/meta → field needles.
  * @param {string} source - Full FPL source text.
  * @param {FplIssue} issue - Error or warning item.
  * @returns {FplTextRange | null} Range or null when nothing can be resolved.
@@ -60,17 +215,22 @@ export const resolveIssueRange = (source: string, issue: FplIssue): FplTextRange
     return end > start ? { start, end } : null;
   }
 
-  const fieldKey = (issue.field ?? "").trim().toLowerCase();
-  const needles = FIELD_NEEDLES[fieldKey] ?? [];
+  const valueRange = resolveValueTextRange(source, issue.value_text);
+  if (valueRange) {
+    return valueRange;
+  }
 
-  for (const needle of needles) {
-    const start = source.indexOf(needle);
-    if (start >= 0) {
-      return { start, end: start + needle.length };
+  const fieldKey = normalizeFieldKey(issue.field ?? "");
+  const isPrefixIssue = PREFIX_RULE_IDS.has(issue.code) || fieldKey === "meta";
+
+  if (isPrefixIssue) {
+    const prefixRange = resolveFplPrefixTokenRange(source);
+    if (prefixRange) {
+      return prefixRange;
     }
   }
 
-  return null;
+  return resolveFieldNeedleRange(source, fieldKey);
 };
 
 type MarkedRange = FplTextRange & {
@@ -152,6 +312,15 @@ export const buildFplHighlightSegments = (
   }
 
   return segments;
+};
+
+/**
+ * Returns true when at least one segment will be rendered with error/warning tone.
+ * @param {FplHighlightSegment[]} segments - Built highlight segments.
+ * @returns {boolean} Whether colored highlights exist.
+ */
+export const hasHighlightMarks = (segments: FplHighlightSegment[]): boolean => {
+  return segments.some((segment) => segment.tone === "error" || segment.tone === "warning");
 };
 
 /**

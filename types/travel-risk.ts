@@ -1,7 +1,7 @@
 /** Risk level for qualitative metrics (connection risk). */
 export type RiskLevel = "low" | "medium" | "high";
 
-/** Turbulence qualitative value. */
+/** Turbulence qualitative value (UI). Backend may send `low`/`high` aliases. */
 export type TurbulenceLevel = "light" | "moderate" | "severe";
 
 /**
@@ -17,27 +17,41 @@ export type ParsedFlightQuery = {
 
 /**
  * Travel Risk API request body used by the frontend BFF / UI.
- * `dateLabel` / `raw` are optional; `raw` is preferred when calling the backend analyze API.
+ * Prefer `raw`: backend ``POST /api/v1/flights/analyze/`` parses free text.
  */
 export type TravelRiskRequest = {
-  flightNumber: string;
-  route: string[];
+  flightNumber?: string;
+  route?: string[];
   dateLabel?: string;
   raw?: string;
 };
 
+/** Airline block from backend `parsed.airline`. */
+export type TravelRiskAirline = {
+  iataCode: string | null;
+  icaoCode: string | null;
+  name: string | null;
+  known: boolean;
+};
+
 /**
  * Successful Travel Risk payload for the UI after mapping from the backend.
+ * Metrics are `null` when ``scoring_available=false`` / ``analysis=null``.
  */
 export type TravelRiskResponse = {
-  score: number;
-  delayOver15MinPercent: number;
-  delayOver1HourPercent: number;
-  cancellationPercent: number;
-  connectionRisk: RiskLevel;
-  turbulence: TurbulenceLevel;
-  recommendedConnectionMinutes: number;
+  scoringAvailable: boolean;
+  scoringUnavailableReason: string | null;
+  score: number | null;
+  delayOver15MinPercent: number | null;
+  delayOver1HourPercent: number | null;
+  cancellationPercent: number | null;
+  connectionRisk: RiskLevel | null;
+  turbulence: TurbulenceLevel | null;
+  recommendedConnectionMinutes: number | null;
   query: ParsedFlightQuery;
+  airline: TravelRiskAirline | null;
+  warnings: string[];
+  isStub: boolean;
 };
 
 /** UI-facing assessment type (alias of the successful API response). */
@@ -48,7 +62,8 @@ export type TravelRiskApiErrorCode =
   | "invalid_json"
   | "invalid_query"
   | "assessment_failed"
-  | "upstream_error";
+  | "upstream_error"
+  | "auth_required";
 
 /** Error JSON body from the Travel Risk API. */
 export type TravelRiskApiErrorBody = {
@@ -69,7 +84,7 @@ export type TravelRiskUiState = "idle" | "loading" | "success" | "empty" | "erro
 
 /**
  * Backend request for ``POST /api/v1/flights/analyze/``.
- * @see FlightAnalyzeRequestRequest
+ * @see FlightAnalyzeRequestSerializer
  */
 export type FlightAnalyzeRequest = {
   query: string;
@@ -82,6 +97,14 @@ export type FlightAnalyzePlace = {
   airport_id?: number | null;
   ambiguous?: boolean;
   candidates?: string[];
+};
+
+/** Airline node inside backend `parsed.airline`. */
+export type FlightAnalyzeAirline = {
+  iata_code?: string | null;
+  icao_code?: string | null;
+  name?: string | null;
+  known?: boolean;
 };
 
 /** Connection risk item from backend `analysis.missed_connection`. */
@@ -105,6 +128,7 @@ export type FlightAnalyzeAnalysis = {
   missed_connection?: FlightAnalyzeMissedConnection[];
   turbulence_level?: string;
   recommended_min_connection_minutes?: number;
+  note?: string;
   [key: string]: unknown;
 };
 
@@ -112,12 +136,16 @@ export type FlightAnalyzeAnalysis = {
  * Backend `parsed` object (fields may be partial).
  */
 export type FlightAnalyzeParsed = {
-  flight_number?: string;
-  travel_date?: string;
+  flight_number?: string | null;
+  travel_date?: string | null;
   places?: FlightAnalyzePlace[];
   warnings?: string[];
+  airline?: FlightAnalyzeAirline | null;
   [key: string]: unknown;
 };
+
+/** Machine reason when scoring is skipped (HTTP 200, ``analysis=null``). */
+export type FlightAnalyzeScoringUnavailableReason = "AIRLINE_NOT_IN_REFERENCE" | string;
 
 /**
  * Backend response for ``POST /api/v1/flights/analyze/``.
@@ -127,7 +155,9 @@ export type FlightAnalyzeResponse = {
   query_id: number;
   query: string;
   parsed: FlightAnalyzeParsed;
-  analysis: FlightAnalyzeAnalysis;
+  scoring_available?: boolean;
+  scoring_unavailable_reason?: FlightAnalyzeScoringUnavailableReason | null;
+  analysis: FlightAnalyzeAnalysis | null;
   is_stub: boolean;
   stub_id?: number | null;
   matched_sample_query?: string | null;

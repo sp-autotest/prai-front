@@ -94,15 +94,8 @@ export const TravelRiskSection = ({
 
     if (!parsed.ok) {
       setAssessment(null);
-
-      if (parsed.code === "empty") {
-        setUiState("empty");
-        setErrorMessage(t("errors.empty"));
-        return;
-      }
-
-      setUiState("error");
-      setErrorMessage(t("errors.invalid"));
+      setUiState("empty");
+      setErrorMessage(t("errors.empty"));
       return;
     }
 
@@ -196,75 +189,116 @@ export const TravelRiskSection = ({
                 <p id="travel-risk-results-title" className={styles.result__scoreLabel}>
                   {t("scoreLabel")}
                 </p>
-                <p
-                  className={styles.result__scoreValue}
-                  aria-label={t("scoreValueAria", { value: assessment.score })}
-                >
-                  {assessment.score}
-                </p>
+                {assessment.scoringAvailable && assessment.score !== null ? (
+                  <p
+                    className={styles.result__scoreValue}
+                    aria-label={t("scoreValueAria", { value: assessment.score })}
+                  >
+                    {assessment.score}
+                  </p>
+                ) : (
+                  <p className={styles.result__unavailable} role="status">
+                    {assessment.scoringUnavailableReason === "AIRLINE_NOT_IN_REFERENCE"
+                      ? t("errors.scoringUnavailableAirline")
+                      : t("errors.scoringUnavailable")}
+                  </p>
+                )}
               </div>
 
               <div className={styles.result__meta}>
-                <p className={styles.result__flight}>{assessment.query.flightNumber}</p>
-                <p className={styles.result__route}>{assessment.query.route.join(" → ")}</p>
+                {assessment.query.flightNumber ? (
+                  <p className={styles.result__flight}>{assessment.query.flightNumber}</p>
+                ) : null}
+                {assessment.airline ? (
+                  <p className={styles.result__airline}>
+                    {assessment.airline.known
+                      ? t("airlineKnown", {
+                          name: assessment.airline.name || assessment.airline.iataCode || "—",
+                          code: assessment.airline.iataCode || "",
+                        })
+                      : t("airlineUnknown", {
+                          code: assessment.airline.iataCode || "—",
+                        })}
+                  </p>
+                ) : null}
+                {assessment.query.route.length >= 2 ? (
+                  <p className={styles.result__route}>{assessment.query.route.join(" → ")}</p>
+                ) : null}
                 {assessment.query.dateLabel ? (
                   <p className={styles.result__date}>{assessment.query.dateLabel}</p>
                 ) : null}
               </div>
             </div>
 
-            <ul className={styles.result__grid} aria-label={t("metricsAriaLabel")}>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.delay15")}</p>
-                  <p className={styles.metric__value}>
-                    {t("percent", { value: assessment.delayOver15MinPercent })}
-                  </p>
-                </Card>
-              </li>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.delay60")}</p>
-                  <p className={styles.metric__value}>
-                    {t("percent", { value: assessment.delayOver1HourPercent })}
-                  </p>
-                </Card>
-              </li>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.cancellation")}</p>
-                  <p className={styles.metric__value}>
-                    {t("percent", { value: assessment.cancellationPercent })}
-                  </p>
-                </Card>
-              </li>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.connection")}</p>
-                  <div className={styles.metric__badgeRow}>
-                    <Badge variant={getRiskBadgeVariant(assessment.connectionRisk)}>
-                      {getConnectionLabel(assessment.connectionRisk)}
-                    </Badge>
-                  </div>
-                </Card>
-              </li>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.turbulence")}</p>
-                  <p className={styles.metric__value}>
-                    {getTurbulenceLabel(assessment.turbulence)}
-                  </p>
-                </Card>
-              </li>
-              <li>
-                <Card padding="md" className={styles.metric}>
-                  <p className={styles.metric__label}>{t("metrics.connectionTime")}</p>
-                  <p className={styles.metric__value}>
-                    {t("minutes", { value: assessment.recommendedConnectionMinutes })}
-                  </p>
-                </Card>
-              </li>
-            </ul>
+            {assessment.scoringAvailable &&
+            assessment.delayOver15MinPercent !== null &&
+            assessment.connectionRisk &&
+            assessment.turbulence &&
+            assessment.recommendedConnectionMinutes !== null ? (
+              <ul className={styles.result__grid} aria-label={t("metricsAriaLabel")}>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.delay15")}</p>
+                    <p className={styles.metric__value}>
+                      {t("percent", { value: assessment.delayOver15MinPercent })}
+                    </p>
+                  </Card>
+                </li>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.delay60")}</p>
+                    <p className={styles.metric__value}>
+                      {t("percent", { value: assessment.delayOver1HourPercent ?? 0 })}
+                    </p>
+                  </Card>
+                </li>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.cancellation")}</p>
+                    <p className={styles.metric__value}>
+                      {t("percent", { value: assessment.cancellationPercent ?? 0 })}
+                    </p>
+                  </Card>
+                </li>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.connection")}</p>
+                    <div className={styles.metric__badgeRow}>
+                      <Badge variant={getRiskBadgeVariant(assessment.connectionRisk)}>
+                        {getConnectionLabel(assessment.connectionRisk)}
+                      </Badge>
+                    </div>
+                  </Card>
+                </li>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.turbulence")}</p>
+                    <p className={styles.metric__value}>
+                      {getTurbulenceLabel(assessment.turbulence)}
+                    </p>
+                  </Card>
+                </li>
+                <li>
+                  <Card padding="md" className={styles.metric}>
+                    <p className={styles.metric__label}>{t("metrics.connectionTime")}</p>
+                    <p className={styles.metric__value}>
+                      {t("minutes", { value: assessment.recommendedConnectionMinutes })}
+                    </p>
+                  </Card>
+                </li>
+              </ul>
+            ) : null}
+
+            {assessment.warnings.length > 0 ? (
+              <div className={styles.result__warnings}>
+                <p className={styles.result__warningsTitle}>{t("warningsTitle")}</p>
+                <ul className={styles.result__warningsList} aria-label={t("warningsTitle")}>
+                  {assessment.warnings.map((warning) => (
+                    <li key={warning}>{warning}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         )}
       </Card>

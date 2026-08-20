@@ -13,7 +13,7 @@ type AccountNavProps = {
 };
 
 /**
- * Secondary navigation for the account area: profile, Travel Risk, FPL Validator.
+ * Secondary navigation for the account area: profile, Travel Risk, FPL, directories.
  * @param {AccountNavProps} props - Active locale.
  * @returns {React.ReactElement} Account sidebar/nav.
  */
@@ -25,11 +25,13 @@ export const AccountNav = ({ locale }: AccountNavProps) => {
   const profileHref = `/${locale}/account`;
   const travelRiskHref = `/${locale}/account/travel-risk`;
   const fplValidatorHref = `/${locale}/account/fpl-validator`;
+  const directoriesHref = `/${locale}/account/directories`;
 
   const isProfile =
     pathname === profileHref || pathname === `${profileHref}/`;
   const isTravelRisk = pathname.startsWith(travelRiskHref);
   const isFplValidator = pathname.startsWith(fplValidatorHref);
+  const isDirectories = pathname.startsWith(directoriesHref);
 
   /**
    * Clears the session and returns to the public home page.
@@ -79,6 +81,19 @@ export const AccountNav = ({ locale }: AccountNavProps) => {
             aria-current={isFplValidator ? "page" : undefined}
           >
             {t("navFplValidator")}
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={directoriesHref}
+            prefetch
+            className={[
+              styles.nav__link,
+              isDirectories ? styles["nav__link--active"] : "",
+            ].join(" ")}
+            aria-current={isDirectories ? "page" : undefined}
+          >
+            {t("navDirectories")}
           </Link>
         </li>
       </ul>

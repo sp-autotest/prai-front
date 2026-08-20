@@ -164,10 +164,18 @@
 ## Фаза 12. Интеграция с backend Travel Risk API
 
 - [x] Подключить реальный API вместо mock
-- [x] Согласовать контракт полей ответа с backend
-- [x] Маппинг ответа API → UI-метрики Travel Risk
+- [x] Согласовать контракт полей ответа с backend (`scoring_available`, `analysis=null`, `parsed.airline` / `warnings`)
+- [x] Маппинг ответа API → UI-метрики Travel Risk (`moderate`→medium, `low`/`high` turbulence aliases; без фейковых 0% при `analysis=null`)
 - [x] Обработка partial-ответов и fallback-значений
 - [x] Точечные debug-логи в критичных местах клиента API
+
+---
+
+## Фаза 12b. Справочники в ЛК
+
+- [x] Страница ЛК **Справочники** (`/account/directories`) с разделами Аэропорты / Авиакомпании / Страны / Города / Классы грузов / Типы двигателей / Категории ВС / Оборудование
+- [x] BFF + клиент: `GET /api/directories/{airports|airlines|countries|cities|freight-classes|engine-types|equipment-categories|equipment}` → `/api/v1/flights/…` (в т.ч. аэропорты: расширенные `name/iata/icao` + `limit`, полная выдача; авиакомпании: расширенные `name/iata/icao` + `limit`, полная выдача; страны: `code/name` + `limit`; города: `country_code/code/name` + `limit`; классы грузов: `code/name` + `limit`; типы двигателей: `code/name` + `limit`; категории ВС: `system/code/name` + `limit`; оборудование: `name/iata/icao/faa` + `limit`, полная выдача)
+- [x] Пункт навигации ЛК и i18n на 5 языках
 
 ---
 
