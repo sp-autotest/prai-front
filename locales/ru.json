@@ -44,6 +44,11 @@
     "scoreLabel": "Travel Risk",
     "scoreValueAria": "Оценка Travel Risk {value}",
     "warningsTitle": "Замечания",
+    "defaultEstimateHint": "Оценка по умолчанию",
+    "banners": {
+      "unknownPlaces": "Не найдены в справочнике: {places}",
+      "insufficientData": "Недостаточно данных для точной оценки"
+    },
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Неизвестная авиакомпания {code}",
     "metricsAriaLabel": "Метрики Travel Risk",

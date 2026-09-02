@@ -44,6 +44,11 @@
     "scoreLabel": "Travel Risk",
     "scoreValueAria": "Travel Risk score {value}",
     "warningsTitle": "Notes",
+    "defaultEstimateHint": "Default estimate",
+    "banners": {
+      "unknownPlaces": "Not found in reference: {places}",
+      "insufficientData": "Insufficient data for an accurate estimate"
+    },
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Unknown airline {code}",
     "metricsAriaLabel": "Travel risk metrics",

@@ -44,6 +44,11 @@
     "scoreLabel": "Sayohat xavfi",
     "scoreValueAria": "Sayohat xavfi ko‘rsatkichi {value}",
     "warningsTitle": "Izohlar",
+    "defaultEstimateHint": "Standart baholash",
+    "banners": {
+      "unknownPlaces": "Ma’lumotnomada topilmadi: {places}",
+      "insufficientData": "Aniq baholash uchun ma’lumot yetarli emas"
+    },
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Noma’lum aviakompaniya {code}",
     "metricsAriaLabel": "Sayohat xavfi metrikalari",

@@ -44,6 +44,11 @@
     "scoreLabel": "Саяхат тәуекелі",
     "scoreValueAria": "Саяхат тәуекелінің көрсеткіші {value}",
     "warningsTitle": "Ескертпелер",
+    "defaultEstimateHint": "Әдепкі баға",
+    "banners": {
+      "unknownPlaces": "Анықтамалықта табылмады: {places}",
+      "insufficientData": "Нақты баға үшін деректер жеткіліксіз"
+    },
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Белгісіз әуе компаниясы {code}",
     "metricsAriaLabel": "Саяхат тәуекелінің метрикалары",

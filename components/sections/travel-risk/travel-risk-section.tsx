@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card/card";
 import { Input } from "@/components/ui/input/input";
 import { Container } from "@/components/layout/container/container";
 import { fetchTravelRisk } from "@/lib/api";
+import { hasTravelRiskMetrics } from "@/lib/api/travel-risk/map-flight-analyze";
 import { getAuthSession } from "@/lib/auth/session";
 import { parseFlightQuery } from "@/lib/travel-risk/parse-flight-query";
 import type {
@@ -184,25 +185,50 @@ export const TravelRiskSection = ({
             aria-labelledby="travel-risk-results-title"
             aria-live="polite"
           >
+            {assessment.unknownPlaces.length > 0 ? (
+              <div className={styles.result__banner} role="status">
+                {t("banners.unknownPlaces", {
+                  places: assessment.unknownPlaces.join(", "),
+                })}
+              </div>
+            ) : null}
+
+            {assessment.dataQuality === "insufficient_data" &&
+            assessment.unknownPlaces.length === 0 ? (
+              <div className={styles.result__banner} role="status">
+                {t("banners.insufficientData")}
+              </div>
+            ) : null}
+
             <div className={styles.result__summary}>
               <div className={styles.result__scoreBlock}>
                 <p id="travel-risk-results-title" className={styles.result__scoreLabel}>
                   {t("scoreLabel")}
                 </p>
-                {assessment.scoringAvailable && assessment.score !== null ? (
+                {assessment.score !== null ? (
                   <p
-                    className={styles.result__scoreValue}
+                    className={[
+                      styles.result__scoreValue,
+                      assessment.metricsAreDefaultEstimate
+                        ? styles["result__scoreValue--muted"]
+                        : "",
+                    ].join(" ")}
                     aria-label={t("scoreValueAria", { value: assessment.score })}
                   >
                     {assessment.score}
                   </p>
+                ) : assessment.scoringUnavailableReason === "AIRLINE_NOT_IN_REFERENCE" ? (
+                  <p className={styles.result__unavailable} role="status">
+                    {t("errors.scoringUnavailableAirline")}
+                  </p>
                 ) : (
                   <p className={styles.result__unavailable} role="status">
-                    {assessment.scoringUnavailableReason === "AIRLINE_NOT_IN_REFERENCE"
-                      ? t("errors.scoringUnavailableAirline")
-                      : t("errors.scoringUnavailable")}
+                    {t("errors.scoringUnavailable")}
                   </p>
                 )}
+                {assessment.metricsAreDefaultEstimate ? (
+                  <p className={styles.result__estimateHint}>{t("defaultEstimateHint")}</p>
+                ) : null}
               </div>
 
               <div className={styles.result__meta}>
@@ -230,17 +256,21 @@ export const TravelRiskSection = ({
               </div>
             </div>
 
-            {assessment.scoringAvailable &&
-            assessment.delayOver15MinPercent !== null &&
+            {hasTravelRiskMetrics(assessment) &&
             assessment.connectionRisk &&
-            assessment.turbulence &&
-            assessment.recommendedConnectionMinutes !== null ? (
-              <ul className={styles.result__grid} aria-label={t("metricsAriaLabel")}>
+            assessment.turbulence ? (
+              <ul
+                className={[
+                  styles.result__grid,
+                  assessment.metricsAreDefaultEstimate ? styles["result__grid--muted"] : "",
+                ].join(" ")}
+                aria-label={t("metricsAriaLabel")}
+              >
                 <li>
                   <Card padding="md" className={styles.metric}>
                     <p className={styles.metric__label}>{t("metrics.delay15")}</p>
                     <p className={styles.metric__value}>
-                      {t("percent", { value: assessment.delayOver15MinPercent })}
+                      {t("percent", { value: assessment.delayOver15MinPercent ?? 0 })}
                     </p>
                   </Card>
                 </li>
@@ -282,7 +312,7 @@ export const TravelRiskSection = ({
                   <Card padding="md" className={styles.metric}>
                     <p className={styles.metric__label}>{t("metrics.connectionTime")}</p>
                     <p className={styles.metric__value}>
-                      {t("minutes", { value: assessment.recommendedConnectionMinutes })}
+                      {t("minutes", { value: assessment.recommendedConnectionMinutes ?? 0 })}
                     </p>
                   </Card>
                 </li>

@@ -44,6 +44,11 @@
     "scoreLabel": "Riesgo de viaje",
     "scoreValueAria": "Puntuación de riesgo de viaje {value}",
     "warningsTitle": "Notas",
+    "defaultEstimateHint": "Estimación predeterminada",
+    "banners": {
+      "unknownPlaces": "No encontrados en el catálogo: {places}",
+      "insufficientData": "Datos insuficientes para una estimación precisa"
+    },
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Aerolínea desconocida {code}",
     "metricsAriaLabel": "Métricas de riesgo de viaje",

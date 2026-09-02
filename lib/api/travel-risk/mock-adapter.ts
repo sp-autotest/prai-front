@@ -70,5 +70,9 @@ export const assessTravelRiskMock = async (
     airline: null,
     warnings: [],
     isStub: true,
+    unknownPlaces: [],
+    dataQuality: "accurate",
+    factorStatuses: null,
+    metricsAreDefaultEstimate: false,
   };
 };

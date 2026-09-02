@@ -159,6 +159,26 @@
   color: var(--color-text-primary);
 }
 
+.result__banner {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md, 8px);
+  background-color: color-mix(in srgb, var(--color-warning, #f5a623) 14%, var(--color-bg-primary));
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.result__estimateHint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.result__scoreValue--muted {
+  opacity: 0.55;
+}
+
 .result__flight {
   margin: 0;
   font-size: var(--text-lg);
@@ -201,6 +221,11 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.result__grid--muted .metric__value,
+.result__grid--muted .metric__badgeRow {
+  opacity: 0.55;
 }
 
 .metric {

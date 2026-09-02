@@ -167,6 +167,7 @@
 - [x] Согласовать контракт полей ответа с backend (`scoring_available`, `analysis=null`, `parsed.airline` / `warnings`)
 - [x] Маппинг ответа API → UI-метрики Travel Risk (`moderate`→medium, `low`/`high` turbulence aliases; без фейковых 0% при `analysis=null`)
 - [x] Обработка partial-ответов и fallback-значений
+- [x] Unknown places: баннер + метрики с дисклеймером «оценка по умолчанию»; insufficient data при всех factor_status=unavailable
 - [x] Точечные debug-логи в критичных местах клиента API
 
 ---

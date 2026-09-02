@@ -7,6 +7,9 @@ import type {
   ParsedFlightQuery,
   RiskLevel,
   TravelRiskAirline,
+  TravelRiskDataQuality,
+  TravelRiskFactorStatus,
+  TravelRiskFactorStatuses,
   TravelRiskRequest,
   TravelRiskResponse,
   TurbulenceLevel,
@@ -14,6 +17,7 @@ import type {
 
 const RISK_LEVELS: readonly RiskLevel[] = ["low", "medium", "high"];
 const TURBULENCE_LEVELS: readonly TurbulenceLevel[] = ["light", "moderate", "severe"];
+const FACTOR_KEYS = ["A", "B", "C", "D"] as const;
 
 const RISK_ALIASES: Record<string, RiskLevel> = {
   low: "low",
@@ -98,6 +102,24 @@ const toTurbulence = (
 };
 
 /**
+ * Normalizes a backend factor status token.
+ * @param {unknown} value - Raw status from ``analysis.factor_status``.
+ * @returns {TravelRiskFactorStatus | null} Normalized status or null.
+ */
+const toFactorStatus = (value: unknown): TravelRiskFactorStatus | null => {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "ok" || normalized === "degraded" || normalized === "unavailable") {
+    return normalized;
+  }
+
+  return null;
+};
+
+/**
  * Picks the highest connection risk from the missed_connection array.
  * @param {FlightAnalyzeMissedConnection[] | undefined} items - Backend connection risks.
  * @returns {RiskLevel} Worst risk level, or `low` when empty/missing.
@@ -166,7 +188,82 @@ const mapAirline = (airline: FlightAnalyzeAirline | null | undefined): TravelRis
 };
 
 /**
- * Collects parse warnings plus optional analysis note.
+ * Resolves place labels that are missing from the airport reference catalog.
+ * @param {FlightAnalyzeParsed} parsed - Backend parsed payload.
+ * @returns {string[]} Human-readable labels for unknown places.
+ */
+export const resolveUnknownPlaceLabels = (parsed: FlightAnalyzeParsed): string[] => {
+  const places = Array.isArray(parsed.places) ? parsed.places : [];
+
+  return places
+    .filter((place) => !place?.iata_code && !place?.airport_id)
+    .map((place) => place.label?.trim() || place.iata_code?.trim() || "—")
+    .filter(Boolean);
+};
+
+/**
+ * Maps backend ``analysis.factor_status`` A–D into UI-friendly keys.
+ * @param {FlightAnalyzeAnalysis | null} analysis - Backend analysis object.
+ * @returns {TravelRiskFactorStatuses | null} Mapped statuses or null when absent.
+ */
+export const mapFactorStatuses = (
+  analysis: FlightAnalyzeAnalysis | null,
+): TravelRiskFactorStatuses | null => {
+  const raw = analysis?.factor_status;
+  if (!raw || typeof raw !== "object") {
+    return null;
+  }
+
+  return {
+    delayHistory: toFactorStatus(raw.A),
+    climate: toFactorStatus(raw.B),
+    load: toFactorStatus(raw.C),
+    rotation: toFactorStatus(raw.D),
+  };
+};
+
+/**
+ * Returns true when every A–D factor is ``unavailable``.
+ * @param {FlightAnalyzeAnalysis | null} analysis - Backend analysis object.
+ * @returns {boolean} Whether all itinerary factors are unavailable.
+ */
+export const areAllFactorsUnavailable = (analysis: FlightAnalyzeAnalysis | null): boolean => {
+  const raw = analysis?.factor_status;
+  if (!raw || typeof raw !== "object") {
+    return false;
+  }
+
+  const statuses = FACTOR_KEYS.map((key) => toFactorStatus(raw[key]));
+  if (statuses.some((status) => status === null)) {
+    return false;
+  }
+
+  return statuses.every((status) => status === "unavailable");
+};
+
+/**
+ * Resolves UI data quality from unknown places and factor statuses.
+ * @param {string[]} unknownPlaces - Labels missing from reference.
+ * @param {FlightAnalyzeAnalysis | null} analysis - Backend analysis object.
+ * @returns {TravelRiskDataQuality} Data quality for banners and styling.
+ */
+export const resolveDataQuality = (
+  unknownPlaces: string[],
+  analysis: FlightAnalyzeAnalysis | null,
+): TravelRiskDataQuality => {
+  if (unknownPlaces.length > 0) {
+    return "default_estimate";
+  }
+
+  if (areAllFactorsUnavailable(analysis)) {
+    return "insufficient_data";
+  }
+
+  return "accurate";
+};
+
+/**
+ * Collects parse warnings, scoring warnings, and optional analysis note.
  * @param {FlightAnalyzeParsed} parsed - Backend parsed payload.
  * @param {FlightAnalyzeAnalysis | null} analysis - Analysis or null.
  * @returns {string[]} Unique non-empty warnings.
@@ -185,11 +282,75 @@ const collectWarnings = (
     });
   }
 
+  if (Array.isArray(analysis?.warnings)) {
+    analysis.warnings.forEach((warning) => {
+      if (typeof warning === "string" && warning.trim()) {
+        items.push(warning.trim());
+      }
+    });
+  }
+
   if (analysis?.note && typeof analysis.note === "string" && analysis.note.trim()) {
     items.push(analysis.note.trim());
   }
 
   return Array.from(new Set(items));
+};
+
+/**
+ * Builds route labels from parsed places for UI echo.
+ * @param {FlightAnalyzeParsed} parsed - Backend parsed payload.
+ * @param {TravelRiskRequest} request - Original frontend request fallback.
+ * @returns {string[]} Route labels in order.
+ */
+const buildRouteLabels = (parsed: FlightAnalyzeParsed, request: TravelRiskRequest): string[] => {
+  const places = Array.isArray(parsed.places)
+    ? parsed.places
+        .map((place) => place?.label?.trim() || place?.iata_code?.trim() || "")
+        .filter(Boolean)
+    : [];
+
+  if (places.length >= 2) {
+    return places;
+  }
+
+  return request.route ?? [];
+};
+
+/**
+ * Maps analysis metrics into the shared Travel Risk response fields.
+ * @param {FlightAnalyzeAnalysis} analysis - Backend analysis object.
+ * @returns {Pick<TravelRiskResponse, "score" | "delayOver15MinPercent" | "delayOver1HourPercent" | "cancellationPercent" | "connectionRisk" | "turbulence" | "recommendedConnectionMinutes">} Mapped metrics.
+ */
+const mapAnalysisMetrics = (
+  analysis: FlightAnalyzeAnalysis,
+): Pick<
+  TravelRiskResponse,
+  | "score"
+  | "delayOver15MinPercent"
+  | "delayOver1HourPercent"
+  | "cancellationPercent"
+  | "connectionRisk"
+  | "turbulence"
+  | "recommendedConnectionMinutes"
+> => {
+  const connectionRisk = resolveConnectionRisk(analysis.missed_connection);
+  const explicitScore = toNumber(
+    analysis.score ?? analysis.travel_risk_score ?? analysis.risk_score,
+    Number.NaN,
+  );
+
+  return {
+    score: Number.isFinite(explicitScore) ? explicitScore : deriveScore(analysis, connectionRisk),
+    delayOver15MinPercent: toNumber(analysis.delay_over_15_min_pct, 0),
+    delayOver1HourPercent: toNumber(analysis.delay_over_1_hour_pct, 0),
+    cancellationPercent: toNumber(analysis.cancellation_pct, 0),
+    connectionRisk,
+    turbulence: toTurbulence(analysis.turbulence_level, "moderate"),
+    recommendedConnectionMinutes: Math.round(
+      toNumber(analysis.recommended_min_connection_minutes, 45),
+    ),
+  };
 };
 
 /**
@@ -214,7 +375,7 @@ export const buildFlightAnalyzeQuery = (request: TravelRiskRequest): string => {
 
 /**
  * Maps backend FlightAnalyzeResponse → UI TravelRiskResponse.
- * Honors ``scoring_available=false`` / ``analysis=null`` without fake metrics.
+ * Unknown places keep metrics visible with default-estimate styling.
  * @param {FlightAnalyzeResponse} response - Backend analyze payload.
  * @param {TravelRiskRequest} request - Original frontend request (for query echo fallback).
  * @returns {TravelRiskResponse} UI-ready assessment.
@@ -227,22 +388,34 @@ export const mapFlightAnalyzeToTravelRisk = (
 ): TravelRiskResponse => {
   const parsed = response.parsed ?? {};
   const analysis = response.analysis;
-
-  const places = Array.isArray(parsed.places)
-    ? parsed.places
-        .map((place) => place?.label?.trim() || place?.iata_code?.trim() || "")
-        .filter(Boolean)
-    : [];
+  const unknownPlaces = resolveUnknownPlaceLabels(parsed);
+  const factorStatuses = mapFactorStatuses(analysis);
+  const dataQuality = resolveDataQuality(unknownPlaces, analysis);
+  const metricsAreDefaultEstimate = unknownPlaces.length > 0;
 
   const query: ParsedFlightQuery = {
     flightNumber: (parsed.flight_number || request.flightNumber || "").toString().toUpperCase(),
-    route: places.length >= 2 ? places : request.route ?? [],
+    route: buildRouteLabels(parsed, request),
     dateLabel: (parsed.travel_date || request.dateLabel || "").toString(),
     raw: response.query || request.raw || buildFlightAnalyzeQuery(request),
   };
 
-  if (response.scoring_available === false || analysis === null || typeof analysis !== "object") {
+  const baseFields = {
+    query,
+    airline: mapAirline(parsed.airline),
+    warnings: collectWarnings(parsed, analysis),
+    isStub: Boolean(response.is_stub),
+    unknownPlaces,
+    dataQuality,
+    factorStatuses,
+    metricsAreDefaultEstimate,
+  };
+
+  const hasAnalysis = analysis !== null && typeof analysis === "object";
+
+  if (!hasAnalysis) {
     const mapped: TravelRiskResponse = {
+      ...baseFields,
       scoringAvailable: false,
       scoringUnavailableReason: response.scoring_unavailable_reason ?? null,
       score: null,
@@ -252,52 +425,51 @@ export const mapFlightAnalyzeToTravelRisk = (
       connectionRisk: null,
       turbulence: null,
       recommendedConnectionMinutes: null,
-      query,
-      airline: mapAirline(parsed.airline),
-      warnings: collectWarnings(parsed, null),
-      isStub: Boolean(response.is_stub),
     };
 
-    console.debug("[travel-risk] mapped analyze → UI (scoring unavailable)", {
+    console.debug("[travel-risk] mapped analyze → UI (no analysis)", {
       queryId: response.query_id,
       reason: mapped.scoringUnavailableReason,
+      unknownPlaces: mapped.unknownPlaces,
       airlineKnown: mapped.airline?.known ?? null,
     });
 
     return mapped;
   }
 
-  const connectionRisk = resolveConnectionRisk(analysis.missed_connection);
-  const explicitScore = toNumber(
-    analysis.score ?? analysis.travel_risk_score ?? analysis.risk_score,
-    Number.NaN,
-  );
+  const metrics = mapAnalysisMetrics(analysis);
+  const scoringAvailable = dataQuality === "accurate";
 
   const mapped: TravelRiskResponse = {
-    scoringAvailable: true,
-    scoringUnavailableReason: null,
-    score: Number.isFinite(explicitScore) ? explicitScore : deriveScore(analysis, connectionRisk),
-    delayOver15MinPercent: toNumber(analysis.delay_over_15_min_pct, 0),
-    delayOver1HourPercent: toNumber(analysis.delay_over_1_hour_pct, 0),
-    cancellationPercent: toNumber(analysis.cancellation_pct, 0),
-    connectionRisk,
-    turbulence: toTurbulence(analysis.turbulence_level, "moderate"),
-    recommendedConnectionMinutes: Math.round(
-      toNumber(analysis.recommended_min_connection_minutes, 45),
-    ),
-    query,
-    airline: mapAirline(parsed.airline),
-    warnings: collectWarnings(parsed, analysis),
-    isStub: Boolean(response.is_stub),
+    ...baseFields,
+    scoringAvailable,
+    scoringUnavailableReason: scoringAvailable ? null : response.scoring_unavailable_reason ?? null,
+    ...metrics,
   };
 
   console.debug("[travel-risk] mapped analyze → UI", {
     queryId: response.query_id,
     isStub: response.is_stub,
-    scoreSource: Number.isFinite(explicitScore) ? "api" : "derived",
+    dataQuality: mapped.dataQuality,
+    unknownPlaces: mapped.unknownPlaces,
+    metricsAreDefaultEstimate: mapped.metricsAreDefaultEstimate,
     connectionRisk: mapped.connectionRisk,
     turbulence: mapped.turbulence,
   });
 
   return mapped;
+};
+
+/**
+ * Returns whether the assessment has enough metric fields to render the grid.
+ * @param {TravelRiskResponse} assessment - Mapped assessment.
+ * @returns {boolean} True when core metrics are present.
+ */
+export const hasTravelRiskMetrics = (assessment: TravelRiskResponse): boolean => {
+  return (
+    assessment.delayOver15MinPercent !== null &&
+    assessment.connectionRisk !== null &&
+    assessment.turbulence !== null &&
+    assessment.recommendedConnectionMinutes !== null
+  );
 };

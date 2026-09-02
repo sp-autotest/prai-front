@@ -34,9 +34,28 @@ export type TravelRiskAirline = {
   known: boolean;
 };
 
+/** Per-factor status from backend ``analysis.factor_status`` (A–D). */
+export type TravelRiskFactorStatus = "ok" | "degraded" | "unavailable";
+
+/** Itinerary factor statuses after mapping backend A–D keys. */
+export type TravelRiskFactorStatuses = {
+  delayHistory: TravelRiskFactorStatus | null;
+  climate: TravelRiskFactorStatus | null;
+  load: TravelRiskFactorStatus | null;
+  rotation: TravelRiskFactorStatus | null;
+};
+
+/**
+ * UI data quality hint for banners and metric styling.
+ * - `accurate` — known places and at least one factor is not fully unavailable.
+ * - `default_estimate` — unknown places in reference; metrics may be fallbacks.
+ * - `insufficient_data` — no unknown places but all A–D factors unavailable.
+ */
+export type TravelRiskDataQuality = "accurate" | "default_estimate" | "insufficient_data";
+
 /**
  * Successful Travel Risk payload for the UI after mapping from the backend.
- * Metrics are `null` when ``scoring_available=false`` / ``analysis=null``.
+ * Metrics are `null` only when ``analysis=null`` (e.g. unknown airline).
  */
 export type TravelRiskResponse = {
   scoringAvailable: boolean;
@@ -52,6 +71,12 @@ export type TravelRiskResponse = {
   airline: TravelRiskAirline | null;
   warnings: string[];
   isStub: boolean;
+  /** Labels of parsed places missing from the airport reference. */
+  unknownPlaces: string[];
+  dataQuality: TravelRiskDataQuality;
+  factorStatuses: TravelRiskFactorStatuses | null;
+  /** True when metrics are shown as default/fallback due to unknown places. */
+  metricsAreDefaultEstimate: boolean;
 };
 
 /** UI-facing assessment type (alias of the successful API response). */
@@ -118,6 +143,14 @@ export type FlightAnalyzeMissedConnection = {
  * Backend `analysis` object (fields may be partial / stub).
  * OpenAPI marks analysis as a free-form object; this documents known keys.
  */
+/** Backend ``analysis.factor_status`` itinerary block (A–D). */
+export type FlightAnalyzeFactorStatus = {
+  A?: string;
+  B?: string;
+  C?: string;
+  D?: string;
+};
+
 export type FlightAnalyzeAnalysis = {
   score?: number;
   travel_risk_score?: number;
@@ -128,6 +161,8 @@ export type FlightAnalyzeAnalysis = {
   missed_connection?: FlightAnalyzeMissedConnection[];
   turbulence_level?: string;
   recommended_min_connection_minutes?: number;
+  factor_status?: FlightAnalyzeFactorStatus;
+  warnings?: string[];
   note?: string;
   [key: string]: unknown;
 };
