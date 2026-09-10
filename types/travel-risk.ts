@@ -54,6 +54,24 @@ export type TravelRiskFactorStatuses = {
 export type TravelRiskDataQuality = "accurate" | "default_estimate" | "insufficient_data";
 
 /**
+ * UI hub that contributed the root max ``recommended_min_connection_minutes``.
+ */
+export type TravelRiskConnectionHub = {
+  airportIata: string | null;
+  airportLabel: string;
+};
+
+/**
+ * UI missed-connection row after mapping ``analysis.missed_connection``.
+ */
+export type TravelRiskMissedConnection = {
+  airportIata: string | null;
+  airportLabel: string;
+  riskLevel: RiskLevel;
+  recommendedConnectionMinutes: number | null;
+};
+
+/**
  * Successful Travel Risk payload for the UI after mapping from the backend.
  * Metrics are `null` only when ``analysis=null`` (e.g. unknown airline).
  */
@@ -67,6 +85,13 @@ export type TravelRiskResponse = {
   connectionRisk: RiskLevel | null;
   turbulence: TurbulenceLevel | null;
   recommendedConnectionMinutes: number | null;
+  /** Per-hub connection rows; empty when non-stop, stub, or ``analysis=null``. */
+  missedConnections: TravelRiskMissedConnection[];
+  /**
+   * Hubs that produced the root max recommended minutes (ties: every max hub).
+   * Empty when the backend omitted ``recommended_min_connection_hubs``.
+   */
+  recommendedConnectionHubs: TravelRiskConnectionHub[];
   query: ParsedFlightQuery;
   airline: TravelRiskAirline | null;
   warnings: string[];
@@ -77,6 +102,11 @@ export type TravelRiskResponse = {
   factorStatuses: TravelRiskFactorStatuses | null;
   /** True when metrics are shown as default/fallback due to unknown places. */
   metricsAreDefaultEstimate: boolean;
+  /**
+   * ISO date (`YYYY-MM-DD`) from ``parsed.warnings`` token ``PAST_TRAVEL_DATE: …``.
+   * Null when the travel date is today/future or absent.
+   */
+  pastTravelDate: string | null;
 };
 
 /** UI-facing assessment type (alias of the successful API response). */
@@ -137,6 +167,17 @@ export type FlightAnalyzeMissedConnection = {
   airport_iata?: string;
   airport_label?: string;
   risk_level?: string;
+  /** Per-hub MCT+buffer; omitted on stub / older payloads. */
+  recommended_min_connection_minutes?: number | null;
+};
+
+/**
+ * Hub that produced the itinerary-level max recommended connection time.
+ * Backend ``analysis.recommended_min_connection_hubs`` (ties include every max hub).
+ */
+export type FlightAnalyzeConnectionHub = {
+  airport_iata?: string;
+  airport_label?: string;
 };
 
 /**
@@ -159,6 +200,8 @@ export type FlightAnalyzeAnalysis = {
   delay_over_1_hour_pct?: number;
   cancellation_pct?: number;
   missed_connection?: FlightAnalyzeMissedConnection[];
+  /** Hubs whose per-hub recommended minutes equal the itinerary max. */
+  recommended_min_connection_hubs?: FlightAnalyzeConnectionHub[];
   turbulence_level?: string;
   recommended_min_connection_minutes?: number;
   factor_status?: FlightAnalyzeFactorStatus;

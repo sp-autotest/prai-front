@@ -69,6 +69,7 @@
   - [x] Багаж
   - [x] Возврат билетов
   - [x] Страхование
+  - [x] Временно скрыт из шапки/drawer (`SHOW_COMPENSATIONS_NAV=false`); страницы `/compensations/*` сохранены
 - [x] Пункт **Travel Risk** (якорь/переход к блоку поиска на главной)
 - [x] Пункт **Sign in**
 - [x] Пункт **Sign up** (справа от Sign in; форма регистрации + BFF → `/api/v1/auth/register/`)
@@ -168,6 +169,8 @@
 - [x] Маппинг ответа API → UI-метрики Travel Risk (`moderate`→medium, `low`/`high` turbulence aliases; без фейковых 0% при `analysis=null`)
 - [x] Обработка partial-ответов и fallback-значений
 - [x] Unknown places: баннер + метрики с дисклеймером «оценка по умолчанию»; insufficient data при всех factor_status=unavailable
+- [x] `PAST_TRAVEL_DATE`: локализованный баннер «дата в прошлом» (скоринг не отменяется)
+- [x] Multi-leg стыковка: `missed_connection[]` + `recommended_min_connection_hubs` — лента хабов и баннер «max минут — стыковка в {хаб}»
 - [x] Точечные debug-логи в критичных местах клиента API
 
 ---

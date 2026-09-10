@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge/badge";
 import { Button } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
@@ -11,13 +11,47 @@ import { fetchTravelRisk } from "@/lib/api";
 import { hasTravelRiskMetrics } from "@/lib/api/travel-risk/map-flight-analyze";
 import { getAuthSession } from "@/lib/auth/session";
 import { parseFlightQuery } from "@/lib/travel-risk/parse-flight-query";
+import { joinHubLabels } from "@/lib/travel-risk/format-connection-hubs";
 import type {
   RiskLevel,
   TravelRiskAssessment,
   TravelRiskUiState,
   TurbulenceLevel,
 } from "@/types/travel-risk";
+import { ConnectionRoute } from "./connection-route";
 import styles from "./travel-risk-section.module.css";
+
+/**
+ * Formats an ISO ``YYYY-MM-DD`` date for display in the active UI locale.
+ * @param {string} isoDate - Civil date from the backend warning token.
+ * @param {string} locale - Active next-intl locale.
+ * @returns {string} Localized date label, or the raw ISO string on parse failure.
+ */
+const formatPastTravelDate = (isoDate: string, locale: string): string => {
+  const match = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    return isoDate;
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(year, month - 1, day);
+
+  if (Number.isNaN(date.getTime())) {
+    return isoDate;
+  }
+
+  try {
+    return new Intl.DateTimeFormat(locale, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(date);
+  } catch {
+    return isoDate;
+  }
+};
 
 /**
  * Maps qualitative risk level to badge variant.
@@ -41,6 +75,7 @@ export const TravelRiskSection = ({
   tone?: "onDark" | "onLight";
 }) => {
   const t = useTranslations("travelRiskPage");
+  const locale = useLocale();
   const [query, setQuery] = useState("");
   const [uiState, setUiState] = useState<TravelRiskUiState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -185,6 +220,14 @@ export const TravelRiskSection = ({
             aria-labelledby="travel-risk-results-title"
             aria-live="polite"
           >
+            {assessment.pastTravelDate ? (
+              <div className={styles.result__banner} role="status">
+                {t("banners.pastTravelDate", {
+                  date: formatPastTravelDate(assessment.pastTravelDate, locale),
+                })}
+              </div>
+            ) : null}
+
             {assessment.unknownPlaces.length > 0 ? (
               <div className={styles.result__banner} role="status">
                 {t("banners.unknownPlaces", {
@@ -197,6 +240,21 @@ export const TravelRiskSection = ({
             assessment.unknownPlaces.length === 0 ? (
               <div className={styles.result__banner} role="status">
                 {t("banners.insufficientData")}
+              </div>
+            ) : null}
+
+            {assessment.missedConnections.length >= 2 &&
+            assessment.recommendedConnectionHubs.length >= 1 &&
+            assessment.recommendedConnectionMinutes !== null &&
+            assessment.recommendedConnectionMinutes > 0 ? (
+              <div className={styles.result__banner} role="status">
+                {t("banners.tightestConnection", {
+                  minutes: assessment.recommendedConnectionMinutes,
+                  hubs: joinHubLabels(
+                    assessment.recommendedConnectionHubs.map((hub) => hub.airportLabel),
+                    t("hubList.conjunction"),
+                  ),
+                })}
               </div>
             ) : null}
 
@@ -247,7 +305,8 @@ export const TravelRiskSection = ({
                         })}
                   </p>
                 ) : null}
-                {assessment.query.route.length >= 2 ? (
+                {assessment.missedConnections.length < 2 &&
+                assessment.query.route.length >= 2 ? (
                   <p className={styles.result__route}>{assessment.query.route.join(" → ")}</p>
                 ) : null}
                 {assessment.query.dateLabel ? (
@@ -255,6 +314,14 @@ export const TravelRiskSection = ({
                 ) : null}
               </div>
             </div>
+
+            {assessment.missedConnections.length >= 2 ? (
+              <ConnectionRoute
+                route={assessment.query.route}
+                hubs={assessment.missedConnections}
+                tightestHubs={assessment.recommendedConnectionHubs}
+              />
+            ) : null}
 
             {hasTravelRiskMetrics(assessment) &&
             assessment.connectionRisk &&
@@ -311,9 +378,25 @@ export const TravelRiskSection = ({
                 <li>
                   <Card padding="md" className={styles.metric}>
                     <p className={styles.metric__label}>{t("metrics.connectionTime")}</p>
-                    <p className={styles.metric__value}>
-                      {t("minutes", { value: assessment.recommendedConnectionMinutes ?? 0 })}
-                    </p>
+                    {assessment.recommendedConnectionMinutes === 0 &&
+                    assessment.missedConnections.length === 0 ? (
+                      <p className={styles.metric__value}>{t("metrics.connectionDirect")}</p>
+                    ) : (
+                      <>
+                        <p className={styles.metric__value}>
+                          {t("minutes", {
+                            value: assessment.recommendedConnectionMinutes ?? 0,
+                          })}
+                        </p>
+                        {assessment.missedConnections.length === 1 ? (
+                          <p className={styles.metric__hint}>
+                            {t("metrics.connectionHub", {
+                              hub: assessment.missedConnections[0].airportLabel,
+                            })}
+                          </p>
+                        ) : null}
+                      </>
+                    )}
                   </Card>
                 </li>
               </ul>

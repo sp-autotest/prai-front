@@ -10,6 +10,7 @@ import {
   AUTH_STORAGE_KEY,
   getAuthSession,
 } from "@/lib/auth/session";
+import { SHOW_COMPENSATIONS_NAV } from "@/lib/navigation/feature-flags";
 import type { Locale } from "@/types";
 import styles from "./header.module.css";
 
@@ -52,8 +53,9 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
 };
 
 /**
- * Top navigation: About + Compensations dropdowns, Travel Risk, Sign in / Sign up,
+ * Top navigation: About dropdown, Travel Risk, Sign in / Sign up,
  * plus an accessible mobile drawer with the same structure.
+ * Compensations stays in the codebase but is gated by `SHOW_COMPENSATIONS_NAV`.
  * @param {HeaderNavProps} props - Navigation props.
  * @returns {React.ReactElement} Header navigation.
  */
@@ -214,14 +216,16 @@ export const HeaderNav = ({ locale, labels }: HeaderNavProps) => {
               triggerClassName={styles.header__navLink}
             />
           </li>
-          <li>
-            <Dropdown
-              trigger={labels.compensations}
-              ariaLabel={labels.compensationsMenu}
-              items={compensationItems}
-              triggerClassName={styles.header__navLink}
-            />
-          </li>
+          {SHOW_COMPENSATIONS_NAV ? (
+            <li>
+              <Dropdown
+                trigger={labels.compensations}
+                ariaLabel={labels.compensationsMenu}
+                items={compensationItems}
+                triggerClassName={styles.header__navLink}
+              />
+            </li>
+          ) : null}
           <li>
             <Link href={`/${locale}#travel-risk`} prefetch className={styles.header__navLink}>
               {labels.travelRisk}
@@ -310,31 +314,33 @@ export const HeaderNav = ({ locale, labels }: HeaderNavProps) => {
                   </ul>
                 </li>
 
-                <li className={styles.header__drawerGroup}>
-                  <p
-                    className={styles.header__drawerGroupTitle}
-                    id={`${drawerId}-compensations`}
-                  >
-                    {labels.compensations}
-                  </p>
-                  <ul
-                    className={styles.header__drawerSublist}
-                    aria-labelledby={`${drawerId}-compensations`}
-                  >
-                    {compensationItems.map((item) => (
-                      <li key={item.key}>
-                        <Link
-                          href={item.href}
-                          prefetch
-                          className={styles.header__drawerLink}
-                          onClick={handleMenuClose}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
+                {SHOW_COMPENSATIONS_NAV ? (
+                  <li className={styles.header__drawerGroup}>
+                    <p
+                      className={styles.header__drawerGroupTitle}
+                      id={`${drawerId}-compensations`}
+                    >
+                      {labels.compensations}
+                    </p>
+                    <ul
+                      className={styles.header__drawerSublist}
+                      aria-labelledby={`${drawerId}-compensations`}
+                    >
+                      {compensationItems.map((item) => (
+                        <li key={item.key}>
+                          <Link
+                            href={item.href}
+                            prefetch
+                            className={styles.header__drawerLink}
+                            onClick={handleMenuClose}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : null}
 
                 <li>
                   <Link

@@ -1,5 +1,7 @@
 import type {
   ParsedFlightQuery,
+  TravelRiskConnectionHub,
+  TravelRiskMissedConnection,
   TravelRiskRequest,
   TravelRiskResponse,
 } from "@/types/travel-risk";
@@ -54,18 +56,44 @@ export const assessTravelRiskMock = async (
     setTimeout(resolve, 650);
   });
 
-  const hasConnection = query.route.length > 2;
+  const hubLabels = query.route.length > 2 ? query.route.slice(1, -1) : [];
+  const missedConnections: TravelRiskMissedConnection[] = hubLabels.map((label, index) => {
+    const isLastHub = index === hubLabels.length - 1;
+    const isMultiHub = hubLabels.length > 1;
+
+    return {
+      airportIata: null,
+      airportLabel: label,
+      riskLevel: isMultiHub ? (isLastHub ? "medium" : "low") : "high",
+      recommendedConnectionMinutes: isMultiHub && isLastHub ? 105 : 75,
+    };
+  });
+  const recommendedConnectionHubs: TravelRiskConnectionHub[] =
+    hubLabels.length === 0
+      ? []
+      : [
+          {
+            airportIata: null,
+            airportLabel: hubLabels[hubLabels.length - 1],
+          },
+        ];
+  const recommendedConnectionMinutes =
+    hubLabels.length === 0 ? 0 : hubLabels.length > 1 ? 105 : 75;
+  const connectionRisk =
+    hubLabels.length === 0 ? "low" : hubLabels.length > 1 ? "medium" : "high";
 
   return {
     scoringAvailable: true,
     scoringUnavailableReason: null,
-    score: hasConnection ? 72 : 41,
+    score: hubLabels.length > 0 ? 72 : 41,
     delayOver15MinPercent: 38,
     delayOver1HourPercent: 12,
     cancellationPercent: 1.4,
-    connectionRisk: hasConnection ? "high" : "low",
+    connectionRisk,
     turbulence: "moderate",
-    recommendedConnectionMinutes: hasConnection ? 75 : 45,
+    recommendedConnectionMinutes,
+    missedConnections,
+    recommendedConnectionHubs,
     query,
     airline: null,
     warnings: [],
@@ -74,5 +102,6 @@ export const assessTravelRiskMock = async (
     dataQuality: "accurate",
     factorStatuses: null,
     metricsAreDefaultEstimate: false,
+    pastTravelDate: null,
   };
 };

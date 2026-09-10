@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { SHOW_COMPENSATIONS_NAV } from "@/lib/navigation/feature-flags";
 import type { Locale } from "@/types";
 
 type NavPrefetchProps = {
@@ -14,16 +15,12 @@ type NavPrefetchProps = {
  * @returns {string[]} Absolute in-app paths to prefetch.
  */
 const getKeyNavPaths = (locale: Locale): string[] => {
-  return [
+  const paths = [
     `/${locale}`,
     `/${locale}/login`,
     `/${locale}/signup`,
     `/${locale}/about/mission`,
     `/${locale}/about/contacts`,
-    `/${locale}/compensations/flights`,
-    `/${locale}/compensations/baggage`,
-    `/${locale}/compensations/refunds`,
-    `/${locale}/compensations/insurance`,
     `/${locale}/account`,
     `/${locale}/account/travel-risk`,
     `/${locale}/account/fpl-validator`,
@@ -31,6 +28,17 @@ const getKeyNavPaths = (locale: Locale): string[] => {
     `/${locale}/privacy`,
     `/${locale}/legal`,
   ];
+
+  if (SHOW_COMPENSATIONS_NAV) {
+    paths.push(
+      `/${locale}/compensations/flights`,
+      `/${locale}/compensations/baggage`,
+      `/${locale}/compensations/refunds`,
+      `/${locale}/compensations/insurance`,
+    );
+  }
+
+  return paths;
 };
 /**
  * Prefetches primary navigation routes after hydration for faster client transitions.

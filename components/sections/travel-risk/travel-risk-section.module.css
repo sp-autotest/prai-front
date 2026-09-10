@@ -187,8 +187,13 @@
 }
 
 .result__airline,
-.result__route,
 .result__date {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.result__route {
   margin: 0;
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
@@ -250,6 +255,12 @@
   display: flex;
   align-items: center;
   min-height: 2rem;
+}
+
+.metric__hint {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
 }
 
 @media (min-width: 768px) {

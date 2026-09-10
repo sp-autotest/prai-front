@@ -1,15 +1,18 @@
 import type {
   FlightAnalyzeAirline,
   FlightAnalyzeAnalysis,
+  FlightAnalyzeConnectionHub,
   FlightAnalyzeMissedConnection,
   FlightAnalyzeParsed,
   FlightAnalyzeResponse,
   ParsedFlightQuery,
   RiskLevel,
   TravelRiskAirline,
+  TravelRiskConnectionHub,
   TravelRiskDataQuality,
   TravelRiskFactorStatus,
   TravelRiskFactorStatuses,
+  TravelRiskMissedConnection,
   TravelRiskRequest,
   TravelRiskResponse,
   TurbulenceLevel,
@@ -18,6 +21,11 @@ import type {
 const RISK_LEVELS: readonly RiskLevel[] = ["low", "medium", "high"];
 const TURBULENCE_LEVELS: readonly TurbulenceLevel[] = ["light", "moderate", "severe"];
 const FACTOR_KEYS = ["A", "B", "C", "D"] as const;
+
+/** Backend ``parsed.warnings`` token prefix for a travel date before today. */
+export const PAST_TRAVEL_DATE_WARNING_PREFIX = "PAST_TRAVEL_DATE";
+
+const PAST_TRAVEL_DATE_PATTERN = /^PAST_TRAVEL_DATE:\s*(\d{4}-\d{2}-\d{2})\s*$/i;
 
 const RISK_ALIASES: Record<string, RiskLevel> = {
   low: "low",
@@ -54,6 +62,102 @@ const toNumber = (value: unknown, fallback: number): number => {
   }
 
   return fallback;
+};
+
+/**
+ * Coerces a value to a rounded finite number, or null when absent/invalid.
+ * Used for optional per-hub minutes so stub payloads do not become 0.
+ * @param {unknown} value - Raw API value.
+ * @returns {number | null} Rounded minutes or null.
+ */
+const toOptionalMinutes = (value: unknown): number | null => {
+  if (value === undefined || value === null || value === "") {
+    return null;
+  }
+
+  const parsed = toNumber(value, Number.NaN);
+  return Number.isFinite(parsed) ? Math.round(parsed) : null;
+};
+
+/**
+ * Builds a display label for a hub / missed-connection node.
+ * @param {string | null | undefined} iata - Airport IATA code.
+ * @param {string | null | undefined} label - Human-readable place label.
+ * @returns {string} Non-empty label, IATA, or an em dash.
+ */
+const toHubDisplayLabel = (
+  iata: string | null | undefined,
+  label: string | null | undefined,
+): string => {
+  const trimmedLabel = label?.trim() ?? "";
+  const trimmedIata = iata?.trim() ?? "";
+  return trimmedLabel || trimmedIata || "—";
+};
+
+/**
+ * Maps backend ``missed_connection[]`` into UI rows. Skips empty nodes.
+ * @param {FlightAnalyzeMissedConnection[] | undefined} items - Backend hub risks.
+ * @returns {TravelRiskMissedConnection[]} Ordered hub rows.
+ */
+export const mapMissedConnections = (
+  items: FlightAnalyzeMissedConnection[] | undefined,
+): TravelRiskMissedConnection[] => {
+  if (!Array.isArray(items)) {
+    return [];
+  }
+
+  return items
+    .map((item) => {
+      const airportIata = item?.airport_iata?.trim() || null;
+      const airportLabel = toHubDisplayLabel(airportIata, item?.airport_label);
+
+      if (airportLabel === "—" && !airportIata) {
+        return null;
+      }
+
+      const mapped: TravelRiskMissedConnection = {
+        airportIata,
+        airportLabel,
+        riskLevel: toRiskLevel(item?.risk_level, "low"),
+        recommendedConnectionMinutes: toOptionalMinutes(
+          item?.recommended_min_connection_minutes,
+        ),
+      };
+
+      return mapped;
+    })
+    .filter((item): item is TravelRiskMissedConnection => item !== null);
+};
+
+/**
+ * Maps ``recommended_min_connection_hubs`` (who produced the itinerary max).
+ * @param {unknown} raw - Backend hubs array; ignored when not an array.
+ * @returns {TravelRiskConnectionHub[]} Max hubs; empty when omitted.
+ */
+export const mapRecommendedConnectionHubs = (raw: unknown): TravelRiskConnectionHub[] => {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw
+    .map((entry: unknown) => {
+      if (!entry || typeof entry !== "object") {
+        return null;
+      }
+
+      const item = entry as FlightAnalyzeConnectionHub;
+
+      const airportIata = item.airport_iata?.trim() || null;
+      const airportLabel = toHubDisplayLabel(airportIata, item.airport_label);
+
+      if (airportLabel === "—" && !airportIata) {
+        return null;
+      }
+
+      const mapped: TravelRiskConnectionHub = { airportIata, airportLabel };
+      return mapped;
+    })
+    .filter((item): item is TravelRiskConnectionHub => item !== null);
 };
 
 /**
@@ -263,15 +367,44 @@ export const resolveDataQuality = (
 };
 
 /**
+ * Returns true when a warning string is the machine ``PAST_TRAVEL_DATE`` token.
+ * @param {string} warning - Raw warning text.
+ * @returns {boolean} Whether the warning should be handled as a past-date banner.
+ */
+export const isPastTravelDateWarning = (warning: string): boolean => {
+  return PAST_TRAVEL_DATE_PATTERN.test(warning.trim());
+};
+
+/**
+ * Extracts the ISO date from a ``PAST_TRAVEL_DATE: YYYY-MM-DD`` warning token.
+ * @param {string[]} warnings - Warning strings (parsed and/or analysis).
+ * @returns {string | null} ISO date or null when the token is absent.
+ * @example
+ * extractPastTravelDate(["PAST_TRAVEL_DATE: 2025-09-12"]);
+ * // Returns "2025-09-12"
+ */
+export const extractPastTravelDate = (warnings: string[]): string | null => {
+  for (const warning of warnings) {
+    const match = warning.trim().match(PAST_TRAVEL_DATE_PATTERN);
+    if (match?.[1]) {
+      return match[1];
+    }
+  }
+
+  return null;
+};
+
+/**
  * Collects parse warnings, scoring warnings, and optional analysis note.
+ * Strips machine ``PAST_TRAVEL_DATE`` tokens (shown as a dedicated UI banner).
  * @param {FlightAnalyzeParsed} parsed - Backend parsed payload.
  * @param {FlightAnalyzeAnalysis | null} analysis - Analysis or null.
- * @returns {string[]} Unique non-empty warnings.
+ * @returns {{ warnings: string[]; pastTravelDate: string | null }} Display warnings and past-date ISO.
  */
 const collectWarnings = (
   parsed: FlightAnalyzeParsed,
   analysis: FlightAnalyzeAnalysis | null,
-): string[] => {
+): { warnings: string[]; pastTravelDate: string | null } => {
   const items: string[] = [];
 
   if (Array.isArray(parsed.warnings)) {
@@ -294,7 +427,13 @@ const collectWarnings = (
     items.push(analysis.note.trim());
   }
 
-  return Array.from(new Set(items));
+  const unique = Array.from(new Set(items));
+  const pastTravelDate = extractPastTravelDate(unique);
+
+  return {
+    pastTravelDate,
+    warnings: unique.filter((warning) => !isPastTravelDateWarning(warning)),
+  };
 };
 
 /**
@@ -320,7 +459,7 @@ const buildRouteLabels = (parsed: FlightAnalyzeParsed, request: TravelRiskReques
 /**
  * Maps analysis metrics into the shared Travel Risk response fields.
  * @param {FlightAnalyzeAnalysis} analysis - Backend analysis object.
- * @returns {Pick<TravelRiskResponse, "score" | "delayOver15MinPercent" | "delayOver1HourPercent" | "cancellationPercent" | "connectionRisk" | "turbulence" | "recommendedConnectionMinutes">} Mapped metrics.
+ * @returns {Pick<TravelRiskResponse, "score" | "delayOver15MinPercent" | "delayOver1HourPercent" | "cancellationPercent" | "connectionRisk" | "turbulence" | "recommendedConnectionMinutes" | "missedConnections" | "recommendedConnectionHubs">} Mapped metrics.
  */
 const mapAnalysisMetrics = (
   analysis: FlightAnalyzeAnalysis,
@@ -333,11 +472,17 @@ const mapAnalysisMetrics = (
   | "connectionRisk"
   | "turbulence"
   | "recommendedConnectionMinutes"
+  | "missedConnections"
+  | "recommendedConnectionHubs"
 > => {
+  const missedConnections = mapMissedConnections(analysis.missed_connection);
   const connectionRisk = resolveConnectionRisk(analysis.missed_connection);
   const explicitScore = toNumber(
     analysis.score ?? analysis.travel_risk_score ?? analysis.risk_score,
     Number.NaN,
+  );
+  const recommendedConnectionMinutes = toOptionalMinutes(
+    analysis.recommended_min_connection_minutes,
   );
 
   return {
@@ -347,8 +492,11 @@ const mapAnalysisMetrics = (
     cancellationPercent: toNumber(analysis.cancellation_pct, 0),
     connectionRisk,
     turbulence: toTurbulence(analysis.turbulence_level, "moderate"),
-    recommendedConnectionMinutes: Math.round(
-      toNumber(analysis.recommended_min_connection_minutes, 45),
+    recommendedConnectionMinutes:
+      recommendedConnectionMinutes === null ? 45 : recommendedConnectionMinutes,
+    missedConnections,
+    recommendedConnectionHubs: mapRecommendedConnectionHubs(
+      analysis.recommended_min_connection_hubs,
     ),
   };
 };
@@ -400,10 +548,13 @@ export const mapFlightAnalyzeToTravelRisk = (
     raw: response.query || request.raw || buildFlightAnalyzeQuery(request),
   };
 
+  const { warnings, pastTravelDate } = collectWarnings(parsed, analysis);
+
   const baseFields = {
     query,
     airline: mapAirline(parsed.airline),
-    warnings: collectWarnings(parsed, analysis),
+    warnings,
+    pastTravelDate,
     isStub: Boolean(response.is_stub),
     unknownPlaces,
     dataQuality,
@@ -425,12 +576,15 @@ export const mapFlightAnalyzeToTravelRisk = (
       connectionRisk: null,
       turbulence: null,
       recommendedConnectionMinutes: null,
+      missedConnections: [],
+      recommendedConnectionHubs: [],
     };
 
     console.debug("[travel-risk] mapped analyze → UI (no analysis)", {
       queryId: response.query_id,
       reason: mapped.scoringUnavailableReason,
       unknownPlaces: mapped.unknownPlaces,
+      pastTravelDate: mapped.pastTravelDate,
       airlineKnown: mapped.airline?.known ?? null,
     });
 
@@ -452,8 +606,11 @@ export const mapFlightAnalyzeToTravelRisk = (
     isStub: response.is_stub,
     dataQuality: mapped.dataQuality,
     unknownPlaces: mapped.unknownPlaces,
+    pastTravelDate: mapped.pastTravelDate,
     metricsAreDefaultEstimate: mapped.metricsAreDefaultEstimate,
     connectionRisk: mapped.connectionRisk,
+    missedConnections: mapped.missedConnections.length,
+    recommendedConnectionHubs: mapped.recommendedConnectionHubs.length,
     turbulence: mapped.turbulence,
   });
 

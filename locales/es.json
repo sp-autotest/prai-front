@@ -47,8 +47,15 @@
     "defaultEstimateHint": "Estimación predeterminada",
     "banners": {
       "unknownPlaces": "No encontrados en el catálogo: {places}",
-      "insufficientData": "Datos insuficientes para una estimación precisa"
+      "insufficientData": "Datos insuficientes para una estimación precisa",
+      "pastTravelDate": "La fecha de viaje {date} ya está en el pasado. La puntuación de riesgo se calculó de todos modos.",
+      "tightestConnection": "{minutes} min — conexión más ajustada en {hubs}"
     },
+    "hubList": {
+      "conjunction": " y "
+    },
+    "connectionRouteAria": "Tiempo de conexión recomendado por escala",
+    "tightestStopHint": "Más ajustada",
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Aerolínea desconocida {code}",
     "metricsAriaLabel": "Métricas de riesgo de viaje",
@@ -60,7 +67,9 @@
       "cancellation": "Probabilidad de cancelación",
       "connection": "Riesgo de perder la conexión",
       "turbulence": "Turbulencia esperada",
-      "connectionTime": "Tiempo mínimo de conexión recomendado"
+      "connectionTime": "Tiempo mínimo de conexión recomendado",
+      "connectionDirect": "Vuelo directo",
+      "connectionHub": "{hub}"
     },
     "levels": {
       "low": "Bajo",

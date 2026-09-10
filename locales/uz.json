@@ -47,8 +47,15 @@
     "defaultEstimateHint": "Standart baholash",
     "banners": {
       "unknownPlaces": "Ma’lumotnomada topilmadi: {places}",
-      "insufficientData": "Aniq baholash uchun ma’lumot yetarli emas"
+      "insufficientData": "Aniq baholash uchun ma’lumot yetarli emas",
+      "pastTravelDate": "Sayohat sanasi {date} o‘tgan. Xavf skoringi baribir hisoblandi.",
+      "tightestConnection": "{minutes} daqiqa — eng qattiq ulanish: {hubs}"
     },
+    "hubList": {
+      "conjunction": " va "
+    },
+    "connectionRouteAria": "To‘xtashlar bo‘yicha tavsiya etilgan ulanish vaqti",
+    "tightestStopHint": "Eng qattiq",
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Noma’lum aviakompaniya {code}",
     "metricsAriaLabel": "Sayohat xavfi metrikalari",
@@ -60,7 +67,9 @@
       "cancellation": "Bekor qilish ehtimoli",
       "connection": "Ulanishni o‘tkazib yuborish xavfi",
       "turbulence": "Kutilayotgan turbulentlik",
-      "connectionTime": "Tavsiya etilgan minimal ulanish vaqti"
+      "connectionTime": "Tavsiya etilgan minimal ulanish vaqti",
+      "connectionDirect": "To‘g‘ri reys",
+      "connectionHub": "{hub}"
     },
     "levels": {
       "low": "Past",

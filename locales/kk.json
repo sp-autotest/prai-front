@@ -47,8 +47,15 @@
     "defaultEstimateHint": "Әдепкі баға",
     "banners": {
       "unknownPlaces": "Анықтамалықта табылмады: {places}",
-      "insufficientData": "Нақты баға үшін деректер жеткіліксіз"
+      "insufficientData": "Нақты баға үшін деректер жеткіліксіз",
+      "pastTravelDate": "Саяхат күні {date} өткен. Тәуекел скорингі бәрібір есептелді.",
+      "tightestConnection": "{minutes} мин — ең тығыз ауысым: {hubs}"
     },
+    "hubList": {
+      "conjunction": " және "
+    },
+    "connectionRouteAria": "Аялдамалар бойынша ұсынылатын ауысым уақыты",
+    "tightestStopHint": "Ең тығыз",
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Белгісіз әуе компаниясы {code}",
     "metricsAriaLabel": "Саяхат тәуекелінің метрикалары",
@@ -60,7 +67,9 @@
       "cancellation": "Рейстің тоқтатылу ықтималдығы",
       "connection": "Ауысымды жіберіп алу тәуекелі",
       "turbulence": "Күтілетін турбуленттілік",
-      "connectionTime": "Ұсынылатын минималды ауысым уақыты"
+      "connectionTime": "Ұсынылатын минималды ауысым уақыты",
+      "connectionDirect": "Тікелей рейс",
+      "connectionHub": "{hub}"
     },
     "levels": {
       "low": "Төмен",

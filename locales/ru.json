@@ -47,8 +47,15 @@
     "defaultEstimateHint": "Оценка по умолчанию",
     "banners": {
       "unknownPlaces": "Не найдены в справочнике: {places}",
-      "insufficientData": "Недостаточно данных для точной оценки"
+      "insufficientData": "Недостаточно данных для точной оценки",
+      "pastTravelDate": "Дата поездки {date} уже в прошлом. Оценка риска всё равно рассчитана.",
+      "tightestConnection": "{minutes} мин — стыковка в {hubs}"
     },
+    "hubList": {
+      "conjunction": " и "
+    },
+    "connectionRouteAria": "Рекомендуемое время стыковки по пунктам маршрута",
+    "tightestStopHint": "Самая жёсткая",
     "airlineKnown": "{name} ({code})",
     "airlineUnknown": "Неизвестная авиакомпания {code}",
     "metricsAriaLabel": "Метрики Travel Risk",
@@ -60,7 +67,9 @@
       "cancellation": "Вероятность отмены",
       "connection": "Риск пропустить пересадку",
       "turbulence": "Ожидаемая турбулентность",
-      "connectionTime": "Рекомендуемое минимальное время стыковки"
+      "connectionTime": "Рекомендуемое минимальное время стыковки",
+      "connectionDirect": "Прямой рейс",
+      "connectionHub": "{hub}"
     },
     "levels": {
       "low": "Низкий",
