@@ -3,8 +3,19 @@
  * Travel Risk uses the real backend analyze API by default (mock is opt-in).
  */
 
-export { getBackendApiBaseUrl, getDirectoriesApiConfig, getFplValidatorApiConfig, getTravelRiskApiConfig } from "@/lib/api/config";
-export type { DirectoriesApiConfig, FplValidatorApiConfig, TravelRiskApiConfig } from "@/lib/api/config";
+export {
+  getAirportProcessApiConfig,
+  getBackendApiBaseUrl,
+  getDirectoriesApiConfig,
+  getFplValidatorApiConfig,
+  getTravelRiskApiConfig,
+} from "@/lib/api/config";
+export type {
+  AirportProcessApiConfig,
+  DirectoriesApiConfig,
+  FplValidatorApiConfig,
+  TravelRiskApiConfig,
+} from "@/lib/api/config";
 
 export { ApiClientError, mapHttpStatusToClientError } from "@/lib/api/errors";
 export { postJson, requestJson } from "@/lib/api/http";
@@ -84,3 +95,11 @@ export {
 } from "@/lib/api/directories";
 
 export type { DirectoryApiResult } from "@/lib/api/directories";
+
+export {
+  fetchAirportProcessExtract,
+  fetchAirportProcessExtractOnBackend,
+  normalizeAirportProcessIata,
+} from "@/lib/api/airport-process";
+
+export type { AirportProcessApiResult } from "@/lib/api/airport-process";

@@ -93,6 +93,53 @@
       "generic": "Nimadir noto‘g‘ri ketdi. Qayta urinib ko‘ring."
     }
   },
+  "airportProcessPage": {
+    "title": "Aeroportdan o‘tish davomiyligi (self-transfer)",
+    "subtitle": "Ikki alohida chipta bilan uchadigan yo‘lovchi uchun ulanish vaqtini hisoblaydi: samolyotdan tushdi → bagaj oldi → qayta ro‘yxatdan o‘tdi → ko‘rikdan o‘tdi → ikkinchi reysga ulgurdi.\nBagaj, viza va terminal almashinuvi kabi holatlarni hisobga oladi.",
+    "inputLabel": "Aeroport IATA",
+    "inputPlaceholder": "FCO",
+    "hint": "Uch harfli aeroport kodini kiriting. Ro‘yxat yo‘q — kerakli kodni yozing.",
+    "submit": "Davomiylikni tekshirish",
+    "checking": "Tekshirilmoqda…",
+    "loading": "Aeroportdan o‘tish vaqti yuklanmoqda…",
+    "resultTitle": "Self-transfer vaqtlari — {iata}",
+    "asOf": "Ma’lumot sanasi: {date}",
+    "metricsAria": "Self-transfer davomiyligi metrikalari",
+    "minutes": "{value} daq",
+    "emptyExtract": "Bu aeroport uchun saqlangan vaqt kartasi hali yo‘q.",
+    "emptyCompiled": "Bu aeroport uchun self-transfer yakuniy daqiqalarini yig‘ib bo‘lmadi.",
+    "compiled": {
+      "noBorder": "Minimal vaqt (chegarasiz / Schengen–ichki)",
+      "withBorder": "Minimal vaqt (chegarali / pasport)"
+    },
+    "lineKeys": {
+      "checkinQueue": "Ro‘yxatdan o‘tish navbati",
+      "immigHeuristic": "Pasport nazorati (baho)",
+      "deadlineCheckinClose": "Jo‘nashdan oldin ro‘yxatdan o‘tish yopiladi",
+      "deadlineGateClose": "Jo‘nashdan oldin geyt yopiladi",
+      "lastBagNational": "Oxirgi bagaj — ichki",
+      "lastBagSchengen": "Oxirgi bagaj — Schengen",
+      "lastBagExtraNb": "Oxirgi bagaj — Schengen tashqari",
+      "lastBagExtraWb": "Oxirgi bagaj — Schengen tashqari chegarali",
+      "lastBagCommon": "Oxirgi bagaj",
+      "securityOther": "Xavfsizlik — oddiy",
+      "securitySensitive": "Xavfsizlik — sezgir",
+      "securityCommon": "Xavfsizlik"
+    },
+    "skipReasons": {
+      "noCutoff": "Ro‘yxatdan o‘tish yoki geyt yopilish vaqti yo‘q — yakuniy qiymatlar yig‘ilmaydi.",
+      "noLastBag": "Bu ssenariy uchun oxirgi bagaj vaqti yo‘q — yakuniy qiymatlar yig‘ilmaydi."
+    },
+    "errors": {
+      "invalid": "To‘g‘ri uch harfli IATA kodini kiriting (masalan FCO).",
+      "authRequired": "Xizmat faqat ro‘yxatdan o‘tgan foydalanuvchilar uchun mavjud, tizimda ro‘yxatdan o‘ting",
+      "notFound": "Aeroport self-transfer reestrida topilmadi.",
+      "network": "Tarmoq xatosi. Ulanishni tekshirib, qayta urinib ko‘ring.",
+      "timeout": "So‘rov vaqti tugadi. Qayta urinib ko‘ring.",
+      "server": "Aeroportdan o‘tish vaqtini yuklab bo‘lmadi. Qayta urinib ko‘ring.",
+      "generic": "Nimadir noto‘g‘ri ketdi. Qayta urinib ko‘ring."
+    }
+  },
   "footer": {
     "navAriaLabel": "Huquqiy havolalar",
     "privacyAndCookies": "Maxfiylik siyosati va cookie-fayllar",

@@ -93,6 +93,53 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "airportProcessPage": {
+    "title": "Airport transit duration (self-transfer)",
+    "subtitle": "Estimates connection time for a passenger on two separate tickets: deplane → collect bags → check in again → clear security → make the second flight.\nAccounts for situations such as baggage, visas, and terminal changes.",
+    "inputLabel": "Airport IATA",
+    "inputPlaceholder": "FCO",
+    "hint": "Enter a three-letter airport code. No catalog list — type the code you need.",
+    "submit": "Check duration",
+    "checking": "Checking…",
+    "loading": "Loading airport transit times…",
+    "resultTitle": "Self-transfer times — {iata}",
+    "asOf": "Data as of {date}",
+    "metricsAria": "Self-transfer duration metrics",
+    "minutes": "{value} min",
+    "emptyExtract": "No saved transit card for this airport yet.",
+    "emptyCompiled": "Self-transfer totals could not be compiled for this airport.",
+    "compiled": {
+      "noBorder": "Minimum time (no border / Schengen–domestic)",
+      "withBorder": "Minimum time (with border / passport)"
+    },
+    "lineKeys": {
+      "checkinQueue": "Check-in queue",
+      "immigHeuristic": "Passport control (estimate)",
+      "deadlineCheckinClose": "Check-in closes before departure",
+      "deadlineGateClose": "Gate closes before departure",
+      "lastBagNational": "Last bag — domestic",
+      "lastBagSchengen": "Last bag — Schengen",
+      "lastBagExtraNb": "Last bag — extra-Schengen",
+      "lastBagExtraWb": "Last bag — extra-Schengen with border",
+      "lastBagCommon": "Last bag",
+      "securityOther": "Security — standard",
+      "securitySensitive": "Security — sensitive",
+      "securityCommon": "Security"
+    },
+    "skipReasons": {
+      "noCutoff": "No check-in or gate closing time — totals cannot be compiled.",
+      "noLastBag": "No last-bag figure for this scenario — totals cannot be compiled."
+    },
+    "errors": {
+      "invalid": "Enter a valid three-letter IATA code (for example FCO).",
+      "authRequired": "This service is available only to registered users. Please sign up.",
+      "notFound": "Airport not found in the self-transfer registry.",
+      "network": "Network error. Check your connection and try again.",
+      "timeout": "The request timed out. Please try again.",
+      "server": "Could not load airport transit times right now. Please try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
   "footer": {
     "navAriaLabel": "Legal links",
     "privacyAndCookies": "Privacy Policy and Cookies",

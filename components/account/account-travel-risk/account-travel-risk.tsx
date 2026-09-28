@@ -2,11 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card/card";
+import { AirportProcessSection } from "@/components/account/airport-process-section/airport-process-section";
 import { TravelRiskSection } from "@/components/sections/travel-risk/travel-risk-section";
 import styles from "./account-travel-risk.module.css";
 
 /**
- * Account Travel Risk page content: heading + the main risk assessment scenario.
+ * Account Travel Risk page content: risk score scenario + self-transfer duration.
  * @returns {React.ReactElement} Travel Risk account panel.
  */
 export const AccountTravelRiskPanel = () => {
@@ -22,6 +23,8 @@ export const AccountTravelRiskPanel = () => {
       <div className={styles.scenario}>
         <TravelRiskSection embedded tone="onLight" />
       </div>
+
+      <AirportProcessSection />
     </div>
   );
 };

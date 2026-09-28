@@ -93,6 +93,53 @@
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
   },
+  "airportProcessPage": {
+    "title": "Duración del tránsito aeroportuario (self-transfer)",
+    "subtitle": "Estima el tiempo de conexión de un pasajero con dos billetes separados: bajada del avión → recogida de equipaje → nueva facturación → control de seguridad → llegar al segundo vuelo.\nTiene en cuenta situaciones como equipaje, visados y cambio de terminal.",
+    "inputLabel": "IATA del aeropuerto",
+    "inputPlaceholder": "FCO",
+    "hint": "Introduce un código de aeropuerto de tres letras. Sin lista desplegable: escribe el código que necesitas.",
+    "submit": "Comprobar duración",
+    "checking": "Comprobando…",
+    "loading": "Cargando tiempos de tránsito…",
+    "resultTitle": "Tiempos de self-transfer — {iata}",
+    "asOf": "Datos a fecha de {date}",
+    "metricsAria": "Métricas de duración del self-transfer",
+    "minutes": "{value} min",
+    "emptyExtract": "Aún no hay una ficha de tiempos guardada para este aeropuerto.",
+    "emptyCompiled": "No se pudieron compilar los totales de self-transfer para este aeropuerto.",
+    "compiled": {
+      "noBorder": "Tiempo mínimo (sin frontera / Schengen–nacional)",
+      "withBorder": "Tiempo mínimo (con frontera / pasaporte)"
+    },
+    "lineKeys": {
+      "checkinQueue": "Cola de facturación",
+      "immigHeuristic": "Control de pasaportes (estimación)",
+      "deadlineCheckinClose": "Cierre de facturación antes de la salida",
+      "deadlineGateClose": "Cierre de puerta antes de la salida",
+      "lastBagNational": "Última maleta — nacional",
+      "lastBagSchengen": "Última maleta — Schengen",
+      "lastBagExtraNb": "Última maleta — extra-Schengen",
+      "lastBagExtraWb": "Última maleta — extra-Schengen con frontera",
+      "lastBagCommon": "Última maleta",
+      "securityOther": "Seguridad — estándar",
+      "securitySensitive": "Seguridad — sensible",
+      "securityCommon": "Seguridad"
+    },
+    "skipReasons": {
+      "noCutoff": "No hay hora de cierre de facturación ni de puerta — no se pueden compilar totales.",
+      "noLastBag": "No hay tiempo de última maleta para este escenario — no se pueden compilar totales."
+    },
+    "errors": {
+      "invalid": "Introduce un código IATA válido de tres letras (por ejemplo FCO).",
+      "authRequired": "El servicio está disponible solo para usuarios registrados. Regístrese en el sistema.",
+      "notFound": "Aeropuerto no encontrado en el registro de self-transfer.",
+      "network": "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+      "timeout": "La solicitud agotó el tiempo de espera. Inténtalo de nuevo.",
+      "server": "No se pudieron cargar los tiempos de tránsito. Inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
   "footer": {
     "navAriaLabel": "Enlaces legales",
     "privacyAndCookies": "Política de privacidad y cookies",

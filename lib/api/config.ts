@@ -138,6 +138,37 @@ export const getFplValidatorApiConfig = (): FplValidatorApiConfig => {
   };
 };
 
+export type AirportProcessApiConfig = {
+  /**
+   * Absolute extract URL override. Empty → `{API_BASE}/api/v1/flights/airport-process/extract/`.
+   */
+  remoteUrl: string;
+  /**
+   * Browser/BFF path for extract lookup.
+   */
+  clientEndpoint: string;
+};
+
+/**
+ * Reads airport-process (self-transfer) extract endpoint URLs.
+ * @returns {AirportProcessApiConfig} Normalized API configuration.
+ */
+export const getAirportProcessApiConfig = (): AirportProcessApiConfig => {
+  const base = getBackendApiBaseUrl();
+
+  const remoteUrl =
+    (process.env.AIRPORT_PROCESS_API_URL ?? "").trim() ||
+    `${base}/api/v1/flights/airport-process/extract/`;
+  const clientEndpoint = (
+    process.env.NEXT_PUBLIC_AIRPORT_PROCESS_API_URL ?? "/api/airport-process/extract"
+  ).trim();
+
+  return {
+    remoteUrl: remoteUrl.endsWith("/") ? remoteUrl : `${remoteUrl}/`,
+    clientEndpoint: clientEndpoint || "/api/airport-process/extract",
+  };
+};
+
 export type DirectoriesApiConfig = {
   airportsRemoteUrl: string;
   airlinesRemoteUrl: string;
