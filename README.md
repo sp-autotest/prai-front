@@ -85,7 +85,7 @@ doc/           # Roadmap and docs
 
 Runtime:
 
-- `next` `15.5.20`
+- `next` `15.5.29`
 - `react` `19.1.0`
 - `react-dom` `19.1.0`
 

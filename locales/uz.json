@@ -95,22 +95,53 @@
   },
   "airportProcessPage": {
     "title": "Aeroportdan o‘tish davomiyligi (self-transfer)",
-    "subtitle": "Ikki alohida chipta bilan uchadigan yo‘lovchi uchun ulanish vaqtini hisoblaydi: samolyotdan tushdi → bagaj oldi → qayta ro‘yxatdan o‘tdi → ko‘rikdan o‘tdi → ikkinchi reysga ulgurdi.\nBagaj, viza va terminal almashinuvi kabi holatlarni hisobga oladi.",
+    "subtitle": "Bitta hublarga ikki javob: ikki chipta (shaharga chiqish) va bitta chipta (toza zona). Yo isbotlangan daqiqa va belgi, yo halol «bilmaymiz».",
     "inputLabel": "Aeroport IATA",
     "inputPlaceholder": "FCO",
     "hint": "Uch harfli aeroport kodini kiriting. Ro‘yxat yo‘q — kerakli kodni yozing.",
     "submit": "Davomiylikni tekshirish",
     "checking": "Tekshirilmoqda…",
     "loading": "Aeroportdan o‘tish vaqti yuklanmoqda…",
-    "resultTitle": "Self-transfer vaqtlari — {iata}",
-    "asOf": "Ma’lumot sanasi: {date}",
-    "metricsAria": "Self-transfer davomiyligi metrikalari",
+    "presetsLabel": "Namuna aeroportlar",
+    "presetAria": "{code} ni yuklash",
+    "ticketMode": {
+      "label": "Chipta turi",
+      "both": "Ikkalasi",
+      "selfTransfer": "Ikki chipta",
+      "through": "Bitta chipta"
+    },
+    "baggage": {
+      "label": "Bagaj",
+      "hold": "Chemodan bilan",
+      "cabin": "Faqat qo‘l yuki"
+    },
+    "answersAria": "{iata} uchun ulanish javoblari",
+    "cards": {
+      "selfTitle": "Ikki chipta, shaharga chiqish",
+      "throughTitle": "Bitta chipta, toza zona",
+      "cabinTitle": "Chemodansiz"
+    },
+    "quality": {
+      "calibrated": "Aeroport xartiyasi bo‘yicha",
+      "proxy": "Aeroport chegarasi",
+      "incomplete": "Bilmaymiz"
+    },
+    "columns": {
+      "noBorder": "pasport nazoratisiz",
+      "withBorder": "pasport nazorati bilan"
+    },
+    "unknown": "Bilmaymiz",
+    "emptyField": "Bo‘sh maydon. 0 va 60 qo‘yilmaydi.",
+    "cabinCaption": "Chemodansiz yo‘l. Bu xartiya emas.",
+    "throughEmpty": "Ulanish minimumining bitta jonli qatori yo‘q.",
+    "heuristic": "PRAI bahosi, aeroport o‘lchovi emas",
     "minutes": "{value} daq",
-    "emptyExtract": "Bu aeroport uchun saqlangan vaqt kartasi hali yo‘q.",
-    "emptyCompiled": "Bu aeroport uchun self-transfer yakuniy daqiqalarini yig‘ib bo‘lmadi.",
-    "compiled": {
-      "noBorder": "Minimal vaqt (chegarasiz / Schengen–ichki)",
-      "withBorder": "Minimal vaqt (chegarali / pasport)"
+    "meta": {
+      "lastBagKey": "Lenta kaliti: {key}",
+      "cutoffAirline": "Aviakompaniya kesimi: {code}",
+      "raisedToMct": "Daqiqa ulanish minimumiga ko‘tarildi",
+      "mctFloor": "Ulanish minimumi, jarayon daqiqalaridan alohida: {value}",
+      "compiledAsOf": "Yig‘ilgan sana: {date}"
     },
     "lineKeys": {
       "checkinQueue": "Ro‘yxatdan o‘tish navbati",

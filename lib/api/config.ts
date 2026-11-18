@@ -147,6 +147,14 @@ export type AirportProcessApiConfig = {
    * Browser/BFF path for extract lookup.
    */
   clientEndpoint: string;
+  /**
+   * Absolute connection URL. Empty → `{API_BASE}/api/v1/flights/connection/`.
+   */
+  connectionRemoteUrl: string;
+  /**
+   * Browser/BFF path for connection lookup.
+   */
+  connectionClientEndpoint: string;
 };
 
 /**
@@ -162,10 +170,21 @@ export const getAirportProcessApiConfig = (): AirportProcessApiConfig => {
   const clientEndpoint = (
     process.env.NEXT_PUBLIC_AIRPORT_PROCESS_API_URL ?? "/api/airport-process/extract"
   ).trim();
+  const connectionRemoteUrl =
+    (process.env.AIRPORT_PROCESS_CONNECTION_API_URL ?? "").trim() ||
+    `${base}/api/v1/flights/connection/`;
+  const connectionClientEndpoint = (
+    process.env.NEXT_PUBLIC_AIRPORT_PROCESS_CONNECTION_API_URL ??
+    "/api/airport-process/connection"
+  ).trim();
 
   return {
     remoteUrl: remoteUrl.endsWith("/") ? remoteUrl : `${remoteUrl}/`,
     clientEndpoint: clientEndpoint || "/api/airport-process/extract",
+    connectionRemoteUrl: connectionRemoteUrl.endsWith("/")
+      ? connectionRemoteUrl
+      : `${connectionRemoteUrl}/`,
+    connectionClientEndpoint: connectionClientEndpoint || "/api/airport-process/connection",
   };
 };
 

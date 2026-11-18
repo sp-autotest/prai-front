@@ -105,3 +105,59 @@ export type AirportProcessExtractList = {
   count: number;
   items: AirportProcessExtractHub[];
 };
+
+export type ConnectionTicketMode = "self_transfer" | "through";
+
+export type ConnectionQuality = "calibrated" | "proxy" | "incomplete";
+
+/**
+ * One addend inside a connection answer. ``quote`` is present only for staff.
+ */
+export type ConnectionLineItem = {
+  key: string;
+  minutes: number;
+  source_kind: string;
+  quote?: string;
+};
+
+/**
+ * One hub answer from ``POST /api/v1/flights/connection/``.
+ * Minutes are already compiled. The client must not sum them.
+ */
+export type ConnectionItem = {
+  ticket_mode: ConnectionTicketMode;
+  minutes: number | null;
+  minutes_separate_no_border: number | null;
+  minutes_separate_with_border: number | null;
+  minutes_ref: "no_border" | "with_border" | null;
+  quality: ConnectionQuality | null;
+  skip_reason: string | null;
+  baggage_input: string;
+  last_bag_key: string | null;
+  cutoff_airline: string;
+  raised_to_mct: boolean;
+  mct_floor: number | null;
+  compiled_as_of: string | null;
+  no_border_items: ConnectionLineItem[];
+  with_border_items: ConnectionLineItem[];
+};
+
+/**
+ * Envelope for ``POST /api/v1/flights/connection/``.
+ */
+export type ConnectionResponse = {
+  iata: string;
+  count: number;
+  items: ConnectionItem[];
+};
+
+/**
+ * Body forwarded to the connection endpoint.
+ * ``ticket_mode`` is omitted when both answers are requested.
+ * ``has_baggage`` is sent only as ``false`` (cabin bag).
+ */
+export type ConnectionRequestBody = {
+  iata: string;
+  ticket_mode?: ConnectionTicketMode;
+  has_baggage?: false;
+};

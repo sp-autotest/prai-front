@@ -97,9 +97,12 @@ export {
 export type { DirectoryApiResult } from "@/lib/api/directories";
 
 export {
+  buildConnectionRequestBody,
   fetchAirportProcessExtract,
   fetchAirportProcessExtractOnBackend,
+  fetchConnection,
+  fetchConnectionOnBackend,
   normalizeAirportProcessIata,
 } from "@/lib/api/airport-process";
 
-export type { AirportProcessApiResult } from "@/lib/api/airport-process";
+export type { AirportProcessApiResult, ConnectionQueryInput } from "@/lib/api/airport-process";

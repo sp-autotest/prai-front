@@ -95,22 +95,53 @@
   },
   "airportProcessPage": {
     "title": "Airport transit duration (self-transfer)",
-    "subtitle": "Estimates connection time for a passenger on two separate tickets: deplane → collect bags → check in again → clear security → make the second flight.\nAccounts for situations such as baggage, visas, and terminal changes.",
+    "subtitle": "Two answers for one hub: two tickets (landside) and one ticket (airside). Proven minutes and a mark, or an honest unknown.",
     "inputLabel": "Airport IATA",
     "inputPlaceholder": "FCO",
     "hint": "Enter a three-letter airport code. No catalog list — type the code you need.",
     "submit": "Check duration",
     "checking": "Checking…",
     "loading": "Loading airport transit times…",
-    "resultTitle": "Self-transfer times — {iata}",
-    "asOf": "Data as of {date}",
-    "metricsAria": "Self-transfer duration metrics",
+    "presetsLabel": "Example airports",
+    "presetAria": "Load {code}",
+    "ticketMode": {
+      "label": "Ticket type",
+      "both": "Both",
+      "selfTransfer": "Two tickets",
+      "through": "One ticket"
+    },
+    "baggage": {
+      "label": "Baggage",
+      "hold": "With a checked bag",
+      "cabin": "Cabin bag only"
+    },
+    "answersAria": "Connection answers for {iata}",
+    "cards": {
+      "selfTitle": "Two tickets, landside",
+      "throughTitle": "One ticket, airside",
+      "cabinTitle": "Without a checked bag"
+    },
+    "quality": {
+      "calibrated": "By airport charter",
+      "proxy": "Airport threshold",
+      "incomplete": "Unknown"
+    },
+    "columns": {
+      "noBorder": "without passport control",
+      "withBorder": "with passport control"
+    },
+    "unknown": "Unknown",
+    "emptyField": "Empty field. We do not substitute 0 or 60.",
+    "cabinCaption": "Path without a checked bag. This is not a charter.",
+    "throughEmpty": "No single live minimum-connection row.",
+    "heuristic": "PRAI estimate, not an airport measurement",
     "minutes": "{value} min",
-    "emptyExtract": "No saved transit card for this airport yet.",
-    "emptyCompiled": "Self-transfer totals could not be compiled for this airport.",
-    "compiled": {
-      "noBorder": "Minimum time (no border / Schengen–domestic)",
-      "withBorder": "Minimum time (with border / passport)"
+    "meta": {
+      "lastBagKey": "Belt key used: {key}",
+      "cutoffAirline": "Cutoff airline: {code}",
+      "raisedToMct": "Minute raised to the minimum connection time",
+      "mctFloor": "Connection minimum, separate from the process minutes: {value}",
+      "compiledAsOf": "Compiled as of {date}"
     },
     "lineKeys": {
       "checkinQueue": "Check-in queue",

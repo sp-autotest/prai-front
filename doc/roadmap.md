@@ -189,11 +189,13 @@
 - [x] i18n названия и описания на `en` / `es` / `kk` / `uz` / `ru`
 - [x] BFF + клиент: `GET /api/airport-process/extract?iata=` → `GET /api/v1/flights/airport-process/extract/`
 - [x] UI рисует backend ``compiled`` (`minutes_separate_*` + items), не суммирует поля ``extract``
+- [x] Нижний блок: `POST /api/airport-process/connection` → `POST /api/v1/flights/connection/` (два ответа: self_transfer и through; пустой кэш — «не знаем», не 0 и не 60)
 
 ---
 
 ## Фаза 13. Финальная полировка продукта
 
+- [x] Security patch Next.js / eslint-config-next: `15.5.20` → `15.5.29` (build OK)
 - [ ] Пройтись по всем страницам на 5 языках — переводы и вёрстка
 - [ ] Проверить основной user flow: Header → Travel Risk → ввод рейса → результат
 - [ ] Проверить переходы: О компании / Компенсации / Sign in / юр. страницы

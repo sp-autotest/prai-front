@@ -4,6 +4,9 @@ import { requestJson } from "@/lib/api/http";
 import type {
   AirportProcessClientErrorCode,
   AirportProcessExtractList,
+  ConnectionRequestBody,
+  ConnectionResponse,
+  ConnectionTicketMode,
 } from "@/types/airport-process";
 
 export type AirportProcessApiResult<T> =
@@ -109,5 +112,88 @@ export const fetchAirportProcessExtractOnBackend = async (
     return { ok: true, value };
   } catch (error) {
     return mapAirportProcessError(error, "Failed to load airport process times.");
+  }
+};
+
+export type ConnectionQueryInput = {
+  iata: string;
+  /**
+   * ``both`` omits ``ticket_mode`` so the backend returns self_transfer then through.
+   */
+  ticketMode: "both" | ConnectionTicketMode;
+  /**
+   * When true, the body includes ``has_baggage: false``. A checked bag omits the field.
+   */
+  cabinOnly: boolean;
+};
+
+/**
+ * Builds the connection POST body. Drops passport, layover, and minute fields.
+ * @param {ConnectionQueryInput} input - UI choices.
+ * @returns {ConnectionRequestBody | null} Body, or null when IATA is not three letters.
+ */
+export const buildConnectionRequestBody = (
+  input: ConnectionQueryInput,
+): ConnectionRequestBody | null => {
+  const iata = normalizeAirportProcessIata(input.iata);
+
+  if (!iata) {
+    return null;
+  }
+
+  const body: ConnectionRequestBody = { iata };
+
+  if (input.ticketMode === "self_transfer" || input.ticketMode === "through") {
+    body.ticket_mode = input.ticketMode;
+  }
+
+  if (input.cabinOnly) {
+    body.has_baggage = false;
+  }
+
+  return body;
+};
+
+/**
+ * Loads connection answers via Django ``POST /api/v1/flights/connection/``.
+ * @param {ConnectionRequestBody} body - Already narrowed body (iata, optional mode, optional cabin flag).
+ * @param {string} authorization - Bearer Authorization header value.
+ * @returns {Promise<AirportProcessApiResult<ConnectionResponse>>} Envelope or failure.
+ */
+export const fetchConnectionOnBackend = async (
+  body: ConnectionRequestBody,
+  authorization: string,
+): Promise<AirportProcessApiResult<ConnectionResponse>> => {
+  const normalized = buildConnectionRequestBody({
+    iata: body.iata,
+    ticketMode: body.ticket_mode ?? "both",
+    cabinOnly: body.has_baggage === false,
+  });
+
+  if (!normalized) {
+    return {
+      ok: false,
+      code: "invalid",
+      message: "Expected a three-letter IATA airport code.",
+    };
+  }
+
+  const { connectionRemoteUrl } = getAirportProcessApiConfig();
+
+  console.debug("[api/airport-process] POST connection", {
+    iata: normalized.iata,
+    ticketMode: normalized.ticket_mode ?? "both",
+    cabinOnly: normalized.has_baggage === false,
+  });
+
+  try {
+    const value = await requestJson<ConnectionResponse>(connectionRemoteUrl, {
+      method: "POST",
+      body: normalized,
+      headers: { Authorization: authorization },
+    });
+    return { ok: true, value };
+  } catch (error) {
+    return mapAirportProcessError(error, "Failed to load connection minutes.");
   }
 };
